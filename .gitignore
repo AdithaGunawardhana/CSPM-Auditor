@@ -1,0 +1,8 @@
+# Ignore compiled binaries
+bin/
+obj/
+
+# Ignore the local SQLite database
+*.db
+*.db-shm
+*.db-wal

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Serverless CSPM Dashboard</title>
+    <!-- Imports Tailwind CSS for modern styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-900 text-white p-8 font-sans">
+    <div class="max-w-6xl mx-auto">
+        
+        <!-- Header -->
+        <h1 class="text-3xl font-bold mb-8 flex items-center gap-3">
+            🛡️ Serverless CSPM Dashboard
+        </h1>
+        
+        <!-- Main Panel -->
+        <div class="bg-slate-800 rounded-lg p-6 shadow-xl border border-slate-700">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-xl font-semibold text-slate-200">Latest Audit Findings</h2>
+                
+                <!-- The Trigger Scan Button -->
+                <button onclick="runScan()" id="scanBtn" class="bg-indigo-600 hover:bg-indigo-500 text-white px-4 py-2 rounded font-medium transition shadow-lg">
+                    Run New Cloud Audit
+                </button>
+            </div>
+            
+            <!-- Data Table -->
+            <div class="overflow-x-auto">
+                <table class="w-full text-left border-collapse">
+                    <thead>
+                        <tr class="bg-slate-700/50 text-slate-300 text-sm uppercase tracking-wider">
+                            <th class="p-4 rounded-tl-lg">Resource</th>
+                            <th class="p-4">Rule Evaluated</th>
+                            <th class="p-4">Severity</th>
+                            <th class="p-4">Status</th>
+                            <th class="p-4 rounded-tr-lg">Evidence</th>
+                        </tr>
+                    </thead>
+                    <tbody id="findingsTable" class="text-slate-300">
+                        <!-- JavaScript will inject the API data here -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 1. Fetch data from your GET endpoint
+        async function loadData() {
+            const response = await fetch('/api/scans');
+            const data = await response.json();
+            
+            if(data.length === 0) return;
+            
+            // Grab the most recent scan from the database
+            const latestScan = data[data.length - 1];
+            const tbody = document.getElementById('findingsTable');
+            tbody.innerHTML = ''; // Clear table
+            
+            // Loop through findings and create HTML rows
+            latestScan.findings.forEach(finding => {
+                // Determine badge colors based on pass/fail
+                const statusColor = finding.status === 'PASS' 
+                    ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20' 
+                    : 'bg-rose-500/10 text-rose-400 border-rose-500/20';
+                
+                const severityColor = finding.severity === 'CRITICAL' ? 'text-rose-500 font-bold' : 'text-amber-500 font-bold';
+                
+                tbody.innerHTML += `
+                    <tr class="border-b border-slate-700/50 hover:bg-slate-700/30 transition">
+                        <td class="p-4 font-mono text-sm text-indigo-300">${finding.resourceIdentifier}</td>
+                        <td class="p-4 text-sm">${finding.ruleCode}</td>
+                        <td class="p-4 ${severityColor}">${finding.severity}</td>
+                        <td class="p-4">
+                            <span class="px-2 py-1 text-xs rounded border ${statusColor}">
+                                ${finding.status}
+                            </span>
+                        </td>
+                        <td class="p-4 text-sm text-slate-400">${finding.evidence}</td>
+                    </tr>
+                `;
+            });
+        }
+
+        // 2. Trigger a scan using your POST endpoint
+        async function runScan() {
+            const btn = document.getElementById('scanBtn');
+            btn.innerText = 'Scanning AWS Environment...';
+            btn.disabled = true;
+            btn.classList.add('opacity-50', 'cursor-not-allowed');
+            
+            // Hit the POST endpoint to trigger the C# auditing engine
+            await fetch('/api/scan/run', { method: 'POST' });
+            
+            // Reload the table with the new data
+            await loadData();
+            
+            btn.innerText = 'Run New Cloud Audit';
+            btn.disabled = false;
+            btn.classList.remove('opacity-50', 'cursor-not-allowed');
+        }
+
+        // Load data immediately when the page opens
+        loadData();
+    </script>
+</body>
+</html>
