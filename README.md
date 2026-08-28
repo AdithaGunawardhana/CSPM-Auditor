@@ -8,7 +8,7 @@
 
 **Nexus** is an enterprise-grade Cloud Security Posture Management (CSPM) and SOAR engine. Built on a strict C# Dependency Injection architecture, it abstracts cloud APIs to actively detect, prioritize, and automatically remediate critical infrastructure misconfigurations across **AWS, Azure, and Google Cloud Platform (GCP)**.
 
-Unlike traditional security tools that simply generate alert fatigue, Nexus features a live **Security Orchestration, Automation, and Response (SOAR)** module. It actively reaches into the cloud and patches vulnerabilities—like open SSH ports or wildcard IAM admins—in real-time.
+Unlike traditional security tools that simply generate alert fatigue, Nexus features a live **Security Orchestration, Automation, and Response (SOAR)** module. It actively reaches into the cloud and patches vulnerabilities like open SSH ports or wildcard IAM admins in real-time.
 
 ## ✨ Core Features
 
