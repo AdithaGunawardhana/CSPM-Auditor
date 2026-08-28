@@ -27,7 +27,7 @@ namespace CspmEngine
     }
 
     // ==========================================
-    // 2. THE AWS SCANNER PLUGIN (Bulletproof)
+    // 2. THE AWS SCANNER PLUGIN (Real SDK)
     // ==========================================
     public class AwsScanner : ICloudScanner
     {
@@ -42,7 +42,6 @@ namespace CspmEngine
             Console.WriteLine($"[{CloudProvider}] Scanning Identity & Access Management...");
             var iamResponse = await iamClient.ListRolesAsync();
             
-            // Safety check: Ensure roles exist
             if (iamResponse?.Roles != null)
             {
                 foreach (var role in iamResponse.Roles)
@@ -61,12 +60,10 @@ namespace CspmEngine
             Console.WriteLine($"[{CloudProvider}] Scanning EC2 Security Groups...");
             var sgResponse = await ec2Client.DescribeSecurityGroupsAsync();
             
-            // Safety check: Ensure security groups exist
             if (sgResponse?.SecurityGroups != null)
             {
                 foreach (var sg in sgResponse.SecurityGroups)
                 {
-                    // THE FIX: Only loop through IP rules if they actually exist!
                     if (sg.IpPermissions != null)
                     {
                         foreach (var ipPerm in sg.IpPermissions)
@@ -84,7 +81,7 @@ namespace CspmEngine
     }
     
     // ==========================================
-    // 3. THE AZURE SCANNER PLUGIN (Mocked)
+    // 3. THE AZURE SCANNER PLUGIN (Simulated Data)
     // ==========================================
     public class AzureScanner : ICloudScanner
     {
@@ -93,15 +90,19 @@ namespace CspmEngine
         public async Task<List<ScanFinding>> RunScanAsync(int scanId, string webhookUrl)
         {
             Console.WriteLine($"[{CloudProvider}] Scanning Azure Resource Graph...");
-            await Task.Delay(1000); // Simulating API call
+            await Task.Delay(850); // Simulating API latency
             
-            // Simulating a clean Azure environment for now
-            return new List<ScanFinding>(); 
+            // Simulating Azure vulnerabilities for the UI
+            return new List<ScanFinding>
+            {
+                new ScanFinding { ScanId = scanId, ResourceIdentifier = "nsg-frontend-prod", RuleCode = "AZURE_NSG_SSH_OPEN", Severity = "CRITICAL", Status = "FAIL", Evidence = "0.0.0.0/0 Port 22 Allow" },
+                new ScanFinding { ScanId = scanId, ResourceIdentifier = "sub-admin-role", RuleCode = "AZURE_RBAC_OVERPERMISSIVE", Severity = "HIGH", Status = "FAIL", Evidence = "Guest user assigned 'Owner' role" }
+            };
         }
     }
 
     // ==========================================
-    // 4. THE GCP SCANNER PLUGIN (Mocked)
+    // 4. THE GCP SCANNER PLUGIN (Simulated Data)
     // ==========================================
     public class GcpScanner : ICloudScanner
     {
@@ -110,8 +111,13 @@ namespace CspmEngine
         public async Task<List<ScanFinding>> RunScanAsync(int scanId, string webhookUrl)
         {
             Console.WriteLine($"[{CloudProvider}] Scanning GCP Asset Inventory...");
-            await Task.Delay(1000); // Simulating API call
-            return new List<ScanFinding>(); 
+            await Task.Delay(650); // Simulating API latency
+            
+            // Simulating GCP vulnerabilities for the UI
+            return new List<ScanFinding>
+            {
+                new ScanFinding { ScanId = scanId, ResourceIdentifier = "fw-allow-all-ingress", RuleCode = "GCP_FW_SSH_OPEN", Severity = "CRITICAL", Status = "FAIL", Evidence = "Source ranges: 0.0.0.0/0, Port: 22" }
+            };
         }
     }
 
@@ -171,19 +177,22 @@ namespace CspmEngine
                 return Results.Ok(new { Message = "Multi-Cloud Scan completed", ScanId = currentScan.Id });
             });
 
+            // The unified Remediation Endpoint (Handles Real AWS + Simulated Azure/GCP)
             app.MapPost("/api/remediate", async (RemediateRequest request) =>
             {
-                // Remediation logic remains the same
                 try
                 {
+                    // --- REAL AWS REMEDIATION ---
                     if (request.RuleCode == "IAM_NO_WILDCARD_ADMIN")
                     {
+                        Console.WriteLine($"[AWS] Executing live remediation on {request.ResourceIdentifier}...");
                         var iamClient = new AmazonIdentityManagementServiceClient();
                         await iamClient.DetachRolePolicyAsync(new DetachRolePolicyRequest { RoleName = request.ResourceIdentifier, PolicyArn = "arn:aws:iam::aws:policy/AdministratorAccess" });
                         return Results.Ok();
                     }
                     else if (request.RuleCode == "EC2_SSH_OPEN_TO_INTERNET")
                     {
+                        Console.WriteLine($"[AWS] Executing live remediation on {request.ResourceIdentifier}...");
                         var ec2Client = new AmazonEC2Client(RegionEndpoint.EUNorth1);
                         await ec2Client.RevokeSecurityGroupIngressAsync(new RevokeSecurityGroupIngressRequest {
                             GroupName = request.ResourceIdentifier,
@@ -191,9 +200,28 @@ namespace CspmEngine
                         });
                         return Results.Ok();
                     }
+                    // --- SIMULATED AZURE REMEDIATION ---
+                    else if (request.RuleCode.StartsWith("AZURE_"))
+                    {
+                        Console.WriteLine($"[Azure] Executing simulated remediation on {request.ResourceIdentifier}...");
+                        await Task.Delay(1200); // Simulate API call to Azure
+                        return Results.Ok();
+                    }
+                    // --- SIMULATED GCP REMEDIATION ---
+                    else if (request.RuleCode.StartsWith("GCP_"))
+                    {
+                        Console.WriteLine($"[GCP] Executing simulated remediation on {request.ResourceIdentifier}...");
+                        await Task.Delay(900); // Simulate API call to GCP
+                        return Results.Ok();
+                    }
+
                     return Results.BadRequest();
                 }
-                catch { return Results.Problem(); }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"[ERROR] Remediation Failed: {ex.Message}");
+                    return Results.Problem();
+                }
             });
 
             Console.WriteLine("Starting Multi-Cloud CSPM Web API Server...");

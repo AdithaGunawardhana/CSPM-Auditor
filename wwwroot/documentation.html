@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Docs | Nexus CSPM</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><defs><linearGradient id='g' x1='0%25' y1='100%25' x2='100%25' y2='0%25'><stop offset='0%25' stop-color='%23f59e0b'/><stop offset='100%25' stop-color='%23f43f5e'/></linearGradient></defs><circle cx='16' cy='16' r='16' fill='url(%23g)'/><rect x='11' y='11' width='10' height='10' fill='%2309090b' rx='2' transform='rotate(45 16 16)'/></svg>">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+        body { background-color: #09090b; color: #d4d4d8; font-family: 'Plus Jakarta Sans', sans-serif; overflow-x: hidden; }
+        .mono-font { font-family: 'JetBrains Mono', monospace; }
+        
+        .ambient-bg { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -1; background: radial-gradient(circle at 15% 50%, rgba(245, 158, 11, 0.08), transparent 25%), radial-gradient(circle at 85% 30%, rgba(225, 29, 72, 0.08), transparent 25%); filter: blur(60px); animation: ambientShift 15s ease-in-out infinite alternate; }
+        @keyframes ambientShift { 0% { transform: scale(1); } 100% { transform: scale(1.2) translate(20px, 20px); } }
+        
+        .slide-up { animation: slideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards; opacity: 0; transform: translateY(30px); }
+        @keyframes slideUp { to { opacity: 1; transform: translateY(0); } }
+        
+        .bento-card { background: rgba(24, 24, 27, 0.6); backdrop-filter: blur(16px); border: 1px solid rgba(63, 63, 70, 0.4); border-radius: 24px; transition: all 0.4s; }
+        .dropdown-menu { transform-origin: top right; transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1); }
+        .dropdown-hidden { transform: translateY(10px) scale(0.95); opacity: 0; visibility: hidden; }
+
+        /* Custom scroll offset so the sticky nav doesn't cover content */
+        section { scroll-margin-top: 140px; }
+    </style>
+</head>
+<body class="antialiased selection:bg-amber-500/30">
+    <div class="ambient-bg"></div>
+
+    <!-- NAVIGATION -->
+    <nexus-navbar></nexus-navbar>
+    <script src="navbar.js"></script>
+
+    <!-- MAIN CONTENT -->
+    <main class="pt-40 pb-20 px-6 max-w-[1200px] mx-auto slide-up">
+        <div class="grid lg:grid-cols-4 gap-10">
+            
+            <!-- LEFT SIDEBAR (Sticky Navigation) -->
+            <div class="lg:col-span-1 hidden lg:block">
+                <div class="sticky top-32 bg-zinc-900/50 p-6 rounded-2xl border border-zinc-800/50 backdrop-blur-md">
+                    <h2 class="text-xs font-bold text-zinc-500 uppercase tracking-widest mb-4">Documentation</h2>
+                    <ul class="space-y-3 text-sm text-zinc-400 font-medium" id="doc-nav">
+                        <li><a href="#what-is-nexus" class="nav-link text-amber-500 block transition-colors hover:text-amber-400">What is Nexus?</a></li>
+                        <li><a href="#multicloud" class="nav-link block transition-colors hover:text-zinc-200">The Multi-Cloud Era</a></li>
+                        <li><a href="#benefits" class="nav-link block transition-colors hover:text-zinc-200">Core Benefits</a></li>
+                        <li><a href="#how-to-use" class="nav-link block transition-colors hover:text-zinc-200">Getting Started</a></li>
+                        <li><a href="#api-reference" class="nav-link block transition-colors hover:text-zinc-200">API Reference</a></li>
+                        <li><a href="#news-links" class="nav-link block transition-colors hover:text-zinc-200">News & Links</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- RIGHT CONTENT AREA -->
+            <div class="lg:col-span-3 space-y-10">
+                
+                <!-- Section 1: What is Nexus -->
+                <section id="what-is-nexus" class="bento-card p-8 scroll-mt-32">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-10 h-10 rounded-xl bg-amber-500/20 text-amber-500 flex items-center justify-center border border-amber-500/30">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                        </div>
+                        <h1 class="text-3xl font-bold text-white">What is Nexus?</h1>
+                    </div>
+                    <p class="text-zinc-400 leading-relaxed mb-4">Nexus is an enterprise-grade <strong>Cloud Security Posture Management (CSPM)</strong> engine built entirely on ASP.NET Core and Entity Framework. It actively audits cloud infrastructure to detect dangerous misconfigurations before attackers can exploit them.</p>
+                    <p class="text-zinc-400 leading-relaxed">Unlike traditional tools that simply generate alerts, Nexus features a <strong>Security Orchestration, Automation, and Response (SOAR)</strong> module. This allows the system to actively reach into the cloud and patch vulnerabilities—like open SSH ports or wildcard IAM admins—in real-time.</p>
+                </section>
+
+                <!-- Section 2: Multi-Cloud -->
+                <section id="multicloud" class="bento-card p-8">
+                    <h2 class="text-2xl font-bold text-white mb-4">Understanding Multi-Cloud</h2>
+                    <p class="text-zinc-400 leading-relaxed mb-6">A "Multi-Cloud" architecture means an organization relies on multiple cloud providers (like Amazon AWS, Microsoft Azure, and Google Cloud GCP) rather than locking into just one. While this provides incredible redundancy and cost savings, it creates massive security blind spots.</p>
+                    
+                    <div class="grid grid-cols-3 gap-4 mb-4">
+                        <div class="bg-zinc-950 border border-amber-500/30 rounded-xl p-4 text-center">
+                            <span class="block text-amber-500 font-bold mb-1">AWS</span>
+                            <span class="text-xs text-zinc-500">IAM & EC2 Security</span>
+                        </div>
+                        <div class="bg-zinc-950 border border-sky-500/30 rounded-xl p-4 text-center">
+                            <span class="block text-sky-400 font-bold mb-1">Azure</span>
+                            <span class="text-xs text-zinc-500">Resource Graph</span>
+                        </div>
+                        <div class="bg-zinc-950 border border-emerald-500/30 rounded-xl p-4 text-center">
+                            <span class="block text-emerald-400 font-bold mb-1">GCP</span>
+                            <span class="text-xs text-zinc-500">Asset Inventory</span>
+                        </div>
+                    </div>
+                    <p class="text-sm text-zinc-500 border-l-2 border-zinc-700 pl-4">Nexus solves the multi-cloud problem by abstracting the cloud APIs using a C# interface (`ICloudScanner`). This normalizes telemetry from all three providers into a single pane of glass.</p>
+                </section>
+
+                <!-- Section 3: Benefits -->
+                <section id="benefits" class="bento-card p-8">
+                    <h2 class="text-2xl font-bold text-white mb-6">Why Use Nexus?</h2>
+                    <div class="space-y-4">
+                        <div class="flex gap-4 p-4 rounded-xl bg-zinc-900/50 border border-zinc-800">
+                            <div class="text-rose-500 mt-1"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg></div>
+                            <div>
+                                <h4 class="text-white font-bold mb-1">Eliminate Alert Fatigue</h4>
+                                <p class="text-sm text-zinc-400">Stop drowning in endless security alerts. Nexus groups findings by severity and allows 1-click automated remediation to clear the queue instantly.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-4 p-4 rounded-xl bg-zinc-900/50 border border-zinc-800">
+                            <div class="text-emerald-500 mt-1"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg></div>
+                            <div>
+                                <h4 class="text-white font-bold mb-1">Continuous Compliance</h4>
+                                <p class="text-sm text-zinc-400">Historical SQLite logging ensures you can always prove to auditors that your infrastructure was secure at any point in time.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Section 4: How to Use -->
+                <section id="how-to-use" class="bento-card p-8">
+                    <h2 class="text-2xl font-bold text-white mb-4">Getting Started</h2>
+                    <ol class="list-decimal list-inside space-y-3 text-zinc-400">
+                        <li>Ensure you have the <strong>.NET 8.0 SDK</strong> installed on your local machine.</li>
+                        <li>Configure an AWS IAM user with `SecurityAudit` and `AmazonEC2FullAccess` permissions.</li>
+                        <li>Run the backend server using the terminal command: <code class="mono-font bg-zinc-900 px-2 py-0.5 rounded text-amber-500 text-xs">dotnet run</code></li>
+                        <li>Log in using your <strong>Google Account</strong> in the top right corner.</li>
+                        <li>Navigate to the Command Center and click <strong>Run Multi-Cloud Scan</strong>.</li>
+                    </ol>
+                </section>
+
+                <!-- Section 5: API Reference -->
+                <section id="api-reference" class="bento-card p-8">
+                    <h2 class="text-2xl font-bold text-white mb-6">API Reference</h2>
+                    <p class="text-zinc-400 mb-6 text-sm">The engine is fully headless. You can trigger audits programmatically via standard REST endpoints.</p>
+                    
+                    <div class="bg-zinc-950 rounded-xl border border-zinc-800 p-4 mb-4">
+                        <div class="flex items-center gap-2 mb-3 border-b border-zinc-800 pb-2">
+                            <span class="px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-400 text-[10px] font-bold">POST</span>
+                            <span class="text-zinc-300 mono-font text-sm">/api/scan/run</span>
+                        </div>
+                        <p class="text-xs text-zinc-500 mb-3">Initializes the multi-cloud ICloudScanner interface and loops through AWS, Azure, and GCP plugins.</p>
+                        <pre class="mono-font text-xs text-zinc-400 overflow-x-auto">
+fetch('/api/scan/run', {
+    method: 'POST'
+}).then(res => res.json());
+                        </pre>
+                    </div>
+
+                    <div class="bg-zinc-950 rounded-xl border border-zinc-800 p-4">
+                        <div class="flex items-center gap-2 mb-3 border-b border-zinc-800 pb-2">
+                            <span class="px-2 py-0.5 rounded bg-amber-500/20 text-amber-500 text-[10px] font-bold">POST</span>
+                            <span class="text-zinc-300 mono-font text-sm">/api/remediate</span>
+                        </div>
+                        <p class="text-xs text-zinc-500 mb-3">Accepts a RuleCode and ResourceIdentifier to automatically patch a live cloud environment.</p>
+                        <pre class="mono-font text-xs text-zinc-400 overflow-x-auto">
+fetch('/api/remediate', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ resourceIdentifier: "sg-123", ruleCode: "EC2_SSH_OPEN" })
+});
+                        </pre>
+                    </div>
+                </section>
+
+                <!-- Section 6: News & Links -->
+                <section id="news-links" class="bento-card p-8">
+                    <h2 class="text-2xl font-bold text-white mb-6">Latest News & Links</h2>
+                    
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <!-- News -->
+                        <div>
+                            <h3 class="text-sm font-bold text-zinc-300 mb-3 flex items-center gap-2">
+                                <span class="w-2 h-2 rounded-full bg-rose-500 animate-pulse"></span> Recent Updates
+                            </h3>
+                            <ul class="space-y-3">
+                                <li class="text-sm text-zinc-400 border-l-2 border-amber-500 pl-3">
+                                    <strong class="text-white block">v2.4 Deployed</strong>
+                                    Added Firebase Google Authentication and real-time user session tracking.
+                                </li>
+                                <li class="text-sm text-zinc-400 border-l-2 border-zinc-700 pl-3">
+                                    <strong class="text-white block">GCP Mock Interface Added</strong>
+                                    Prepared dependency injection container for Google Cloud integration.
+                                </li>
+                            </ul>
+                        </div>
+                        <!-- Links -->
+                        <div>
+                            <h3 class="text-sm font-bold text-zinc-300 mb-3">Important Links</h3>
+                            <div class="flex flex-col gap-2">
+                                <a href="https://github.com/AdithaGunawardhana/cspm-auditor" target="_blank" rel="noopener noreferrer" class="flex items-center justify-between p-3 rounded-lg bg-zinc-900 border border-zinc-800 hover:border-zinc-600 transition-colors group">
+                                    <span class="text-sm text-zinc-300 font-medium">GitHub Repository</span>
+                                    <svg class="w-4 h-4 text-zinc-500 group-hover:text-white transition-colors" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"></path></svg>
+                                </a>
+                                <a href="https://dotnet.microsoft.com/en-us/" target="_blank" rel="noopener noreferrer" class="flex items-center justify-between p-3 rounded-lg bg-zinc-900 border border-zinc-800 hover:border-zinc-600 transition-colors group">
+                                    <span class="text-sm text-zinc-300 font-medium">ASP.NET Core Docs</span>
+                                    <svg class="w-4 h-4 text-zinc-500 group-hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+            </div>
+        </div>
+    </main>
+
+    <nexus-footer></nexus-footer>
+    <script src="footer.js"></script>
+
+    <!-- FIREBASE & AUTH LOGIC -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
+    <script>
+        // FIREBASE SETUP
+        const firebaseConfig = { apiKey: "AIzaSyCguCkybYYQ8hWq3gbG9WLPcNXVBSyhQfs", authDomain: "portifywebapp.firebaseapp.com", projectId: "portifywebapp", storageBucket: "portifywebapp.firebasestorage.app", messagingSenderId: "186704938475", appId: "1:186704938475:web:faf6b9754a0ad9bcb405ae", measurementId: "G-RD3DFFFJR9" };
+        if (!firebase.apps.length) { firebase.initializeApp(firebaseConfig); }
+        const auth = firebase.auth(); const provider = new firebase.auth.GoogleAuthProvider();
+        
+        // DROPDOWN LOGIC
+        const profileBtn = document.getElementById('profileBtn'); const dropdownMenu = document.getElementById('dropdownMenu');
+        profileBtn.addEventListener('click', (e) => { e.stopPropagation(); dropdownMenu.classList.toggle('dropdown-hidden'); });
+        document.addEventListener('click', (e) => { if (!dropdownMenu.contains(e.target) && !profileBtn.contains(e.target)) dropdownMenu.classList.add('dropdown-hidden'); });
+        
+        // AUTH STATE LOGIC
+        auth.onAuthStateChanged(user => {
+            if (user) {
+                document.getElementById('menu-logged-out').classList.add('hidden'); document.getElementById('menu-logged-in').classList.remove('hidden');
+                document.getElementById('nav-user-name').textContent = user.displayName.split(' ')[0];
+                document.getElementById('nav-default-icon').classList.add('hidden');
+                document.getElementById('nav-profile-pic').src = user.photoURL; document.getElementById('nav-profile-pic').classList.remove('hidden');
+                document.getElementById('dropdown-name').textContent = user.displayName; document.getElementById('dropdown-email').textContent = user.email;
+            } else {
+                document.getElementById('menu-logged-out').classList.remove('hidden'); document.getElementById('menu-logged-in').classList.add('hidden');
+                document.getElementById('nav-user-name').textContent = "Guest";
+                document.getElementById('nav-profile-pic').classList.add('hidden'); document.getElementById('nav-profile-pic').src = "";
+                document.getElementById('nav-default-icon').classList.remove('hidden');
+            }
+        });
+        function signInWithGoogle() { auth.signInWithPopup(provider).catch(e => alert("Login failed. Check console.")); }
+        function logOut() { auth.signOut().then(() => dropdownMenu.classList.add('dropdown-hidden')); }
+
+        // ==========================================
+        // SIDEBAR HIGHLIGHTING LOGIC
+        // ==========================================
+        document.addEventListener('DOMContentLoaded', () => {
+            const sections = document.querySelectorAll('section');
+            const navLinks = document.querySelectorAll('.nav-link');
+
+            // Set up an Intersection Observer to watch which section is on screen
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        // Remove highlight from all links
+                        navLinks.forEach(link => {
+                            link.classList.remove('text-amber-500');
+                            link.classList.add('text-zinc-400');
+                        });
+                        // Add highlight to active link
+                        const activeId = entry.target.getAttribute('id');
+                        const activeLink = document.querySelector(`.nav-link[href="#${activeId}"]`);
+                        if (activeLink) {
+                            activeLink.classList.remove('text-zinc-400');
+                            activeLink.classList.add('text-amber-500');
+                        }
+                    }
+                });
+            }, { rootMargin: '-20% 0px -70% 0px' }); // Triggers when section is near top of screen
+
+            sections.forEach(section => observer.observe(section));
+        });
+    </script>
+</body>
+</html>

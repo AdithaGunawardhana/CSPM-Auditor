@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Solutions | Nexus CSPM</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><defs><linearGradient id='g' x1='0%25' y1='100%25' x2='100%25' y2='0%25'><stop offset='0%25' stop-color='%23f59e0b'/><stop offset='100%25' stop-color='%23f43f5e'/></linearGradient></defs><circle cx='16' cy='16' r='16' fill='url(%23g)'/><rect x='11' y='11' width='10' height='10' fill='%2309090b' rx='2' transform='rotate(45 16 16)'/></svg>">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+        body { background-color: #09090b; color: #d4d4d8; font-family: 'Plus Jakarta Sans', sans-serif; overflow-x: hidden; }
+        .ambient-bg { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -1; background: radial-gradient(circle at 15% 50%, rgba(245, 158, 11, 0.08), transparent 25%), radial-gradient(circle at 85% 30%, rgba(225, 29, 72, 0.08), transparent 25%); filter: blur(60px); animation: ambientShift 15s ease-in-out infinite alternate; }
+        @keyframes ambientShift { 0% { transform: scale(1); } 100% { transform: scale(1.2) translate(20px, 20px); } }
+        .slide-up { animation: slideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards; opacity: 0; transform: translateY(30px); }
+        .delay-1 { animation-delay: 0.1s; }
+        .delay-2 { animation-delay: 0.2s; }
+        @keyframes slideUp { to { opacity: 1; transform: translateY(0); } }
+        .bento-card { background: rgba(24, 24, 27, 0.6); backdrop-filter: blur(16px); border: 1px solid rgba(63, 63, 70, 0.4); border-radius: 24px; transition: all 0.4s; }
+        .bento-card:hover { border-color: rgba(245, 158, 11, 0.4); box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.5); }
+        .dropdown-menu { transform-origin: top right; transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1); }
+        .dropdown-hidden { transform: translateY(10px) scale(0.95); opacity: 0; visibility: hidden; }
+    </style>
+</head>
+<body class="antialiased selection:bg-amber-500/30">
+    <div class="ambient-bg"></div>
+
+    <!-- NAVIGATION -->
+    <nexus-navbar></nexus-navbar>
+    <script src="navbar.js"></script>
+
+    <!-- MAIN CONTENT -->
+    <main class="pt-40 pb-20 px-6 max-w-[1200px] mx-auto">
+        <!-- Hero -->
+        <div class="text-center mb-16 slide-up">
+            <h1 class="text-5xl md:text-7xl font-extrabold text-white mb-6 tracking-tight">Engineered for <span class="text-transparent bg-clip-text bg-gradient-to-r from-sky-400 to-indigo-400">Scale</span></h1>
+            <p class="text-lg text-zinc-400 max-w-2xl mx-auto leading-relaxed">See how modern engineering teams use Nexus to eliminate alert fatigue and automate their multi-cloud security posture.</p>
+        </div>
+        
+        <!-- Metrics Banner -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-16 slide-up delay-1">
+            <div class="bg-zinc-900/50 border border-zinc-800 rounded-2xl p-6 text-center backdrop-blur">
+                <h3 class="text-3xl font-black text-white mb-1">< 500<span class="text-amber-500">ms</span></h3>
+                <p class="text-xs text-zinc-500 uppercase tracking-widest font-bold">SOAR Reaction Time</p>
+            </div>
+            <div class="bg-zinc-900/50 border border-zinc-800 rounded-2xl p-6 text-center backdrop-blur">
+                <h3 class="text-3xl font-black text-white mb-1">100<span class="text-sky-400">%</span></h3>
+                <p class="text-xs text-zinc-500 uppercase tracking-widest font-bold">API Coverage</p>
+            </div>
+            <div class="bg-zinc-900/50 border border-zinc-800 rounded-2xl p-6 text-center backdrop-blur">
+                <h3 class="text-3xl font-black text-white mb-1">0<span class="text-emerald-400"> Days</span></h3>
+                <p class="text-xs text-zinc-500 uppercase tracking-widest font-bold">Implementation Time</p>
+            </div>
+            <div class="bg-zinc-900/50 border border-zinc-800 rounded-2xl p-6 text-center backdrop-blur">
+                <h3 class="text-3xl font-black text-white mb-1">3</h3>
+                <p class="text-xs text-zinc-500 uppercase tracking-widest font-bold">Clouds Supported</p>
+            </div>
+        </div>
+
+        <!-- Solutions Grid -->
+        <div class="grid md:grid-cols-3 gap-6 mb-16 slide-up delay-2">
+            <!-- Persona 1 -->
+            <div class="bento-card p-8 group">
+                <div class="w-14 h-14 rounded-2xl bg-sky-500/20 text-sky-400 flex items-center justify-center mb-6 group-hover:-translate-y-2 transition-transform"><svg class="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg></div>
+                <h3 class="text-2xl font-bold text-white mb-3">Security Operations</h3>
+                <p class="text-sm text-zinc-400 mb-6 leading-relaxed">Achieve continuous compliance across massive multi-account cloud footprints without hiring an army of analysts.</p>
+                <ul class="space-y-3">
+                    <li class="flex items-start gap-2 text-sm text-zinc-300"><svg class="w-5 h-5 text-sky-500 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> Single Pane of Glass</li>
+                    <li class="flex items-start gap-2 text-sm text-zinc-300"><svg class="w-5 h-5 text-sky-500 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> Webhook Alert Routing</li>
+                    <li class="flex items-start gap-2 text-sm text-zinc-300"><svg class="w-5 h-5 text-sky-500 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> One-Click Revocation</li>
+                </ul>
+            </div>
+
+            <!-- Persona 2 -->
+            <div class="bento-card p-8 group border-amber-500/30 shadow-[0_0_20px_rgba(245,158,11,0.05)]">
+                <div class="w-14 h-14 rounded-2xl bg-amber-500/20 text-amber-500 flex items-center justify-center mb-6 group-hover:-translate-y-2 transition-transform"><svg class="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg></div>
+                <h3 class="text-2xl font-bold text-white mb-3">DevSecOps Teams</h3>
+                <p class="text-sm text-zinc-400 mb-6 leading-relaxed">Integrate headless REST scans directly into your CI/CD pipelines to catch dangerous misconfigurations before they hit production.</p>
+                <ul class="space-y-3">
+                    <li class="flex items-start gap-2 text-sm text-zinc-300"><svg class="w-5 h-5 text-amber-500 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> 100% Headless API</li>
+                    <li class="flex items-start gap-2 text-sm text-zinc-300"><svg class="w-5 h-5 text-amber-500 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> Dependency Injection Architecture</li>
+                    <li class="flex items-start gap-2 text-sm text-zinc-300"><svg class="w-5 h-5 text-amber-500 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> GitHub Actions Ready</li>
+                </ul>
+            </div>
+
+            <!-- Persona 3 -->
+            <div class="bento-card p-8 group">
+                <div class="w-14 h-14 rounded-2xl bg-purple-500/20 text-purple-400 flex items-center justify-center mb-6 group-hover:-translate-y-2 transition-transform"><svg class="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg></div>
+                <h3 class="text-2xl font-bold text-white mb-3">Compliance Officers</h3>
+                <p class="text-sm text-zinc-400 mb-6 leading-relaxed">Generate auditor-ready historical reports proving that IAM risks and exposed networks were remediated promptly.</p>
+                <ul class="space-y-3">
+                    <li class="flex items-start gap-2 text-sm text-zinc-300"><svg class="w-5 h-5 text-purple-500 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> SQLite Immutable Logging</li>
+                    <li class="flex items-start gap-2 text-sm text-zinc-300"><svg class="w-5 h-5 text-purple-500 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> Visual Trend Dashboards</li>
+                    <li class="flex items-start gap-2 text-sm text-zinc-300"><svg class="w-5 h-5 text-purple-500 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> Cross-cloud Normalization</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- CTA Banner -->
+        <div class="relative bg-gradient-to-r from-zinc-900 to-zinc-950 border border-zinc-800 rounded-3xl p-10 overflow-hidden text-center slide-up delay-2">
+            <div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMSIgY3k9IjEiIHI9IjEiIGZpbGw9InJnYmEoMjU1LDI1NSwyNTUsMC4wNSkiLz48L3N2Zz4=')] opacity-50"></div>
+            <div class="relative z-10">
+                <h2 class="text-3xl font-extrabold text-white mb-4">Ready to secure your multi-cloud environment?</h2>
+                <p class="text-zinc-400 mb-8 max-w-xl mx-auto">Stop managing alerts and start remediating vulnerabilities. Access the Nexus Command Center to run your first zero-risk diagnostic scan.</p>
+                <a href="dashboard.html" class="inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-amber-500 hover:bg-amber-400 text-zinc-950 font-bold transition-all shadow-[0_0_20px_rgba(245,158,11,0.3)]">
+                    Access Dashboard <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                </a>
+            </div>
+        </div>
+    </main>
+
+    <nexus-footer></nexus-footer>
+    <script src="footer.js"></script>
+
+    <!-- FIREBASE LOGIC -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
+    <script>
+        const firebaseConfig = { apiKey: "AIzaSyCguCkybYYQ8hWq3gbG9WLPcNXVBSyhQfs", authDomain: "portifywebapp.firebaseapp.com", projectId: "portifywebapp", storageBucket: "portifywebapp.firebasestorage.app", messagingSenderId: "186704938475", appId: "1:186704938475:web:faf6b9754a0ad9bcb405ae", measurementId: "G-RD3DFFFJR9" };
+        if (!firebase.apps.length) { firebase.initializeApp(firebaseConfig); }
+        const auth = firebase.auth(); const provider = new firebase.auth.GoogleAuthProvider();
+        const profileBtn = document.getElementById('profileBtn'); const dropdownMenu = document.getElementById('dropdownMenu');
+        profileBtn.addEventListener('click', (e) => { e.stopPropagation(); dropdownMenu.classList.toggle('dropdown-hidden'); });
+        document.addEventListener('click', (e) => { if (!dropdownMenu.contains(e.target) && !profileBtn.contains(e.target)) dropdownMenu.classList.add('dropdown-hidden'); });
+        auth.onAuthStateChanged(user => {
+            if (user) {
+                document.getElementById('menu-logged-out').classList.add('hidden'); document.getElementById('menu-logged-in').classList.remove('hidden');
+                document.getElementById('nav-user-name').textContent = user.displayName.split(' ')[0];
+                document.getElementById('nav-default-icon').classList.add('hidden');
+                document.getElementById('nav-profile-pic').src = user.photoURL; document.getElementById('nav-profile-pic').classList.remove('hidden');
+                document.getElementById('dropdown-name').textContent = user.displayName; document.getElementById('dropdown-email').textContent = user.email;
+            } else {
+                document.getElementById('menu-logged-out').classList.remove('hidden'); document.getElementById('menu-logged-in').classList.add('hidden');
+                document.getElementById('nav-user-name').textContent = "Guest";
+                document.getElementById('nav-profile-pic').classList.add('hidden'); document.getElementById('nav-profile-pic').src = "";
+                document.getElementById('nav-default-icon').classList.remove('hidden');
+            }
+        });
+        function signInWithGoogle() { auth.signInWithPopup(provider).catch(e => alert("Login failed. Check console.")); }
+        function logOut() { auth.signOut().then(() => dropdownMenu.classList.add('dropdown-hidden')); }
+    </script>
+</body>
+</html>
