@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings | Nexus CSPM</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><defs><linearGradient id='g' x1='0%25' y1='100%25' x2='100%25' y2='0%25'><stop offset='0%25' stop-color='%23f59e0b'/><stop offset='100%25' stop-color='%23f43f5e'/></linearGradient></defs><circle cx='16' cy='16' r='16' fill='url(%23g)'/><rect x='11' y='11' width='10' height='10' fill='%2309090b' rx='2' transform='rotate(45 16 16)'/></svg>">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
+        body { background-color: #09090b; color: #d4d4d8; font-family: 'Plus Jakarta Sans', sans-serif; overflow-x: hidden; }
+        .mono-font { font-family: 'JetBrains Mono', monospace; }
+        .ambient-bg { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -1; background: radial-gradient(circle at 15% 50%, rgba(245, 158, 11, 0.08), transparent 25%), radial-gradient(circle at 85% 30%, rgba(225, 29, 72, 0.08), transparent 25%); filter: blur(60px); animation: ambientShift 15s ease-in-out infinite alternate; }
+        @keyframes ambientShift { 0% { transform: scale(1); } 100% { transform: scale(1.2) translate(20px, 20px); } }
+        .slide-up { animation: slideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards; opacity: 0; transform: translateY(30px); }
+        .delay-1 { animation-delay: 0.1s; }
+        .delay-2 { animation-delay: 0.2s; }
+        @keyframes slideUp { to { opacity: 1; transform: translateY(0); } }
+        
+        .bento-card { background: rgba(24, 24, 27, 0.6); backdrop-filter: blur(16px); border: 1px solid rgba(63, 63, 70, 0.4); border-radius: 24px; transition: all 0.4s; }
+        
+        /* Custom Checkbox Styles */
+        .cyber-checkbox:checked + div { background-color: rgba(245, 158, 11, 0.2); border-color: rgba(245, 158, 11, 0.5); }
+        .cyber-checkbox:checked + div svg { opacity: 1; transform: scale(1); }
+        .cyber-toggle:checked ~ div.toggle-bg { background-color: rgba(16, 185, 129, 0.2); border-color: rgba(16, 185, 129, 0.5); }
+        .cyber-toggle:checked ~ div.toggle-dot { transform: translateX(100%); background-color: #10b981; box-shadow: 0 0 10px rgba(16, 185, 129, 0.5); }
+    </style>
+</head>
+<body class="antialiased selection:bg-amber-500/30">
+    <div class="ambient-bg"></div>
+
+    <!-- NAVIGATION -->
+    <nexus-navbar></nexus-navbar>
+    <script src="navbar.js"></script>
+
+    <!-- MAIN CONTENT -->
+    <main class="pt-40 pb-20 px-6 max-w-[1000px] mx-auto">
+        <!-- Header -->
+        <div class="flex items-center gap-4 mb-10 slide-up">
+            <div class="w-12 h-12 rounded-2xl bg-zinc-800 border border-zinc-700 flex items-center justify-center text-zinc-400">
+                <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+            </div>
+            <div>
+                <h1 class="text-3xl font-extrabold text-white tracking-tight">System Preferences</h1>
+                <p class="text-sm text-zinc-400 mt-1">Configure automated telemetry sweeps, severity thresholds, and webhook alerting pipelines.</p>
+            </div>
+        </div>
+
+        <form id="settingsForm" class="space-y-6 slide-up delay-1">
+            
+            <!-- Scope & Coverage -->
+            <div class="bento-card p-8">
+                <h2 class="text-lg font-bold text-white mb-6 flex items-center gap-2">
+                    <span class="w-2 h-2 rounded-full bg-amber-500"></span> Platform Coverage
+                </h2>
+                
+                <div class="space-y-8">
+                    <!-- Target Providers -->
+                    <div>
+                        <label class="block text-xs font-bold text-zinc-500 uppercase tracking-wider mb-4">Active Scanning Plugins</label>
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                            <!-- Provider Toggles -->
+                            <label class="relative cursor-pointer group">
+                                <input type="checkbox" id="prov-aws" class="peer cyber-checkbox sr-only" checked>
+                                <div class="p-4 rounded-xl border border-zinc-700 bg-zinc-900/50 hover:bg-zinc-800 transition-colors flex items-center justify-between">
+                                    <span class="text-sm font-bold text-zinc-300 group-hover:text-white transition-colors">AWS</span>
+                                    <svg class="w-5 h-5 text-amber-500 opacity-0 scale-50 transition-all duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                                </div>
+                            </label>
+                            
+                            <label class="relative cursor-pointer group">
+                                <input type="checkbox" id="prov-azure" class="peer cyber-checkbox sr-only" checked>
+                                <div class="p-4 rounded-xl border border-zinc-700 bg-zinc-900/50 hover:bg-zinc-800 transition-colors flex items-center justify-between">
+                                    <span class="text-sm font-bold text-zinc-300 group-hover:text-white transition-colors">Azure</span>
+                                    <svg class="w-5 h-5 text-amber-500 opacity-0 scale-50 transition-all duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                                </div>
+                            </label>
+
+                            <label class="relative cursor-pointer group">
+                                <input type="checkbox" id="prov-gcp" class="peer cyber-checkbox sr-only" checked>
+                                <div class="p-4 rounded-xl border border-zinc-700 bg-zinc-900/50 hover:bg-zinc-800 transition-colors flex items-center justify-between">
+                                    <span class="text-sm font-bold text-zinc-300 group-hover:text-white transition-colors">GCP</span>
+                                    <svg class="w-5 h-5 text-amber-500 opacity-0 scale-50 transition-all duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                                </div>
+                            </label>
+
+                            <label class="relative cursor-pointer group">
+                                <input type="checkbox" id="prov-k8s" class="peer cyber-checkbox sr-only" checked>
+                                <div class="p-4 rounded-xl border border-zinc-700 bg-zinc-900/50 hover:bg-zinc-800 transition-colors flex items-center justify-between">
+                                    <span class="text-sm font-bold text-zinc-300 group-hover:text-white transition-colors">K8s Clusters</span>
+                                    <svg class="w-5 h-5 text-amber-500 opacity-0 scale-50 transition-all duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Scanning Frequency -->
+                    <div>
+                        <label class="block text-xs font-bold text-zinc-500 uppercase tracking-wider mb-2">Automated Telemetry Cadence</label>
+                        <select id="scanFreq" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl px-4 py-3 text-sm text-zinc-300 focus:outline-none focus:border-amber-500 focus:ring-1 focus:ring-amber-500 transition-all appearance-none cursor-pointer">
+                            <option value="15m">Every 15 Minutes (Aggressive)</option>
+                            <option value="1h" selected>Every 1 Hour (Standard)</option>
+                            <option value="6h">Every 6 Hours</option>
+                            <option value="manual">Manual Execution Only</option>
+                        </select>
+                        <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-zinc-500 transform -translate-y-4">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Notifications & Webhooks -->
+            <div class="bento-card p-8">
+                <h2 class="text-lg font-bold text-white mb-6 flex items-center gap-2">
+                    <span class="w-2 h-2 rounded-full bg-sky-500"></span> Alerting & Webhooks
+                </h2>
+
+                <div class="space-y-6">
+                    <!-- Severity Filter -->
+                    <div>
+                        <label class="block text-xs font-bold text-zinc-500 uppercase tracking-wider mb-2">Severity Notification Threshold</label>
+                        <select id="alertThreshold" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl px-4 py-3 text-sm text-zinc-300 focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 transition-all appearance-none cursor-pointer">
+                            <option value="critical">Critical Findings Only</option>
+                            <option value="high" selected>High & Critical Findings</option>
+                            <option value="all">All Findings (Verbose)</option>
+                        </select>
+                    </div>
+
+                    <!-- Webhook Target -->
+                    <div>
+                        <label class="block text-xs font-bold text-zinc-500 uppercase tracking-wider mb-2">Primary Webhook Target (Slack/Discord/Teams)</label>
+                        <div class="relative">
+                            <input type="url" id="webhookUrl" placeholder="https://hooks.slack.com/services/..." class="w-full bg-zinc-950 border border-zinc-700 rounded-xl pl-10 pr-4 py-3 text-sm text-zinc-300 placeholder-zinc-600 focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 transition-all mono-font">
+                            <div class="absolute left-3 top-3 text-zinc-500">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"></path></svg>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Automation & AI Options -->
+            <div class="bento-card p-8">
+                <h2 class="text-lg font-bold text-white mb-6 flex items-center gap-2">
+                    <span class="w-2 h-2 rounded-full bg-indigo-500"></span> AI & SOAR Capabilities
+                </h2>
+
+                <div class="space-y-6">
+                    <label class="flex items-center justify-between cursor-pointer group">
+                        <div>
+                            <p class="text-sm font-bold text-zinc-200">Generative AI Threat Analysis</p>
+                            <p class="text-xs text-zinc-500 mt-1 max-w-sm leading-relaxed">Passes resource contexts to the LLM engine to generate contextual threat explanations in the Command Center.</p>
+                        </div>
+                        <div class="relative">
+                            <input type="checkbox" id="aiEnabled" class="cyber-toggle sr-only" checked>
+                            <div class="toggle-bg block w-14 h-8 bg-zinc-800 border border-zinc-700 rounded-full transition-colors duration-300"></div>
+                            <div class="toggle-dot absolute left-1 top-1 w-6 h-6 bg-zinc-500 rounded-full transition-transform duration-300"></div>
+                        </div>
+                    </label>
+                    
+                    <hr class="border-zinc-800">
+
+                    <label class="flex items-center justify-between cursor-pointer group">
+                        <div>
+                            <p class="text-sm font-bold text-zinc-200">1-Click Auto Remediation</p>
+                            <p class="text-xs text-zinc-500 mt-1 max-w-sm leading-relaxed">Requires <strong class="text-rose-400">ADMIN</strong> RBAC role. Allows the dashboard to dispatch live patch commands directly to the cloud SDK.</p>
+                        </div>
+                        <div class="relative">
+                            <input type="checkbox" id="soarEnabled" class="cyber-toggle sr-only" checked>
+                            <div class="toggle-bg block w-14 h-8 bg-zinc-800 border border-zinc-700 rounded-full transition-colors duration-300"></div>
+                            <div class="toggle-dot absolute left-1 top-1 w-6 h-6 bg-zinc-500 rounded-full transition-transform duration-300"></div>
+                        </div>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Save Action -->
+            <div class="flex justify-end pt-4 slide-up delay-2">
+                <button type="submit" id="saveBtn" class="bg-amber-500 text-zinc-950 font-bold py-3 px-8 rounded-xl hover:bg-amber-400 shadow-[0_0_15px_rgba(245,158,11,0.3)] transition-all flex items-center gap-2">
+                    Save Preferences
+                </button>
+            </div>
+        </form>
+    </main>
+
+    <!-- Toast Container -->
+    <div id="toast-container" class="fixed bottom-6 right-6 z-[100] flex flex-col gap-3 pointer-events-none"></div>
+
+    <nexus-footer></nexus-footer>
+    <script src="footer.js"></script>
+
+    <!-- FIREBASE LOGIC -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
+    <script>
+        // Custom Toast Notification System
+        function showToast(message, type = 'success') {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+
+            const borderColor = type === 'success' ? 'border-emerald-500/30' : 'border-rose-500/30';
+            const iconColor = type === 'success' ? 'text-emerald-400' : 'text-rose-400';
+            const bgGlow = type === 'success' ? 'bg-emerald-500/10' : 'bg-rose-500/10';
+            const iconSvg = type === 'success'
+                ? `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>`
+                : `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>`;
+
+            toast.className = `flex items-center gap-3 px-4 py-3 bg-zinc-900/95 backdrop-blur-md border ${borderColor} rounded-xl shadow-[0_10px_40px_rgba(0,0,0,0.5)] transform translate-y-10 opacity-0 transition-all duration-300`;
+            toast.innerHTML = `
+                <div class="p-1.5 rounded-full ${bgGlow} ${iconColor}">
+                    <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">${iconSvg}</svg>
+                </div>
+                <p class="text-sm font-bold text-white tracking-wide">${message}</p>
+            `;
+
+            container.appendChild(toast);
+            setTimeout(() => toast.classList.remove('translate-y-10', 'opacity-0'), 10);
+            setTimeout(() => {
+                toast.classList.add('opacity-0', 'translate-y-2');
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }
+
+        // Firebase Initialization
+        const firebaseConfig = { 
+            apiKey: "AIzaSyD8fonHbQIJyAuq9B7jFBnQi5lamIpjxfU", 
+            authDomain: "dxo-s-all.firebaseapp.com", 
+            projectId: "dxo-s-all", 
+            storageBucket: "dxo-s-all.firebasestorage.app", 
+            messagingSenderId: "208688244462", 
+            appId: "1:208688244462:web:5dd360753206ec129bf5ff", 
+            measurementId: "G-2VMBES6WPB" 
+        };
+        
+        if (!firebase.apps.length) { firebase.initializeApp(firebaseConfig); }
+        const auth = firebase.auth();
+        const db = firebase.firestore();
+
+        // Load Settings on Auth State Change
+        auth.onAuthStateChanged(async user => {
+            if (user) {
+                try {
+                    const doc = await db.collection("userSettings").doc(user.uid).get();
+                    if (doc.exists) {
+                        const data = doc.data();
+                        
+                        // Plugins
+                        document.getElementById('prov-aws').checked = data.plugins?.aws ?? true;
+                        document.getElementById('prov-azure').checked = data.plugins?.azure ?? true;
+                        document.getElementById('prov-gcp').checked = data.plugins?.gcp ?? true;
+                        document.getElementById('prov-k8s').checked = data.plugins?.k8s ?? true;
+                        
+                        // Freq & Alerts
+                        document.getElementById('scanFreq').value = data.scanFrequency || '1h';
+                        document.getElementById('alertThreshold').value = data.alertThreshold || 'high';
+                        if (data.webhookUrl) document.getElementById('webhookUrl').value = data.webhookUrl;
+                        
+                        // Toggles
+                        document.getElementById('aiEnabled').checked = data.aiEnabled ?? true;
+                        document.getElementById('soarEnabled').checked = data.soarEnabled ?? true;
+                    }
+                } catch (e) {
+                    console.error("Could not load user settings.", e);
+                }
+            } else {
+                // Kick unauthorized users to home page
+                window.location.href = "index.html";
+            }
+        });
+
+        // Save Settings to Firestore
+        document.getElementById('settingsForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const user = auth.currentUser;
+            if (!user) return;
+
+            const btn = document.getElementById('saveBtn');
+            const originalText = btn.innerHTML;
+            btn.innerHTML = `<svg class="animate-spin h-5 w-5 inline" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" fill="none"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg> Saving`;
+            btn.disabled = true;
+
+            const settingsData = {
+                plugins: {
+                    aws: document.getElementById('prov-aws').checked,
+                    azure: document.getElementById('prov-azure').checked,
+                    gcp: document.getElementById('prov-gcp').checked,
+                    k8s: document.getElementById('prov-k8s').checked
+                },
+                scanFrequency: document.getElementById('scanFreq').value,
+                alertThreshold: document.getElementById('alertThreshold').value,
+                webhookUrl: document.getElementById('webhookUrl').value.trim(),
+                aiEnabled: document.getElementById('aiEnabled').checked,
+                soarEnabled: document.getElementById('soarEnabled').checked,
+                updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+            };
+
+            try {
+                // Write settings under the user's secure UID
+                await db.collection("userSettings").doc(user.uid).set(settingsData, { merge: true });
+                showToast("System preferences synced successfully.", "success");
+            } catch (err) {
+                console.error("Save error:", err);
+                showToast("Failed to sync preferences.", "error");
+            } finally {
+                btn.innerHTML = originalText;
+                btn.disabled = false;
+            }
+        });
+    </script>
+</body>
+</html>

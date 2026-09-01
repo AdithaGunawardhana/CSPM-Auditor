@@ -11,7 +11,7 @@
         @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
         
         body {
-            background-color: #050507; /* Deeper black for higher contrast */
+            background-color: #050507;
             color: #d4d4d8;
             font-family: 'Plus Jakarta Sans', sans-serif;
             overflow-x: hidden;
@@ -19,96 +19,60 @@
 
         .mono-font { font-family: 'JetBrains Mono', monospace; }
 
-        /* 1. Tactical Blueprint Grid */
         .cyber-grid {
-            position: fixed;
-            top: 0; left: 0; width: 100vw; height: 100vh;
-            z-index: -2;
-            background-image: 
-                linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -2;
+            background-image: linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
             background-size: 40px 40px;
             -webkit-mask-image: radial-gradient(circle at center, black, transparent 80%);
             mask-image: radial-gradient(circle at center, black, transparent 80%);
         }
 
-        /* Ambient Dynamic Glow */
         .ambient-bg {
-            position: fixed;
-            top: 0; left: 0; width: 100vw; height: 100vh;
-            z-index: -1;
-            background: 
-                radial-gradient(circle at 10% 20%, rgba(245, 158, 11, 0.05), transparent 40%),
-                radial-gradient(circle at 90% 80%, rgba(225, 29, 72, 0.05), transparent 40%);
-            filter: blur(80px);
-            pointer-events: none;
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -1;
+            background: radial-gradient(circle at 10% 20%, rgba(245, 158, 11, 0.05), transparent 40%), radial-gradient(circle at 90% 80%, rgba(225, 29, 72, 0.05), transparent 40%);
+            filter: blur(80px); pointer-events: none;
         }
 
-        /* 2. Holographic Bento Cards */
         .bento-card {
             background: linear-gradient(145deg, rgba(24, 24, 27, 0.8) 0%, rgba(9, 9, 11, 0.9) 100%);
-            -webkit-backdrop-filter: blur(20px);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            border-radius: 20px;
-            box-shadow: 
-                inset 0 1px 1px rgba(255, 255, 255, 0.05), /* Top inner highlight */
-                0 10px 30px -10px rgba(0, 0, 0, 0.5); /* Deep drop shadow */
-            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-            position: relative;
-            overflow: hidden;
+            -webkit-backdrop-filter: blur(20px); backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 20px;
+            box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.05), 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1); position: relative; overflow: hidden;
         }
         .bento-card:hover {
             border-color: rgba(245, 158, 11, 0.2);
-            box-shadow: 
-                inset 0 1px 1px rgba(255, 255, 255, 0.1),
-                0 15px 40px -10px rgba(0, 0, 0, 0.7);
+            box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.1), 0 15px 40px -10px rgba(0, 0, 0, 0.7);
         }
 
-        /* Dynamic Danger Card */
         .card-danger {
             background: linear-gradient(145deg, rgba(225, 29, 72, 0.1) 0%, rgba(9, 9, 11, 0.9) 100%);
             border-color: rgba(225, 29, 72, 0.3);
             box-shadow: inset 0 1px 15px rgba(225, 29, 72, 0.1);
         }
 
-        /* Subtle Scanning Line Animation for Tables */
         .scan-line {
-            position: absolute;
-            top: 0; left: 0; right: 0; height: 1px;
+            position: absolute; top: 0; left: 0; right: 0; height: 1px;
             background: linear-gradient(90deg, transparent, rgba(16, 185, 129, 0.8), transparent);
-            box-shadow: 0 0 10px rgba(16, 185, 129, 0.5);
-            animation: scan 4s linear infinite;
-            opacity: 0.5;
-            z-index: 10;
+            box-shadow: 0 0 10px rgba(16, 185, 129, 0.5); animation: scan 4s linear infinite; opacity: 0.5; z-index: 10;
         }
-        @keyframes scan {
-            0% { transform: translateY(0); }
-            100% { transform: translateY(100%); }
-        }
+        @keyframes scan { 0% { transform: translateY(0); } 100% { transform: translateY(100%); } }
 
-        /* Auto-Hide Nav Classes */
         .nav-visible { transform: translateY(0); }
         .nav-hidden { transform: translateY(-100%); }
 
-        /* Dropdown mechanics */
-        .dropdown-menu {
-            transform-origin: top right;
-            transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-        
-        .dropdown-hidden {
-            transform: translateY(10px) scale(0.95);
-            opacity: 0;
-            visibility: hidden;
-            pointer-events: none;
-        }
+        .dropdown-menu { transform-origin: top right; transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1); }
+        .dropdown-hidden { transform: translateY(10px) scale(0.95); opacity: 0; visibility: hidden; pointer-events: none; }
 
-        /* Custom scrollbar */
         ::-webkit-scrollbar { width: 6px; height: 6px; }
         ::-webkit-scrollbar-track { background: #050507; }
         ::-webkit-scrollbar-thumb { background: #27272a; border-radius: 3px; }
         ::-webkit-scrollbar-thumb:hover { background: #3f3f46; }
+
+        /* Hide broken images automatically */
+        img[src=""], img[src="null"], img:not([src]) {
+            display: none !important;
+        }
     </style>
 </head>
 <body class="min-h-screen antialiased selection:bg-amber-500/30">
@@ -143,6 +107,12 @@
                     </span>
                     <span>Telemetry <span class="text-white">Active</span></span>
                 </div>
+
+                <!-- RBAC & Tenant Badges -->
+                <div class="hidden sm:flex items-center gap-2 text-[10px] font-bold font-mono tracking-widest ml-2">
+                    <span class="bg-zinc-900/80 text-zinc-400 px-2 py-1 rounded-lg border border-zinc-800 shadow-inner">ORG-123</span>
+                    <span id="nav-role-badge" class="px-2 py-1 rounded-lg border bg-zinc-800/50 border-zinc-700 text-zinc-500 shadow-inner">LOADING...</span>
+                </div>
             </div>
 
             <!-- Right Actions -->
@@ -157,21 +127,28 @@
                 <div class="relative">
                     <button id="profileBtn" class="w-10 h-10 rounded-xl bg-zinc-800/80 hover:bg-zinc-700/80 border border-zinc-700/60 flex items-center justify-center transition-all focus:outline-none focus:ring-2 focus:ring-amber-500 overflow-hidden">
                         <svg id="nav-default-icon" class="w-5 h-5 text-zinc-300" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
-                        <img id="nav-profile-pic" src="" alt="Profile" class="w-full h-full object-cover hidden">
+                        <img id="nav-profile-pic" src="" alt="Profile" referrerpolicy="no-referrer" class="w-full h-full object-cover hidden">
                     </button>
 
                     <div id="dropdownMenu" class="dropdown-menu dropdown-hidden absolute right-0 mt-3 w-64 bg-zinc-900/95 backdrop-blur-xl border border-zinc-700/50 rounded-2xl shadow-2xl p-2 z-50">
                         <div class="px-3 py-3 border-b border-zinc-800 mb-1">
                             <p id="dropdown-name" class="text-sm font-bold text-white">Security Command</p>
-                            <p id="dropdown-email" class="text-[11px] text-zinc-400 font-mono mt-1">admin@nexus-cspm.io</p>
+                            <p id="dropdown-email" class="text-[11px] text-zinc-400 font-mono mt-1">Loading...</p>
                         </div>
                         <a href="index.html" class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-xs font-medium text-zinc-300 hover:bg-amber-500/10 hover:text-amber-500 transition">
-                            <div class="p-1.5 rounded-lg bg-zinc-800 text-zinc-400"><svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg></div>
+                            <div class="p-1.5 rounded-lg bg-zinc-800 text-zinc-400"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg></div>
                             Return to Landing Page
                         </a>
+                        
+                        <!-- Apply for Admin Button -->
+                        <a href="apply-admin.html" class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-xs font-medium text-indigo-300 hover:bg-indigo-500/10 hover:text-indigo-400 transition">
+                            <div class="p-1.5 rounded-lg bg-indigo-500/10 text-indigo-400"><svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg></div>
+                            Apply for an Admin
+                        </a>
+
                         <div class="border-t border-zinc-800/60 mt-1 pt-1">
                             <button onclick="logOut()" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-xs font-medium text-rose-400 hover:bg-rose-500/10 transition-all text-left">
-                                <div class="p-1.5 rounded-lg bg-rose-500/10 text-rose-400"><svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path></svg></div>
+                                <div class="p-1.5 rounded-lg bg-rose-500/10 text-rose-400"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path></svg></div>
                                 Log Out Session
                             </button>
                         </div>
@@ -182,11 +159,30 @@
     </header>
 
     <main class="max-w-[1400px] mx-auto px-4 pt-24 pb-12">
+
+        <!-- AI EXPLANATION MODAL -->
+        <div id="aiModal" class="fixed inset-0 z-[100] hidden flex items-center justify-center bg-black/60 backdrop-blur-sm transition-opacity opacity-0">
+            <div class="bg-zinc-950 border border-indigo-500/30 rounded-2xl w-full max-w-lg p-6 shadow-[0_0_40px_rgba(99,102,241,0.15)] transform scale-95 transition-transform" id="aiModalContent">
+                <div class="flex items-center gap-3 mb-4 border-b border-zinc-800 pb-4">
+                    <div class="w-10 h-10 rounded-full bg-indigo-500/20 flex items-center justify-center text-indigo-400">
+                        <svg class="w-5 h-5 animate-pulse" fill="currentColor" viewBox="0 0 24 24"><path d="M19 9l1.25-2.75L23 5l-2.75-1.25L19 1l-1.25 2.75L15 5l2.75 1.25L19 9zm-7.5 .5L9 4 6.5 9.5 1 12l5.5 2.5L9 20l2.5-5.5L17 12l-5.5-2.5zM19 15l-1.25 2.75L15 19l2.75 1.25L19 23l1.25-2.75L23 19l-2.75-1.25L19 15z"/></svg>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-bold text-white tracking-wide">Nexus AI Analysis</h3>
+                        <p class="text-xs text-zinc-400 font-mono" id="aiModalTarget">Target: ...</p>
+                    </div>
+                    <button onclick="closeAiModal()" class="ml-auto text-zinc-500 hover:text-white transition-colors">
+                        <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                    </button>
+                </div>
+                <div class="min-h-[120px]">
+                    <p id="aiResponseText" class="text-sm text-zinc-300 leading-relaxed font-mono whitespace-pre-wrap"></p>
+                </div>
+            </div>
+        </div>
         
         <!-- BENTO KPI METRICS GRID -->
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 mb-6">
-            
-            <!-- KPI 1 -->
             <div class="bento-card p-6 flex flex-col justify-between">
                 <div class="flex items-center justify-between text-zinc-400 mb-4">
                     <span class="text-xs font-bold uppercase tracking-widest text-zinc-500">Total Audits</span>
@@ -198,7 +194,6 @@
                 <span class="text-[11px] text-zinc-500 mt-2 font-mono uppercase tracking-widest">SQLite Historical Log</span>
             </div>
 
-            <!-- KPI 2 (Dynamic Danger State) -->
             <div class="bento-card p-6 flex flex-col justify-between transition-colors duration-500" id="kpi-threats-card">
                 <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-rose-500 to-transparent opacity-50 hidden" id="kpi-threats-glow"></div>
                 <div class="flex items-center justify-between text-zinc-400 mb-4">
@@ -211,7 +206,6 @@
                 <span class="text-[11px] text-zinc-500 mt-2 font-mono uppercase tracking-widest">Pending Remediation</span>
             </div>
 
-            <!-- KPI 3 -->
             <div class="bento-card p-6 flex flex-col justify-between">
                 <div class="flex items-center justify-between text-zinc-400 mb-4">
                     <span class="text-xs font-bold uppercase tracking-widest text-zinc-500">Protected Clouds</span>
@@ -219,15 +213,15 @@
                         <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 00-9.78 2.096A4.001 4.001 0 003 15z"></path></svg>
                     </div>
                 </div>
-                <div class="text-4xl font-black text-white tracking-tight">3</div>
-                <div class="flex gap-1.5 mt-2">
+                <div class="text-4xl font-black text-white tracking-tight">4</div>
+                <div class="flex flex-wrap gap-1.5 mt-2">
                     <span class="px-2 py-0.5 text-[10px] font-bold rounded-md bg-amber-500/10 text-amber-500 border border-amber-500/20">AWS</span>
                     <span class="px-2 py-0.5 text-[10px] font-bold rounded-md bg-sky-500/10 text-sky-400 border border-sky-500/20">AZURE</span>
                     <span class="px-2 py-0.5 text-[10px] font-bold rounded-md bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">GCP</span>
+                    <span class="px-2 py-0.5 text-[10px] font-bold rounded-md bg-purple-500/10 text-purple-400 border border-purple-500/20">K8S</span>
                 </div>
             </div>
 
-            <!-- KPI 4 -->
             <div class="bento-card p-6 flex flex-col justify-between group">
                 <div class="absolute inset-0 bg-emerald-500/5 opacity-0 group-hover:opacity-100 transition-opacity"></div>
                 <div class="flex items-center justify-between text-zinc-400 mb-4 relative z-10">
@@ -239,13 +233,10 @@
                 <div class="text-4xl font-black text-emerald-400 tracking-tight relative z-10">SOAR</div>
                 <span class="text-[11px] text-zinc-500 mt-2 font-mono uppercase tracking-widest relative z-10">1-Click Live Revocation</span>
             </div>
-
         </div>
 
         <!-- BENTO CHARTS SECTION -->
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
-            
-            <!-- Multi-Cloud Area Chart -->
             <div class="bento-card p-6 lg:col-span-2 flex flex-col justify-between">
                 <div class="flex flex-wrap items-center justify-between gap-2 mb-6">
                     <div>
@@ -256,6 +247,7 @@
                         <span class="flex items-center gap-1.5 text-xs text-zinc-400"><div class="w-2 h-2 rounded-full bg-amber-500"></div> AWS</span>
                         <span class="flex items-center gap-1.5 text-xs text-zinc-400"><div class="w-2 h-2 rounded-full bg-sky-400"></div> Azure</span>
                         <span class="flex items-center gap-1.5 text-xs text-zinc-400"><div class="w-2 h-2 rounded-full bg-emerald-400"></div> GCP</span>
+                        <span class="flex items-center gap-1.5 text-xs text-zinc-400"><div class="w-2 h-2 rounded-full bg-purple-500"></div> K8S</span>
                         <span class="ml-2 text-[10px] font-mono font-bold text-zinc-500 bg-zinc-900/80 px-2.5 py-1 rounded-lg border border-zinc-800 shadow-inner">T-25 Audits</span>
                     </div>
                 </div>
@@ -264,11 +256,8 @@
                 </div>
             </div>
 
-            <!-- Risk Distribution Doughnut -->
             <div class="bento-card p-6 flex flex-col justify-between relative overflow-hidden">
-                <!-- Abstract background glow -->
                 <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-48 h-48 bg-emerald-500/5 rounded-full blur-3xl pointer-events-none" id="donut-glow"></div>
-                
                 <div class="mb-4 relative z-10">
                     <h2 class="text-lg font-bold text-white tracking-wide">Risk Distribution</h2>
                     <p class="text-xs text-zinc-400 mt-1">Real-time breakdown by provider</p>
@@ -277,7 +266,28 @@
                     <canvas id="providerChart"></canvas>
                 </div>
             </div>
+        </div>
 
+        <!-- IAC PRE-FLIGHT SCANNER ZONE -->
+        <div class="bento-card mb-6">
+            <div class="p-5 border-b border-zinc-800/80 flex flex-wrap items-center justify-between gap-4 bg-zinc-900/30">
+                <div>
+                    <h2 class="text-lg font-bold text-white tracking-wide">IaC Pre-Flight Scanner</h2>
+                    <p class="text-xs text-zinc-400 mt-1">Upload Terraform (.tf) or Kubernetes (.yaml) files for static analysis</p>
+                </div>
+                <div class="p-2 rounded-xl bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 shadow-inner">
+                    <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path></svg>
+                </div>
+            </div>
+            
+            <div class="p-6">
+                <div id="dropzone" class="border-2 border-dashed border-zinc-700 hover:border-indigo-500/50 rounded-2xl p-8 text-center transition-all cursor-pointer bg-zinc-900/30 hover:bg-indigo-500/5 group">
+                    <input type="file" id="iacFile" class="hidden" accept=".tf,.json,.yaml,.yml">
+                    <svg class="w-8 h-8 mx-auto text-zinc-500 group-hover:text-indigo-400 transition-colors mb-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 13h6m-3-3v6m5 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                    <p class="text-sm font-bold text-zinc-300">Drag and drop your IaC file here</p>
+                    <p class="text-xs text-zinc-500 mt-1">or click to browse local files</p>
+                </div>
+            </div>
         </div>
 
         <!-- LIVE TELEMETRY TABLE -->
@@ -297,7 +307,6 @@
             </div>
 
             <div class="overflow-x-auto relative">
-                <!-- Scanning line overlay -->
                 <div class="scan-line hidden" id="table-scanner"></div>
 
                 <table class="w-full text-left border-collapse">
@@ -321,181 +330,223 @@
     <nexus-footer></nexus-footer>
     <script src="footer.js"></script>
 
+
+    <!-- Firebase Scripts -->
     <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script> 
     
-    <!-- DASHBOARD LOGIC -->
     <script>
         // FIREBASE SETUP
-        const firebaseConfig = { apiKey: "AIzaSyCguCkybYYQ8hWq3gbG9WLPcNXVBSyhQfs", authDomain: "portifywebapp.firebaseapp.com", projectId: "portifywebapp", storageBucket: "portifywebapp.firebasestorage.app", messagingSenderId: "186704938475", appId: "1:186704938475:web:faf6b9754a0ad9bcb405ae", measurementId: "G-RD3DFFFJR9" };
+        const firebaseConfig = { 
+            apiKey: "AIzaSyD8fonHbQIJyAuq9B7jFBnQi5lamIpjxfU", 
+            authDomain: "dxo-s-all.firebaseapp.com", 
+            projectId: "dxo-s-all", 
+            storageBucket: "dxo-s-all.firebasestorage.app", 
+            messagingSenderId: "208688244462", 
+            appId: "1:208688244462:web:5dd360753206ec129bf5ff", 
+            measurementId: "G-2VMBES6WPB" 
+        };
+        
         if (!firebase.apps.length) { firebase.initializeApp(firebaseConfig); }
+        
         const auth = firebase.auth();
-        const profileBtn = document.getElementById('profileBtn'); const dropdownMenu = document.getElementById('dropdownMenu');
-        profileBtn.addEventListener('click', (e) => { e.stopPropagation(); dropdownMenu.classList.toggle('dropdown-hidden'); });
-        document.addEventListener('click', (e) => { if (!dropdownMenu.contains(e.target) && !profileBtn.contains(e.target)) dropdownMenu.classList.add('dropdown-hidden'); });
-        auth.onAuthStateChanged(user => {
-            if (user) {
-                document.getElementById('nav-profile-pic').src = user.photoURL;
-                document.getElementById('nav-profile-pic').classList.remove('hidden');
-                document.getElementById('nav-default-icon').classList.add('hidden');
-                document.getElementById('dropdown-name').textContent = user.displayName;
-                document.getElementById('dropdown-email').textContent = user.email;
-            } else {
-                document.getElementById('nav-profile-pic').classList.add('hidden');
-                document.getElementById('nav-default-icon').classList.remove('hidden');
+        const db = firebase.firestore();
+        let CURRENT_ROLE = "viewer"; 
+
+        // Profile Dropdown Logic for Dashboard
+        const profileBtn = document.getElementById('profileBtn'); 
+        const dropdownMenu = document.getElementById('dropdownMenu');
+        
+        profileBtn.addEventListener('click', (e) => { 
+            e.preventDefault();
+            e.stopPropagation(); 
+            dropdownMenu.classList.toggle('dropdown-hidden'); 
+        });
+        
+        document.addEventListener('click', (e) => { 
+            if (!dropdownMenu.contains(e.target) && !profileBtn.contains(e.target)) {
+                dropdownMenu.classList.add('dropdown-hidden'); 
             }
         });
+
+        // Auth Logic & RBAC
+        auth.onAuthStateChanged(user => {
+            if (user) {
+                // Update user names if those elements exist on the dashboard
+                const userNameDisplays = document.querySelectorAll('.user-name-display');
+                userNameDisplays.forEach(el => el.textContent = user.displayName || "Nexus Admin");
+
+                // ---> ADD THESE 3 LINES TO FIX THE DROPDOWN & BADGE <---
+                document.getElementById('dropdown-name').textContent = user.displayName || "Security Command";
+                document.getElementById('dropdown-email').textContent = user.email;
+                const roleBadge = document.getElementById('nav-role-badge');
+                if(roleBadge) roleBadge.textContent = CURRENT_ROLE.toUpperCase();
+
+                // Bulletproof Avatar Fix for the Dashboard Header
+                const profileImage = document.querySelector('img[alt="Profile"], #nav-profile-pic');
+
+                if (profileImage) {
+                    if (user.photoURL) {
+                        // User has a Google Photo
+                        profileImage.src = user.photoURL;
+                        profileImage.classList.remove('hidden');
+                        profileImage.style.display = 'block';
+                        if (defaultSvg) defaultSvg.classList.add('hidden');
+                    } else {
+                        // User logged in with Email - Hide the broken image tag!
+                        profileImage.classList.add('hidden');
+                        profileImage.style.display = 'none';
+                        if (defaultSvg) defaultSvg.classList.remove('hidden');
+                    }
+                }
+            } else {
+                // Redirect to login if they aren't authenticated
+                window.location.href = "login.html";
+            }
+
+            if (user) {
+                // Update user names...
+                const userNameDisplays = document.querySelectorAll('.user-name-display');
+                userNameDisplays.forEach(el => el.textContent = user.displayName || "Nexus Admin");
+
+                // Bulletproof Avatar Fix...
+                const profileImage = document.querySelector('img[alt="Profile"], #nav-profile-pic');
+                const defaultSvg = document.querySelector('#nav-default-icon');
+
+                if (profileImage) {
+                    if (user.photoURL) {
+                        profileImage.src = user.photoURL;
+                        profileImage.classList.remove('hidden');
+                        profileImage.style.display = 'block';
+                        if (defaultSvg) defaultSvg.classList.add('hidden');
+                    } else {
+                        profileImage.classList.add('hidden');
+                        profileImage.style.display = 'none';
+                        if (defaultSvg) defaultSvg.classList.remove('hidden');
+                    }
+                }
+                
+                // --> ADD THIS LINE SO THE CHARTS LOAD IMMEDIATELY <--
+                loadData(); 
+
+            } else {
+                // Redirect to login if they aren't authenticated
+                window.location.href = "login.html";
+            }
+        });
+
         function logOut() { auth.signOut().then(() => window.location.href = "index.html"); }
 
-        // CHART & DATA LOGIC
+        // Chart Configurations
         let trendChart, providerChart;
         Chart.defaults.color = '#71717a'; 
         Chart.defaults.font.family = "'Plus Jakarta Sans', sans-serif";
         Chart.defaults.scale.grid.color = 'rgba(255, 255, 255, 0.05)';
 
+        // Primary Data Loading Function
         async function loadData() {
-            const response = await fetch('/api/scans');
-            const data = await response.json();
-            if (data.length === 0) return;
+            try {
+                const response = await fetch('/api/scans');
+                const data = await response.json();
+                if (!data || data.length === 0) return;
 
-            document.getElementById('kpi-scans').innerText = data.length;
-            const latestScan = data[data.length - 1];
-            const threatCount = latestScan.findings.length;
-            
-            // Dynamic UI updates based on threat level
-            const threatCard = document.getElementById('kpi-threats-card');
-            const threatGlow = document.getElementById('kpi-threats-glow');
-            const threatNum = document.getElementById('kpi-vulns');
-            
-            threatNum.innerText = threatCount;
-            if (threatCount > 0) {
-                threatCard.classList.add('card-danger');
-                threatGlow.classList.remove('hidden');
-                document.getElementById('table-scanner').classList.remove('hidden');
-            } else {
-                threatCard.classList.remove('card-danger');
-                threatGlow.classList.add('hidden');
-                document.getElementById('table-scanner').classList.add('hidden');
-            }
+                document.getElementById('kpi-scans').innerText = data.length;
+                const latestScan = data[data.length - 1];
+                const threatCount = latestScan.findings ? latestScan.findings.length : 0;
+                
+                const threatCard = document.getElementById('kpi-threats-card');
+                const threatGlow = document.getElementById('kpi-threats-glow');
+                const threatNum = document.getElementById('kpi-vulns');
+                
+                threatNum.innerText = threatCount;
+                if (threatCount > 0) {
+                    threatCard.classList.add('card-danger');
+                    threatGlow.classList.remove('hidden');
+                    document.getElementById('table-scanner').classList.remove('hidden');
+                } else {
+                    threatCard.classList.remove('card-danger');
+                    threatGlow.classList.add('hidden');
+                    document.getElementById('table-scanner').classList.add('hidden');
+                }
 
-            const tbody = document.getElementById('findingsTable');
-            tbody.innerHTML = '';
-            
-            if(threatCount === 0) {
-                tbody.innerHTML = `
-                    <tr>
-                        <td colspan="6" class="py-20">
-                            <div class="flex flex-col items-center justify-center">
-                                
-                                <!-- Animated Shield/Radar Illustration -->
-                                <div class="relative w-32 h-32 flex items-center justify-center mb-8">
-                                    <!-- Rotating Dashed Radar Ring -->
-                                    <div class="absolute inset-0 rounded-full border-2 border-emerald-500/20 border-dashed animate-[spin_10s_linear_infinite]"></div>
-                                    <!-- Inner Pulsing Aura -->
-                                    <div class="absolute inset-4 rounded-full bg-emerald-500/5 animate-pulse blur-md"></div>
-                                    <!-- Outer Sonar Ping -->
-                                    <div class="absolute inset-2 rounded-full border border-emerald-500/30 animate-ping opacity-20" style="animation-duration: 3s;"></div>
-                                    
-                                    <!-- Glowing Center Shield -->
-                                    <div class="relative z-10 w-16 h-16 bg-zinc-950/90 backdrop-blur-sm border border-emerald-500/40 rounded-2xl flex items-center justify-center shadow-[0_0_30px_rgba(16,185,129,0.2)]">
-                                        <svg class="w-8 h-8 text-emerald-400 drop-shadow-[0_0_8px_rgba(16,185,129,0.8)]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
-                                        </svg>
-                                        <!-- Little Sparkle Element -->
-                                        <div class="absolute top-0 right-0 -mt-1 -mr-1 w-2.5 h-2.5 bg-emerald-300 rounded-full blur-[1px] animate-pulse"></div>
-                                    </div>
-                                </div>
+                const tbody = document.getElementById('findingsTable');
+                tbody.innerHTML = '';
+                
+                if(threatCount === 0) {
+                    tbody.innerHTML = `<tr><td colspan="6" class="py-20"><div class="flex flex-col items-center justify-center"><h3 class="text-2xl font-bold text-white mb-3">Environment Fully Compliant</h3></div></td></tr>`;
+                } else {
+                    latestScan.findings.forEach(finding => {
+                        let provider = "AWS"; let badgeColor = "bg-amber-500/10 text-amber-500 border-amber-500/30";
+                        if (finding.ruleCode.startsWith("AZURE")) { provider = "AZURE"; badgeColor = "bg-sky-500/10 text-sky-400 border-sky-500/30"; } 
+                        else if (finding.ruleCode.startsWith("GCP")) { provider = "GCP"; badgeColor = "bg-emerald-500/10 text-emerald-400 border-emerald-500/30"; } 
+                        else if (finding.ruleCode.startsWith("K8S")) { provider = "K8S"; badgeColor = "bg-purple-500/10 text-purple-400 border-purple-500/30"; }
 
-                                <!-- Text Content -->
-                                <h3 class="text-2xl font-bold text-white mb-3 tracking-wide">Environment Fully Compliant</h3>
-                                <p class="text-sm text-zinc-400 max-w-md mx-auto text-center mb-8 leading-relaxed">
-                                    Continuous telemetry confirms zero critical misconfigurations. All multi-cloud perimeters are secured and actively monitored.
-                                </p>
+                        tbody.innerHTML += `
+                            <tr class="hover:bg-zinc-800/30 transition-colors group">
+                                <td class="p-4 pl-6"><span class="px-2.5 py-1 text-[10px] font-black uppercase rounded-md border ${badgeColor} shadow-inner">${provider}</span></td>
+                                <td class="p-4 mono-font text-xs font-semibold text-zinc-200">${finding.resourceIdentifier}</td>
+                                <td class="p-4 mono-font text-xs text-zinc-400">${finding.ruleCode}</td>
+                                <td class="p-4"><span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-bold bg-rose-500/10 text-rose-500 border border-rose-500/20 shadow-inner uppercase tracking-wider"><span class="w-1.5 h-1.5 rounded-full bg-rose-500 animate-pulse"></span>${finding.severity}</span></td>
+                                <td class="p-4 text-xs text-zinc-400 max-w-xs truncate" title="${finding.evidence}">${finding.evidence}</td>
+                                <td class="p-4 pr-6 text-right flex justify-end items-center gap-2">
+                                    <button onclick="askAI('${finding.resourceIdentifier}', '${finding.ruleCode}')" class="bg-indigo-500/10 hover:bg-indigo-500/20 border border-indigo-500/30 text-indigo-400 px-3 py-2 rounded-xl text-xs font-bold transition-all duration-300 flex items-center gap-1.5" title="Ask AI Context">
+                                        <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M19 9l1.25-2.75L23 5l-2.75-1.25L19 1l-1.25 2.75L15 5l2.75 1.25L19 9zm-7.5 .5L9 4 6.5 9.5 1 12l5.5 2.5L9 20l2.5-5.5L17 12l-5.5-2.5zM19 15l-1.25 2.75L15 19l2.75 1.25L19 23l1.25-2.75L23 19l-2.75-1.25L19 15z"/></svg> Analyze
+                                    </button>
+                                    ${CURRENT_ROLE === 'admin' 
+                                        ? `<button onclick="remediateResource('${finding.resourceIdentifier}', '${finding.ruleCode}', this)" class="bg-rose-500/10 hover:bg-rose-600 border border-rose-500/30 hover:border-rose-600 text-rose-500 hover:text-white px-4 py-2 rounded-xl text-xs font-bold transition-all duration-300 shadow-sm flex items-center gap-2">
+                                               <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg> Remediate
+                                           </button>`
+                                        : `<button disabled class="bg-zinc-800/50 border border-zinc-700/50 text-zinc-500 px-4 py-2 rounded-xl text-xs font-bold flex items-center gap-2 cursor-not-allowed" title="Viewer Access Only">
+                                               <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg> Locked
+                                           </button>`
+                                    }
+                                </td>
+                            </tr>
+                        `;
+                    });
+                }
+                updateCharts(data, latestScan);
+            } catch (error) { console.error("Failed to load data:", error); }
+        }
 
-                                <!-- Individual Cloud Validation Badges -->
-                                <div class="flex flex-wrap justify-center gap-4">
-                                    <div class="flex items-center gap-2.5 px-4 py-2 rounded-xl bg-zinc-900/50 border border-zinc-800/80 shadow-inner">
-                                        <div class="relative flex h-2 w-2">
-                                          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75"></span>
-                                          <span class="relative inline-flex rounded-full h-2 w-2 bg-amber-500 shadow-[0_0_8px_rgba(245,158,11,0.8)]"></span>
-                                        </div>
-                                        <span class="text-[11px] font-bold text-zinc-300 tracking-wider">AWS SECURE</span>
-                                    </div>
-                                    <div class="flex items-center gap-2.5 px-4 py-2 rounded-xl bg-zinc-900/50 border border-zinc-800/80 shadow-inner">
-                                        <div class="relative flex h-2 w-2">
-                                          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-sky-400 opacity-75"></span>
-                                          <span class="relative inline-flex rounded-full h-2 w-2 bg-sky-500 shadow-[0_0_8px_rgba(56,189,248,0.8)]"></span>
-                                        </div>
-                                        <span class="text-[11px] font-bold text-zinc-300 tracking-wider">AZURE SECURE</span>
-                                    </div>
-                                    <div class="flex items-center gap-2.5 px-4 py-2 rounded-xl bg-zinc-900/50 border border-zinc-800/80 shadow-inner">
-                                        <div class="relative flex h-2 w-2">
-                                          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                                          <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.8)]"></span>
-                                        </div>
-                                        <span class="text-[11px] font-bold text-zinc-300 tracking-wider">GCP SECURE</span>
-                                    </div>
-                                </div>
-                                
-                            </div>
-                        </td>
-                    </tr>`;
-            } else {
-                latestScan.findings.forEach(finding => {
-                    let provider = "AWS"; let badgeColor = "bg-amber-500/10 text-amber-500 border-amber-500/20";
-                    if (finding.ruleCode.includes("AZURE")) { provider = "Azure"; badgeColor = "bg-sky-500/10 text-sky-400 border-sky-500/20"; }
-                    if (finding.ruleCode.includes("GCP")) { provider = "GCP"; badgeColor = "bg-emerald-500/10 text-emerald-400 border-emerald-500/20"; }
+        // Action Handlers
+        async function runScan() {
+            const btn = document.getElementById('scanBtn');
+            const originalText = btn.innerHTML;
+            btn.innerHTML = `<svg class="animate-spin h-4 w-4" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" fill="none"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg> <span class="hidden sm:inline">Auditing Cloud...</span><span class="sm:hidden">Scanning</span>`;
+            btn.disabled = true;
+            try { await fetch('/api/scan/run', { method: 'POST' }); await loadData(); } 
+            catch (error) { console.error(error); alert("The multi-cloud scan timed out."); } 
+            finally { btn.innerHTML = originalText; btn.disabled = false; }
+        }
 
-                    tbody.innerHTML += `
-                        <tr class="hover:bg-zinc-800/30 transition-colors group">
-                            <td class="p-4 pl-6">
-                                <span class="px-2.5 py-1 text-[10px] font-black uppercase rounded-md border ${badgeColor} shadow-inner">${provider}</span>
-                            </td>
-                            <td class="p-4 mono-font text-xs font-semibold text-zinc-200">${finding.resourceIdentifier}</td>
-                            <td class="p-4 mono-font text-xs text-zinc-400">${finding.ruleCode}</td>
-                            <td class="p-4">
-                                <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-bold bg-rose-500/10 text-rose-500 border border-rose-500/20 shadow-inner uppercase tracking-wider">
-                                    <span class="w-1.5 h-1.5 rounded-full bg-rose-500 animate-pulse"></span>
-                                    ${finding.severity}
-                                </span>
-                            </td>
-                            <td class="p-4 text-xs text-zinc-400 max-w-xs truncate" title="${finding.evidence}">${finding.evidence}</td>
-                            <td class="p-4 pr-6 text-right">
-                                <button onclick="remediateResource('${finding.resourceIdentifier}', '${finding.ruleCode}', this)" class="bg-rose-500/10 hover:bg-rose-600 border border-rose-500/30 hover:border-rose-600 text-rose-500 hover:text-white px-4 py-2 rounded-xl text-xs font-bold transition-all duration-300 shadow-sm flex items-center gap-2 ml-auto">
-                                    <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
-                                    Remediate
-                                </button>
-                            </td>
-                        </tr>
-                    `;
-                });
-            }
-
-            updateCharts(data, latestScan);
+        async function remediateResource(resourceId, ruleCode, btn) {
+            btn.innerHTML = `<svg class="animate-spin h-3.5 w-3.5 inline mr-1" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" fill="none"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg> Patching`;
+            btn.classList.add('opacity-50', 'pointer-events-none');
+            try {
+                const response = await fetch('/api/remediate', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ resourceIdentifier: resourceId, ruleCode: ruleCode }) });
+                if (response.ok) {
+                    btn.innerHTML = '<svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> Patched';
+                    btn.className = 'bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 px-4 py-2 rounded-xl text-xs font-bold flex items-center gap-2 ml-auto transition-all shadow-[0_0_15px_rgba(16,185,129,0.2)]';
+                    setTimeout(runScan, 1000);
+                } else { throw new Error("Remediation failed."); }
+            } catch (error) { btn.innerText = 'Failed ✖'; btn.className = 'bg-rose-600 text-white px-4 py-1.5 rounded-xl text-xs font-bold ml-auto'; }
         }
 
         function updateCharts(historicalData, latestScan) {
             const chartData = historicalData.slice(-25);
             const labels = chartData.map((_, i) => `T-${chartData.length - 1 - i}`);
-            
-            const awsCounts = chartData.map(s => s.findings.filter(f => !f.ruleCode.includes('AZURE') && !f.ruleCode.includes('GCP')).length);
-            const azureCounts = chartData.map(s => s.findings.filter(f => f.ruleCode.includes('AZURE')).length);
-            const gcpCounts = chartData.map(s => s.findings.filter(f => f.ruleCode.includes('GCP')).length);
+            const awsCounts = chartData.map(s => s.findings ? s.findings.filter(f => !f.ruleCode.includes('AZURE') && !f.ruleCode.includes('GCP') && !f.ruleCode.includes('K8S')).length : 0);
+            const azureCounts = chartData.map(s => s.findings ? s.findings.filter(f => f.ruleCode.includes('AZURE')).length : 0);
+            const gcpCounts = chartData.map(s => s.findings ? s.findings.filter(f => f.ruleCode.includes('GCP')).length : 0);
+            const k8sCounts = chartData.map(s => s.findings ? s.findings.filter(f => f.ruleCode.includes('K8S')).length : 0);
 
-            // Create Canvas Gradients for Area Chart effect
             const ctxTrend = document.getElementById('trendChart').getContext('2d');
-            
-            const gradAws = ctxTrend.createLinearGradient(0, 0, 0, 300);
-            gradAws.addColorStop(0, 'rgba(245, 158, 11, 0.4)');
-            gradAws.addColorStop(1, 'rgba(245, 158, 11, 0.0)');
-
-            const gradAzure = ctxTrend.createLinearGradient(0, 0, 0, 300);
-            gradAzure.addColorStop(0, 'rgba(56, 189, 248, 0.4)');
-            gradAzure.addColorStop(1, 'rgba(56, 189, 248, 0.0)');
-
-            const gradGcp = ctxTrend.createLinearGradient(0, 0, 0, 300);
-            gradGcp.addColorStop(0, 'rgba(16, 185, 129, 0.4)');
-            gradGcp.addColorStop(1, 'rgba(16, 185, 129, 0.0)');
+            const gradAws = ctxTrend.createLinearGradient(0, 0, 0, 300); gradAws.addColorStop(0, 'rgba(245, 158, 11, 0.4)'); gradAws.addColorStop(1, 'rgba(245, 158, 11, 0.0)');
+            const gradAzure = ctxTrend.createLinearGradient(0, 0, 0, 300); gradAzure.addColorStop(0, 'rgba(56, 189, 248, 0.4)'); gradAzure.addColorStop(1, 'rgba(56, 189, 248, 0.0)');
+            const gradGcp = ctxTrend.createLinearGradient(0, 0, 0, 300); gradGcp.addColorStop(0, 'rgba(16, 185, 129, 0.4)'); gradGcp.addColorStop(1, 'rgba(16, 185, 129, 0.0)');
+            const gradK8s = ctxTrend.createLinearGradient(0, 0, 0, 300); gradK8s.addColorStop(0, 'rgba(168, 85, 247, 0.4)'); gradK8s.addColorStop(1, 'rgba(168, 85, 247, 0.0)');
 
             if(trendChart) trendChart.destroy();
             trendChart = new Chart(ctxTrend, {
@@ -505,95 +556,31 @@
                     datasets: [
                         { label: 'AWS', data: awsCounts, borderColor: '#f59e0b', backgroundColor: gradAws, tension: 0.4, borderWidth: 2, pointRadius: 0, pointHoverRadius: 4, fill: true },
                         { label: 'Azure', data: azureCounts, borderColor: '#38bdf8', backgroundColor: gradAzure, tension: 0.4, borderWidth: 2, pointRadius: 0, pointHoverRadius: 4, fill: true },
-                        { label: 'GCP', data: gcpCounts, borderColor: '#10b981', backgroundColor: gradGcp, tension: 0.4, borderWidth: 2, pointRadius: 0, pointHoverRadius: 4, fill: true }
+                        { label: 'GCP', data: gcpCounts, borderColor: '#10b981', backgroundColor: gradGcp, tension: 0.4, borderWidth: 2, pointRadius: 0, pointHoverRadius: 4, fill: true },
+                        { label: 'K8S', data: k8sCounts, borderColor: '#a855f7', backgroundColor: gradK8s, tension: 0.4, borderWidth: 2, pointRadius: 0, pointHoverRadius: 4, fill: true }
                     ]
                 },
-                options: {
-                    responsive: true, maintainAspectRatio: false,
-                    interaction: { mode: 'index', intersect: false },
-                    scales: {
-                        y: { beginAtZero: true, suggestedMax: 3, border: { display: false }, ticks: { precision: 0, stepSize: 1 } },
-                        x: { border: { display: false }, grid: { display: false }, ticks: { maxTicksLimit: 8, font: { family: 'JetBrains Mono' } } }
-                    },
-                    plugins: {
-                        legend: { display: false }, // Custom legend used in HTML
-                        tooltip: { backgroundColor: 'rgba(9, 9, 11, 0.9)', titleFont: { family: 'JetBrains Mono' }, padding: 12, cornerRadius: 8, borderColor: 'rgba(63, 63, 70, 0.5)', borderWidth: 1 }
-                    }
-                }
+                options: { responsive: true, maintainAspectRatio: false, interaction: { mode: 'index', intersect: false }, scales: { y: { beginAtZero: true, suggestedMax: 3, border: { display: false }, ticks: { precision: 0, stepSize: 1 } }, x: { border: { display: false }, grid: { display: false }, ticks: { maxTicksLimit: 8, font: { family: 'JetBrains Mono' } } } }, plugins: { legend: { display: false }, tooltip: { backgroundColor: 'rgba(9, 9, 11, 0.9)', titleFont: { family: 'JetBrains Mono' }, padding: 12, cornerRadius: 8, borderColor: 'rgba(63, 63, 70, 0.5)', borderWidth: 1 } } }
             });
 
-            // Provider Doughnut Chart
-            let awsCurrent = awsCounts[awsCounts.length - 1] || 0;
-            let azureCurrent = azureCounts[azureCounts.length - 1] || 0;
-            let gcpCurrent = gcpCounts[gcpCounts.length - 1] || 0;
-            const totalThreats = awsCurrent + azureCurrent + gcpCurrent;
-
-            // Change background glow based on status
+            let awsCurrent = awsCounts[awsCounts.length - 1] || 0; let azureCurrent = azureCounts[azureCounts.length - 1] || 0; let gcpCurrent = gcpCounts[gcpCounts.length - 1] || 0; let k8sCurrent = k8sCounts[k8sCounts.length - 1] || 0;
+            const totalThreats = awsCurrent + azureCurrent + gcpCurrent + k8sCurrent;
             const donutGlow = document.getElementById('donut-glow');
-            if(totalThreats > 0) {
-                donutGlow.className = 'absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-48 h-48 rounded-full blur-3xl pointer-events-none bg-rose-500/10';
-            } else {
-                donutGlow.className = 'absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-48 h-48 rounded-full blur-3xl pointer-events-none bg-emerald-500/10';
-            }
+            donutGlow.className = totalThreats > 0 ? 'absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-48 h-48 rounded-full blur-3xl pointer-events-none bg-rose-500/10' : 'absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-48 h-48 rounded-full blur-3xl pointer-events-none bg-emerald-500/10';
 
             if(providerChart) providerChart.destroy();
             providerChart = new Chart(document.getElementById('providerChart'), {
                 type: 'doughnut',
                 data: {
-                    labels: totalThreats > 0 ? ['AWS', 'Azure', 'GCP'] : ['Protected'],
-                    datasets: [{
-                        data: totalThreats > 0 ? [awsCurrent, azureCurrent, gcpCurrent] : [1],
-                        backgroundColor: totalThreats > 0 ? ['#f59e0b', '#38bdf8', '#10b981'] : ['#10b981'],
-                        borderWidth: 0,
-                        hoverOffset: 4
-                    }]
+                    labels: totalThreats > 0 ? ['AWS', 'Azure', 'GCP', 'K8S'] : ['Protected'],
+                    datasets: [{ data: totalThreats > 0 ? [awsCurrent, azureCurrent, gcpCurrent, k8sCurrent] : [1], backgroundColor: totalThreats > 0 ? ['#f59e0b', '#38bdf8', '#10b981', '#a855f7'] : ['#10b981'], borderWidth: 0, hoverOffset: 4 }]
                 },
-                options: {
-                    responsive: true, maintainAspectRatio: false, cutout: '80%',
-                    plugins: {
-                        legend: { position: 'bottom', labels: { usePointStyle: true, padding: 20, font: { family: 'Plus Jakarta Sans', size: 12, weight: 600 } } },
-                        tooltip: { backgroundColor: 'rgba(9, 9, 11, 0.9)', padding: 12, cornerRadius: 8, borderColor: 'rgba(63, 63, 70, 0.5)', borderWidth: 1 }
-                    }
-                }
+                options: { responsive: true, maintainAspectRatio: false, cutout: '80%', plugins: { legend: { position: 'bottom', labels: { usePointStyle: true, padding: 20, font: { family: 'Plus Jakarta Sans', size: 12, weight: 600 } } }, tooltip: { backgroundColor: 'rgba(9, 9, 11, 0.9)', padding: 12, cornerRadius: 8, borderColor: 'rgba(63, 63, 70, 0.5)', borderWidth: 1 } } }
             });
         }
 
-        async function remediateResource(resourceId, ruleCode, btn) {
-            btn.innerHTML = `<svg class="animate-spin h-3.5 w-3.5 inline mr-1" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" fill="none"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg> Patching`;
-            btn.classList.add('opacity-50', 'pointer-events-none');
-            
-            const response = await fetch('/api/remediate', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ resourceIdentifier: resourceId, ruleCode: ruleCode })
-            });
-
-            if (response.ok) {
-                btn.innerHTML = '<svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> Patched';
-                btn.className = 'bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 px-4 py-2 rounded-xl text-xs font-bold flex items-center gap-2 ml-auto transition-all shadow-[0_0_15px_rgba(16,185,129,0.2)]';
-                setTimeout(runScan, 1000);
-            } else {
-                btn.innerText = 'Failed ✖';
-                btn.className = 'bg-rose-600 text-white px-4 py-1.5 rounded-xl text-xs font-bold ml-auto';
-            }
-        }
-
-        async function runScan() {
-            const btn = document.getElementById('scanBtn');
-            const originalText = btn.innerHTML;
-            btn.innerHTML = `<svg class="animate-spin h-4 w-4" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" fill="none"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg> <span class="hidden sm:inline">Auditing Cloud...</span><span class="sm:hidden">Scanning</span>`;
-            btn.disabled = true;
-            
-            await fetch('/api/scan/run', { method: 'POST' });
-            await loadData();
-            
-            btn.innerHTML = originalText;
-            btn.disabled = false;
-        }
-
-        // Initialize Auto-Hide Nav
-        const mainNav = document.getElementById('main-nav');
-        let lastScrollY = window.scrollY;
+        // Auto-Hide Nav
+        const mainNav = document.getElementById('main-nav'); let lastScrollY = window.scrollY;
         window.addEventListener('scroll', () => {
             if (!mainNav) return;
             const isAtBottom = (window.innerHeight + window.scrollY) >= (document.body.offsetHeight - 200);
@@ -604,8 +591,75 @@
             lastScrollY = window.scrollY;
         });
 
-        // Initial Data Load
-        loadData();
+        // AI Modal
+        async function askAI(resourceId, ruleCode) {
+            const modal = document.getElementById('aiModal'); const modalContent = document.getElementById('aiModalContent'); const responseText = document.getElementById('aiResponseText');
+            document.getElementById('aiModalTarget').innerText = `Target: ${resourceId}`;
+            responseText.innerHTML = '<span class="text-indigo-400 animate-pulse">Scanning knowledge base and analyzing threat vectors...</span>';
+            modal.classList.remove('hidden'); setTimeout(() => { modal.classList.remove('opacity-0'); modalContent.classList.remove('scale-95'); }, 10);
+            try {
+                const response = await fetch('/api/ai/explain', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ resourceIdentifier: resourceId, ruleCode: ruleCode }) });
+                const data = await response.json(); responseText.innerHTML = ''; let i = 0; const text = data.explanation; const speed = 15; 
+                function typeWriter() { if (i < text.length) { responseText.innerHTML += text.charAt(i); i++; setTimeout(typeWriter, speed); } else { responseText.innerHTML += `<br><br><span class="text-emerald-400 font-bold">Recommended Action:</span> ${data.recommendedAction}`; } }
+                typeWriter();
+            } catch (e) { responseText.innerHTML = '<span class="text-rose-500">AI Analysis failed to connect to the engine.</span>'; }
+        }
+
+        function closeAiModal() {
+            const modal = document.getElementById('aiModal'); const modalContent = document.getElementById('aiModalContent');
+            modal.classList.add('opacity-0'); modalContent.classList.add('scale-95'); setTimeout(() => modal.classList.add('hidden'), 300);
+        }
+
+        // IaC Upload
+        const dropzone = document.getElementById('dropzone'); const fileInput = document.getElementById('iacFile');
+        if(dropzone && fileInput) {
+            dropzone.addEventListener('click', () => fileInput.click());
+            dropzone.addEventListener('dragover', (e) => { e.preventDefault(); dropzone.classList.add('border-indigo-500/50', 'bg-indigo-500/5'); });
+            dropzone.addEventListener('dragleave', () => { dropzone.classList.remove('border-indigo-500/50', 'bg-indigo-500/5'); });
+            dropzone.addEventListener('drop', (e) => { e.preventDefault(); dropzone.classList.remove('border-indigo-500/50', 'bg-indigo-500/5'); if (e.dataTransfer.files.length) handleIaCUpload(e.dataTransfer.files[0]); });
+            fileInput.addEventListener('change', (e) => { if (e.target.files.length) handleIaCUpload(e.target.files[0]); });
+        }
+
+        async function handleIaCUpload(file) {
+            const originalContent = dropzone.innerHTML;
+            dropzone.innerHTML = `<svg class="animate-spin h-8 w-8 mx-auto text-indigo-500 mb-3" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" fill="none"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg><p class="text-sm font-bold text-indigo-400">Performing Static Analysis on ${file.name}...</p>`;
+            const formData = new FormData(); formData.append('file', file);
+            try {
+                const response = await fetch('/api/scan/iac', { method: 'POST', body: formData }); const findings = await response.json(); renderIaCFindings(findings, file.name);
+            } catch (err) { alert("IaC Scan Failed to communicate with the engine."); } finally { dropzone.innerHTML = originalContent; fileInput.value = ""; }
+        }
+
+        function renderIaCFindings(findings, fileName) {
+            const tbody = document.getElementById('findingsTable'); document.getElementById('findingsTable').scrollIntoView({ behavior: 'smooth', block: 'center' });
+            const emptyState = tbody.querySelector('td[colspan="6"]'); if (emptyState && emptyState.innerText.includes("Environment Fully Compliant")) emptyState.parentElement.remove();
+            document.getElementById('table-scanner').classList.remove('hidden');
+
+            if (findings.length === 0) {
+                const row = document.createElement('tr'); row.className = 'bg-emerald-500/10 transition-colors'; row.innerHTML = `<td colspan="6" class="p-4 pl-6 text-emerald-400 text-xs font-bold font-mono">✅ Pre-Flight Passed: No vulnerabilities found in ${fileName}</td>`;
+                tbody.prepend(row); setTimeout(() => row.classList.remove('bg-emerald-500/10'), 3000); return;
+            }
+
+            findings.reverse().forEach(finding => {
+                const row = document.createElement('tr'); row.className = 'bg-indigo-500/20 transition-colors duration-1000 group'; 
+                row.innerHTML = `
+                    <td class="p-4 pl-6"><span class="px-2.5 py-1 text-[10px] font-black uppercase rounded-md border bg-indigo-500/10 text-indigo-400 border-indigo-500/30 shadow-inner">PRE-FLIGHT</span></td>
+                    <td class="p-4 mono-font text-xs font-semibold text-zinc-200">${finding.resourceIdentifier}</td>
+                    <td class="p-4 mono-font text-xs text-zinc-400">${finding.ruleCode}</td>
+                    <td class="p-4"><span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-bold bg-rose-500/10 text-rose-500 border border-rose-500/20 shadow-inner uppercase tracking-wider"><span class="w-1.5 h-1.5 rounded-full bg-rose-500 animate-pulse"></span>${finding.severity}</span></td>
+                    <td class="p-4 text-xs text-zinc-400 max-w-xs truncate" title="${finding.evidence}">${finding.evidence}</td>
+                    <td class="p-4 pr-6 text-right flex justify-end items-center gap-2">
+                        <button onclick="askAI('${finding.resourceIdentifier}', '${finding.ruleCode}')" class="bg-indigo-500/10 hover:bg-indigo-500/20 border border-indigo-500/30 text-indigo-400 px-3 py-2 rounded-xl text-xs font-bold transition-all duration-300 flex items-center gap-1.5" title="Ask AI Context">
+                            <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M19 9l1.25-2.75L23 5l-2.75-1.25L19 1l-1.25 2.75L15 5l2.75 1.25L19 9zm-7.5 .5L9 4 6.5 9.5 1 12l5.5 2.5L9 20l2.5-5.5L17 12l-5.5-2.5zM19 15l-1.25 2.75L15 19l2.75 1.25L19 23l1.25-2.75L23 19l-2.75-1.25L19 15z"/></svg> Analyze
+                        </button>
+                        <button disabled class="bg-zinc-800/50 border border-zinc-700/50 text-zinc-500 px-4 py-2 rounded-xl text-xs font-bold flex items-center gap-2 cursor-not-allowed">
+                            <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg> Local File
+                        </button>
+                    </td>
+                `;
+                tbody.prepend(row);
+                setTimeout(() => { row.classList.remove('bg-indigo-500/20'); row.classList.add('hover:bg-zinc-800/30'); }, 2000);
+            });
+        }
     </script>
 </body>
 </html>

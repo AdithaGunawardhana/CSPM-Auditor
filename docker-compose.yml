@@ -1,0 +1,20 @@
+version: '3.8'
+
+services:
+  nexus-cspm:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: nexus-cspm-engine
+    ports:
+      - "5000:8080"
+    volumes:
+      - nexus-data-volume:/app/data
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      - ASPNETCORE_URLS=http://+:8080
+    restart: unless-stopped
+
+volumes:
+  nexus-data-volume:
+    name: nexus_cspm_sqlite_data
