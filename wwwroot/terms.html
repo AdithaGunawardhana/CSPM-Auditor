@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,63 +13,103 @@
         .slide-up { animation: slideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards; opacity: 0; transform: translateY(30px); }
         @keyframes slideUp { to { opacity: 1; transform: translateY(0); } }
         .bento-card { background: rgba(24, 24, 27, 0.6); backdrop-filter: blur(16px); border: 1px solid rgba(63, 63, 70, 0.4); border-radius: 24px; }
-        .dropdown-menu { transform-origin: top right; transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1); }
-        .dropdown-hidden { transform: translateY(10px) scale(0.95); opacity: 0; visibility: hidden; }
     </style>
 </head>
 <body class="antialiased selection:bg-amber-500/30">
     <div class="ambient-bg"></div>
 
-    <!-- NAVIGATION -->
+    <!-- NAVIGATION (Authentication & Dropdown handled internally via navbar.js) -->
     <nexus-navbar></nexus-navbar>
     <script src="navbar.js"></script>
 
     <!-- CONTENT -->
     <main class="pt-40 pb-20 px-6 max-w-[900px] mx-auto slide-up">
-        <div class="bento-card p-10 space-y-6">
-            <h1 class="text-4xl font-extrabold text-white mb-2">Terms of Service</h1>
-            <p class="text-xs text-zinc-500 uppercase tracking-widest font-bold">Last Updated: August 2026</p>
+        <div class="bento-card p-8 md:p-12 space-y-8">
             
-            <hr class="border-zinc-800 my-6">
+            <div>
+                <span class="px-3 py-1 bg-amber-500/10 border border-amber-500/20 text-amber-500 text-[10px] font-bold uppercase tracking-widest rounded-md">Legal & Compliance</span>
+                <h1 class="text-3xl md:text-4xl font-extrabold text-white mt-3 mb-2 tracking-tight">Terms of Service</h1>
+                <p class="text-xs text-zinc-500 uppercase tracking-widest font-mono">Effective Date: August 2026 | Version 3.0</p>
+            </div>
+            
+            <hr class="border-zinc-800">
 
-            <h2 class="text-xl font-bold text-white">1. Acceptance of Terms</h2>
-            <p class="text-zinc-400 leading-relaxed">By accessing or running the Nexus CSPM platform, you agree to comply with and be bound by these Terms of Service. If you do not agree to these terms, you must not use our software.</p>
+            <!-- Section 1 -->
+            <section class="space-y-3">
+                <h2 class="text-xl font-bold text-white flex items-center gap-2">
+                    <span class="w-2 h-2 rounded-full bg-amber-500"></span>
+                    1. Identity Governance & Access
+                </h2>
+                <p class="text-zinc-400 leading-relaxed text-sm">
+                    Access to the Nexus CSPM platform is managed via Firebase Google Authentication. By utilizing this platform, you agree to:
+                </p>
+                <ul class="list-disc list-inside space-y-2 text-sm text-zinc-400 pl-2">
+                    <li>Maintain the confidentiality of your Google authentication credentials.</li>
+                    <li>Acknowledge that privilege escalation (granting the <strong>ADMIN</strong> role) is solely at the discretion of the DxO Governance team via the Firestore approval pipeline.</li>
+                    <li>Refrain from attempting to spoof, bypass, or manipulate the Firestore Role-Based Access Control (RBAC) token validations.</li>
+                </ul>
+            </section>
 
-            <h2 class="text-xl font-bold text-white">2. Use of SOAR Automation</h2>
-            <p class="text-zinc-400 leading-relaxed">The Nexus platform features active remediation capabilities that interact directly with cloud provider APIs (AWS, Azure, GCP). You agree that you have the proper administrative authorization to execute policy revocations and security group edits on any target cloud environment scanned by this engine.</p>
+            <!-- Section 2 -->
+            <section class="space-y-3">
+                <h2 class="text-xl font-bold text-white flex items-center gap-2">
+                    <span class="w-2 h-2 rounded-full bg-sky-400"></span>
+                    2. Use of Active SOAR Remediation
+                </h2>
+                <p class="text-zinc-400 leading-relaxed text-sm">
+                    Nexus features Security Orchestration, Automation, and Response (SOAR) capabilities that actively interact with live production environments across AWS, Azure, GCP, and Kubernetes.
+                </p>
+                <div class="p-4 bg-zinc-950/60 border border-sky-500/20 rounded-xl mt-2">
+                    <p class="text-sm text-sky-400 font-bold mb-1">Authorization Clause</p>
+                    <p class="text-xs text-zinc-400">By clicking any "Remediate" button within the dashboard, you legally verify that you hold explicit administrative authorization from your organization to execute destructive API actions (e.g., revoking security group ingress, modifying IAM boundaries) on the target cloud resource.</p>
+                </div>
+            </section>
 
-            <h2 class="text-xl font-bold text-white">3. Limitation of Liability</h2>
-            <p class="text-zinc-400 leading-relaxed">Nexus and its maintainers shall not be held liable for any direct, indirect, incidental, or consequential damages resulting from cloud misconfigurations, automated script executions, or unauthorized API access.</p>
+            <!-- Section 3 -->
+            <section class="space-y-3">
+                <h2 class="text-xl font-bold text-white flex items-center gap-2">
+                    <span class="w-2 h-2 rounded-full bg-indigo-400"></span>
+                    3. Generative AI Threat Intelligence
+                </h2>
+                <p class="text-zinc-400 leading-relaxed text-sm">
+                    The platform integrates a Large Language Model (LLM) to generate contextual threat explanations and prescriptive code snippets. 
+                </p>
+                <p class="text-zinc-400 leading-relaxed text-sm">
+                    <strong>Disclaimer:</strong> AI-generated outputs are provided for informational and analytical purposes only. You acknowledge that generative AI can produce hallucinations or suboptimal security architectures. You agree to manually review and validate any AI-suggested Terraform, CLI, or Kubernetes manifest modifications before applying them to production systems.
+                </p>
+            </section>
+
+            <!-- Section 4 -->
+            <section class="space-y-3">
+                <h2 class="text-xl font-bold text-white flex items-center gap-2">
+                    <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+                    4. Infrastructure as Code (IaC) Scanning
+                </h2>
+                <p class="text-zinc-400 leading-relaxed text-sm">
+                    The Nexus Pre-Flight Scanner allows users to upload local <code class="text-xs bg-zinc-900 px-1.5 py-0.5 rounded text-emerald-400">.tf</code> and <code class="text-xs bg-zinc-900 px-1.5 py-0.5 rounded text-emerald-400">.yaml</code> files for static in-memory analysis. You agree to ensure that uploaded manifests are sanitized of hardcoded secrets, private cryptographic keys, and sensitive plaintext passwords prior to submission.
+                </p>
+            </section>
+
+            <!-- Section 5 -->
+            <section class="space-y-3">
+                <h2 class="text-xl font-bold text-white flex items-center gap-2">
+                    <span class="w-2 h-2 rounded-full bg-rose-500"></span>
+                    5. Limitation of Liability
+                </h2>
+                <p class="text-zinc-400 leading-relaxed text-sm">
+                    The Nexus platform, its C# backend, and its Firebase integration are provided "as-is". Under no circumstances shall Nexus, its developers, or the DxO governance team be held liable for:
+                </p>
+                <ul class="list-disc list-inside space-y-2 text-sm text-zinc-400 pl-2">
+                    <li>Application downtime resulting from automated SOAR remediation actions.</li>
+                    <li>Breaches or exploits occurring within your scanned cloud environments.</li>
+                    <li>Loss of data due to automated or manual modifications of cloud architectures.</li>
+                </ul>
+            </section>
+
         </div>
     </main>
 
     <nexus-footer></nexus-footer>
     <script src="footer.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
-    <script>
-        const firebaseConfig = { apiKey: "AIzaSyCguCkybYYQ8hWq3gbG9WLPcNXVBSyhQfs", authDomain: "portifywebapp.firebaseapp.com", projectId: "portifywebapp", storageBucket: "portifywebapp.firebasestorage.app", messagingSenderId: "186704938475", appId: "1:186704938475:web:faf6b9754a0ad9bcb405ae", measurementId: "G-RD3DFFFJR9" };
-        if (!firebase.apps.length) { firebase.initializeApp(firebaseConfig); }
-        const auth = firebase.auth(); const provider = new firebase.auth.GoogleAuthProvider();
-        const profileBtn = document.getElementById('profileBtn'); const dropdownMenu = document.getElementById('dropdownMenu');
-        profileBtn.addEventListener('click', (e) => { e.stopPropagation(); dropdownMenu.classList.toggle('dropdown-hidden'); });
-        document.addEventListener('click', (e) => { if (!dropdownMenu.contains(e.target) && !profileBtn.contains(e.target)) dropdownMenu.classList.add('dropdown-hidden'); });
-        auth.onAuthStateChanged(user => {
-            if (user) {
-                document.getElementById('menu-logged-out').classList.add('hidden'); document.getElementById('menu-logged-in').classList.remove('hidden');
-                document.getElementById('nav-user-name').textContent = user.displayName.split(' ')[0];
-                document.getElementById('nav-default-icon').classList.add('hidden');
-                document.getElementById('nav-profile-pic').src = user.photoURL; document.getElementById('nav-profile-pic').classList.remove('hidden');
-                document.getElementById('dropdown-name').textContent = user.displayName; document.getElementById('dropdown-email').textContent = user.email;
-            } else {
-                document.getElementById('menu-logged-out').classList.remove('hidden'); document.getElementById('menu-logged-in').classList.add('hidden');
-                document.getElementById('nav-user-name').textContent = "Guest";
-                document.getElementById('nav-profile-pic').classList.add('hidden'); document.getElementById('nav-profile-pic').src = "";
-                document.getElementById('nav-default-icon').classList.remove('hidden');
-            }
-        });
-        function signInWithGoogle() { auth.signInWithPopup(provider).catch(e => alert("Login failed. Check console.")); }
-        function logOut() { auth.signOut().then(() => dropdownMenu.classList.add('dropdown-hidden')); }
-    </script>
 </body>
 </html>

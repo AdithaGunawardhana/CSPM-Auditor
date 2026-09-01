@@ -7,12 +7,19 @@ namespace CspmEngine
     // Database context
     public class CspmDbContext : DbContext
     {
+        public CspmDbContext(DbContextOptions<CspmDbContext> options) : base(options) { }
         public DbSet<Scan> Scans { get; set; }
         public DbSet<CloudResource> Resources { get; set; }
         public DbSet<ScanFinding> Findings { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder options)
-            => options.UseSqlite("Data Source=cspm_audit.db");
+        {
+            // Only configure if it wasn't already configured in Program.cs
+            if (!options.IsConfigured)
+            {
+                options.UseSqlite("Data Source=data/cspm_audit.db");
+            }
+        }
     }
 
     public class Scan

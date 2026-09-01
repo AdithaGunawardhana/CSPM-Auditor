@@ -18,8 +18,6 @@
         @keyframes slideUp { to { opacity: 1; transform: translateY(0); } }
         
         .bento-card { background: rgba(24, 24, 27, 0.6); backdrop-filter: blur(16px); border: 1px solid rgba(63, 63, 70, 0.4); border-radius: 24px; transition: all 0.4s; }
-        .dropdown-menu { transform-origin: top right; transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1); }
-        .dropdown-hidden { transform: translateY(10px) scale(0.95); opacity: 0; visibility: hidden; }
 
         /* Custom scroll offset so the sticky nav doesn't cover content */
         section { scroll-margin-top: 140px; }
@@ -28,7 +26,7 @@
 <body class="antialiased selection:bg-amber-500/30">
     <div class="ambient-bg"></div>
 
-    <!-- NAVIGATION -->
+    <!-- NAVIGATION (Handles its own Firebase Auth internally now!) -->
     <nexus-navbar></nexus-navbar>
     <script src="navbar.js"></script>
 
@@ -43,9 +41,9 @@
                     <ul class="space-y-3 text-sm text-zinc-400 font-medium" id="doc-nav">
                         <li><a href="#what-is-nexus" class="nav-link text-amber-500 block transition-colors hover:text-amber-400">What is Nexus?</a></li>
                         <li><a href="#multicloud" class="nav-link block transition-colors hover:text-zinc-200">The Multi-Cloud Era</a></li>
+                        <li><a href="#iga-architecture" class="nav-link block transition-colors hover:text-zinc-200">Identity Governance (IGA)</a></li>
                         <li><a href="#benefits" class="nav-link block transition-colors hover:text-zinc-200">Core Benefits</a></li>
                         <li><a href="#how-to-use" class="nav-link block transition-colors hover:text-zinc-200">Getting Started</a></li>
-                        <li><a href="#api-reference" class="nav-link block transition-colors hover:text-zinc-200">API Reference</a></li>
                         <li><a href="#news-links" class="nav-link block transition-colors hover:text-zinc-200">News & Links</a></li>
                     </ul>
                 </div>
@@ -62,33 +60,70 @@
                         </div>
                         <h1 class="text-3xl font-bold text-white">What is Nexus?</h1>
                     </div>
-                    <p class="text-zinc-400 leading-relaxed mb-4">Nexus is an enterprise-grade <strong>Cloud Security Posture Management (CSPM)</strong> engine built entirely on ASP.NET Core and Entity Framework. It actively audits cloud infrastructure to detect dangerous misconfigurations before attackers can exploit them.</p>
-                    <p class="text-zinc-400 leading-relaxed">Unlike traditional tools that simply generate alerts, Nexus features a <strong>Security Orchestration, Automation, and Response (SOAR)</strong> module. This allows the system to actively reach into the cloud and patch vulnerabilities—like open SSH ports or wildcard IAM admins—in real-time.</p>
+                    <p class="text-zinc-400 leading-relaxed mb-4">Nexus is an enterprise-grade <strong>Cloud Security Posture Management (CSPM)</strong> engine built entirely on ASP.NET Core and Firebase. It actively audits cloud infrastructure to detect dangerous misconfigurations before attackers can exploit them.</p>
+                    <p class="text-zinc-400 leading-relaxed mb-4">Unlike traditional tools that simply generate alerts, Nexus features a <strong>Security Orchestration, Automation, and Response (SOAR)</strong> module. This allows the system to actively reach into the cloud and patch vulnerabilities—like open SSH ports or wildcard IAM admins—in real-time.</p>
+                    <p class="text-zinc-400 leading-relaxed">It also features an integrated <strong>Generative AI Analysis Engine</strong> to explain threat vectors to junior analysts, and an <strong>IaC Pre-Flight Scanner</strong> to catch vulnerabilities in Terraform and Kubernetes manifests before they are ever deployed.</p>
                 </section>
 
                 <!-- Section 2: Multi-Cloud -->
                 <section id="multicloud" class="bento-card p-8">
                     <h2 class="text-2xl font-bold text-white mb-4">Understanding Multi-Cloud</h2>
-                    <p class="text-zinc-400 leading-relaxed mb-6">A "Multi-Cloud" architecture means an organization relies on multiple cloud providers (like Amazon AWS, Microsoft Azure, and Google Cloud GCP) rather than locking into just one. While this provides incredible redundancy and cost savings, it creates massive security blind spots.</p>
+                    <p class="text-zinc-400 leading-relaxed mb-6">A "Multi-Cloud" architecture means an organization relies on multiple cloud providers rather than locking into just one. While this provides incredible redundancy, it creates massive security blind spots.</p>
                     
-                    <div class="grid grid-cols-3 gap-4 mb-4">
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4">
                         <div class="bg-zinc-950 border border-amber-500/30 rounded-xl p-4 text-center">
                             <span class="block text-amber-500 font-bold mb-1">AWS</span>
-                            <span class="text-xs text-zinc-500">IAM & EC2 Security</span>
+                            <span class="text-[10px] text-zinc-500 uppercase tracking-wider">IAM & EC2</span>
                         </div>
                         <div class="bg-zinc-950 border border-sky-500/30 rounded-xl p-4 text-center">
                             <span class="block text-sky-400 font-bold mb-1">Azure</span>
-                            <span class="text-xs text-zinc-500">Resource Graph</span>
+                            <span class="text-[10px] text-zinc-500 uppercase tracking-wider">Resource Graph</span>
                         </div>
                         <div class="bg-zinc-950 border border-emerald-500/30 rounded-xl p-4 text-center">
                             <span class="block text-emerald-400 font-bold mb-1">GCP</span>
-                            <span class="text-xs text-zinc-500">Asset Inventory</span>
+                            <span class="text-[10px] text-zinc-500 uppercase tracking-wider">Asset Inventory</span>
+                        </div>
+                        <div class="bg-zinc-950 border border-purple-500/30 rounded-xl p-4 text-center">
+                            <span class="block text-purple-400 font-bold mb-1">K8s</span>
+                            <span class="text-[10px] text-zinc-500 uppercase tracking-wider">Cluster RBAC</span>
                         </div>
                     </div>
-                    <p class="text-sm text-zinc-500 border-l-2 border-zinc-700 pl-4">Nexus solves the multi-cloud problem by abstracting the cloud APIs using a C# interface (`ICloudScanner`). This normalizes telemetry from all three providers into a single pane of glass.</p>
+                    <p class="text-sm text-zinc-500 border-l-2 border-zinc-700 pl-4">Nexus solves the multi-cloud problem by abstracting the cloud APIs using a C# interface (`ICloudScanner`). This normalizes telemetry from AWS, Azure, GCP, and Kubernetes into a single pane of glass.</p>
                 </section>
 
-                <!-- Section 3: Benefits -->
+                <!-- NEW Section 3: Identity Governance -->
+                <section id="iga-architecture" class="bento-card p-8">
+                    <h2 class="text-2xl font-bold text-white mb-4">Identity Governance & Administration (IGA)</h2>
+                    <p class="text-zinc-400 leading-relaxed mb-6">Security tools require security. Nexus uses a completely decoupled, serverless Identity Governance architecture backed by <strong>Firebase Firestore</strong> to ensure role-based access control (RBAC) is strictly enforced and resilient to local database failures.</p>
+                    
+                    <div class="space-y-4">
+                        <div class="p-5 rounded-xl bg-indigo-500/5 border border-indigo-500/20">
+                            <h4 class="text-indigo-400 font-bold mb-2 flex items-center gap-2">
+                                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+                                1. Application Flow
+                            </h4>
+                            <p class="text-sm text-zinc-400">Users authenticate via Google Single Sign-On (SSO). By default, all users are restricted to <strong>Viewer Mode</strong>. To gain SOAR remediation privileges, they must submit a justification through the `<a href="apply-admin.html" class="text-indigo-300 underline">apply-admin.html</a>` portal.</p>
+                        </div>
+                        
+                        <div class="p-5 rounded-xl bg-blue-500/5 border border-blue-500/20">
+                            <h4 class="text-blue-400 font-bold mb-2 flex items-center gap-2">
+                                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path></svg>
+                                2. DxO Corporate Approval
+                            </h4>
+                            <p class="text-sm text-zinc-400">Applications are sent to the parent company's dedicated governance web app (`<a href="dxo-portal.html" class="text-blue-300 underline">dxo-portal.html</a>`). A corporate security officer reviews the request and clicks Approve, which updates the live Firestore database.</p>
+                        </div>
+
+                        <div class="p-5 rounded-xl bg-rose-500/5 border border-rose-500/20">
+                            <h4 class="text-rose-400 font-bold mb-2 flex items-center gap-2">
+                                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                                3. Dynamic Dashboard Unlocking
+                            </h4>
+                            <p class="text-sm text-zinc-400">The Nexus CSPM Dashboard maintains a real-time listener with Firestore. The moment an application is approved, the UI dynamically unlocks, granting the user the Red Admin Badge and activating cloud remediation buttons.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Section 4: Benefits -->
                 <section id="benefits" class="bento-card p-8">
                     <h2 class="text-2xl font-bold text-white mb-6">Why Use Nexus?</h2>
                     <div class="space-y-4">
@@ -103,56 +138,24 @@
                             <div class="text-emerald-500 mt-1"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg></div>
                             <div>
                                 <h4 class="text-white font-bold mb-1">Continuous Compliance</h4>
-                                <p class="text-sm text-zinc-400">Historical SQLite logging ensures you can always prove to auditors that your infrastructure was secure at any point in time.</p>
+                                <p class="text-sm text-zinc-400">Historical SQLite logging ensures you can always prove to auditors that your infrastructure was secure at any point in time, independent of your Firebase Identity architecture.</p>
                             </div>
                         </div>
                     </div>
                 </section>
 
-                <!-- Section 4: How to Use -->
+                <!-- Section 5: How to Use -->
                 <section id="how-to-use" class="bento-card p-8">
                     <h2 class="text-2xl font-bold text-white mb-4">Getting Started</h2>
                     <ol class="list-decimal list-inside space-y-3 text-zinc-400">
                         <li>Ensure you have the <strong>.NET 8.0 SDK</strong> installed on your local machine.</li>
-                        <li>Configure an AWS IAM user with `SecurityAudit` and `AmazonEC2FullAccess` permissions.</li>
-                        <li>Run the backend server using the terminal command: <code class="mono-font bg-zinc-900 px-2 py-0.5 rounded text-amber-500 text-xs">dotnet run</code></li>
-                        <li>Log in using your <strong>Google Account</strong> in the top right corner.</li>
-                        <li>Navigate to the Command Center and click <strong>Run Multi-Cloud Scan</strong>.</li>
+                        <li>Create a Firebase Project and enable <strong>Google Authentication</strong> and <strong>Firestore</strong>.</li>
+                        <li>Run the backend C# server using: <code class="mono-font bg-zinc-900 px-2 py-0.5 rounded text-amber-500 text-xs">dotnet run</code></li>
+                        <li>Log in to the Web App using your Google Account in the top right corner.</li>
+                        <li>Open your profile dropdown and submit an <strong>Admin Application</strong>.</li>
+                        <li>Open the <strong>DxO Portal</strong> to approve your own application.</li>
+                        <li>Navigate to the Command Center and click <strong>Run Multi-Cloud Scan</strong>!</li>
                     </ol>
-                </section>
-
-                <!-- Section 5: API Reference -->
-                <section id="api-reference" class="bento-card p-8">
-                    <h2 class="text-2xl font-bold text-white mb-6">API Reference</h2>
-                    <p class="text-zinc-400 mb-6 text-sm">The engine is fully headless. You can trigger audits programmatically via standard REST endpoints.</p>
-                    
-                    <div class="bg-zinc-950 rounded-xl border border-zinc-800 p-4 mb-4">
-                        <div class="flex items-center gap-2 mb-3 border-b border-zinc-800 pb-2">
-                            <span class="px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-400 text-[10px] font-bold">POST</span>
-                            <span class="text-zinc-300 mono-font text-sm">/api/scan/run</span>
-                        </div>
-                        <p class="text-xs text-zinc-500 mb-3">Initializes the multi-cloud ICloudScanner interface and loops through AWS, Azure, and GCP plugins.</p>
-                        <pre class="mono-font text-xs text-zinc-400 overflow-x-auto">
-fetch('/api/scan/run', {
-    method: 'POST'
-}).then(res => res.json());
-                        </pre>
-                    </div>
-
-                    <div class="bg-zinc-950 rounded-xl border border-zinc-800 p-4">
-                        <div class="flex items-center gap-2 mb-3 border-b border-zinc-800 pb-2">
-                            <span class="px-2 py-0.5 rounded bg-amber-500/20 text-amber-500 text-[10px] font-bold">POST</span>
-                            <span class="text-zinc-300 mono-font text-sm">/api/remediate</span>
-                        </div>
-                        <p class="text-xs text-zinc-500 mb-3">Accepts a RuleCode and ResourceIdentifier to automatically patch a live cloud environment.</p>
-                        <pre class="mono-font text-xs text-zinc-400 overflow-x-auto">
-fetch('/api/remediate', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ resourceIdentifier: "sg-123", ruleCode: "EC2_SSH_OPEN" })
-});
-                        </pre>
-                    </div>
                 </section>
 
                 <!-- Section 6: News & Links -->
@@ -166,13 +169,17 @@ fetch('/api/remediate', {
                                 <span class="w-2 h-2 rounded-full bg-rose-500 animate-pulse"></span> Recent Updates
                             </h3>
                             <ul class="space-y-3">
+                                <li class="text-sm text-zinc-400 border-l-2 border-indigo-500 pl-3">
+                                    <strong class="text-white block">v3.0 - Enterprise Identity Governance</strong>
+                                    Transitioned RBAC from hardcoded arrays to a dynamic, serverless Firebase Firestore architecture with a dedicated DxO Governance Portal and automated approval workflows.
+                                </li>
                                 <li class="text-sm text-zinc-400 border-l-2 border-amber-500 pl-3">
-                                    <strong class="text-white block">v2.4 Deployed</strong>
-                                    Added Firebase Google Authentication and real-time user session tracking.
+                                    <strong class="text-white block">v2.8 - Generative AI & Profile Management</strong>
+                                    Added contextual AI analysis for cloud threats, custom toast notifications, and self-service account deletion capabilities.
                                 </li>
                                 <li class="text-sm text-zinc-400 border-l-2 border-zinc-700 pl-3">
-                                    <strong class="text-white block">GCP Mock Interface Added</strong>
-                                    Prepared dependency injection container for Google Cloud integration.
+                                    <strong class="text-white block">v2.4 - Kubernetes Pre-Flight</strong>
+                                    Added the drag-and-drop static analyzer for local .tf and .yaml files.
                                 </li>
                             </ul>
                         </div>
@@ -184,8 +191,8 @@ fetch('/api/remediate', {
                                     <span class="text-sm text-zinc-300 font-medium">GitHub Repository</span>
                                     <svg class="w-4 h-4 text-zinc-500 group-hover:text-white transition-colors" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"></path></svg>
                                 </a>
-                                <a href="https://dotnet.microsoft.com/en-us/" target="_blank" rel="noopener noreferrer" class="flex items-center justify-between p-3 rounded-lg bg-zinc-900 border border-zinc-800 hover:border-zinc-600 transition-colors group">
-                                    <span class="text-sm text-zinc-300 font-medium">ASP.NET Core Docs</span>
+                                <a href="https://firebase.google.com/docs/firestore" target="_blank" rel="noopener noreferrer" class="flex items-center justify-between p-3 rounded-lg bg-zinc-900 border border-zinc-800 hover:border-zinc-600 transition-colors group">
+                                    <span class="text-sm text-zinc-300 font-medium">Firestore Documentation</span>
                                     <svg class="w-4 h-4 text-zinc-500 group-hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
                                 </a>
                             </div>
@@ -200,55 +207,19 @@ fetch('/api/remediate', {
     <nexus-footer></nexus-footer>
     <script src="footer.js"></script>
 
-    <!-- FIREBASE & AUTH LOGIC -->
-    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
+    <!-- UI INTERACTION LOGIC (Sidebar Highlighting) -->
     <script>
-        // FIREBASE SETUP
-        const firebaseConfig = { apiKey: "AIzaSyCguCkybYYQ8hWq3gbG9WLPcNXVBSyhQfs", authDomain: "portifywebapp.firebaseapp.com", projectId: "portifywebapp", storageBucket: "portifywebapp.firebasestorage.app", messagingSenderId: "186704938475", appId: "1:186704938475:web:faf6b9754a0ad9bcb405ae", measurementId: "G-RD3DFFFJR9" };
-        if (!firebase.apps.length) { firebase.initializeApp(firebaseConfig); }
-        const auth = firebase.auth(); const provider = new firebase.auth.GoogleAuthProvider();
-        
-        // DROPDOWN LOGIC
-        const profileBtn = document.getElementById('profileBtn'); const dropdownMenu = document.getElementById('dropdownMenu');
-        profileBtn.addEventListener('click', (e) => { e.stopPropagation(); dropdownMenu.classList.toggle('dropdown-hidden'); });
-        document.addEventListener('click', (e) => { if (!dropdownMenu.contains(e.target) && !profileBtn.contains(e.target)) dropdownMenu.classList.add('dropdown-hidden'); });
-        
-        // AUTH STATE LOGIC
-        auth.onAuthStateChanged(user => {
-            if (user) {
-                document.getElementById('menu-logged-out').classList.add('hidden'); document.getElementById('menu-logged-in').classList.remove('hidden');
-                document.getElementById('nav-user-name').textContent = user.displayName.split(' ')[0];
-                document.getElementById('nav-default-icon').classList.add('hidden');
-                document.getElementById('nav-profile-pic').src = user.photoURL; document.getElementById('nav-profile-pic').classList.remove('hidden');
-                document.getElementById('dropdown-name').textContent = user.displayName; document.getElementById('dropdown-email').textContent = user.email;
-            } else {
-                document.getElementById('menu-logged-out').classList.remove('hidden'); document.getElementById('menu-logged-in').classList.add('hidden');
-                document.getElementById('nav-user-name').textContent = "Guest";
-                document.getElementById('nav-profile-pic').classList.add('hidden'); document.getElementById('nav-profile-pic').src = "";
-                document.getElementById('nav-default-icon').classList.remove('hidden');
-            }
-        });
-        function signInWithGoogle() { auth.signInWithPopup(provider).catch(e => alert("Login failed. Check console.")); }
-        function logOut() { auth.signOut().then(() => dropdownMenu.classList.add('dropdown-hidden')); }
-
-        // ==========================================
-        // SIDEBAR HIGHLIGHTING LOGIC
-        // ==========================================
         document.addEventListener('DOMContentLoaded', () => {
             const sections = document.querySelectorAll('section');
             const navLinks = document.querySelectorAll('.nav-link');
 
-            // Set up an Intersection Observer to watch which section is on screen
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
-                        // Remove highlight from all links
                         navLinks.forEach(link => {
                             link.classList.remove('text-amber-500');
                             link.classList.add('text-zinc-400');
                         });
-                        // Add highlight to active link
                         const activeId = entry.target.getAttribute('id');
                         const activeLink = document.querySelector(`.nav-link[href="#${activeId}"]`);
                         if (activeLink) {
@@ -257,7 +228,7 @@ fetch('/api/remediate', {
                         }
                     }
                 });
-            }, { rootMargin: '-20% 0px -70% 0px' }); // Triggers when section is near top of screen
+            }, { rootMargin: '-20% 0px -70% 0px' });
 
             sections.forEach(section => observer.observe(section));
         });

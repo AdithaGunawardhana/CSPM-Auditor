@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DxO | Admin Access Application</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><defs><linearGradient id='g' x1='0%25' y1='100%25' x2='100%25' y2='0%25'><stop offset='0%25' stop-color='%23f59e0b'/><stop offset='100%25' stop-color='%23f43f5e'/></linearGradient></defs><circle cx='16' cy='16' r='16' fill='url(%23g)'/><rect x='11' y='11' width='10' height='10' fill='%2309090b' rx='2' transform='rotate(45 16 16)'/></svg>">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+        body { background-color: #050507; color: #d4d4d8; font-family: 'Plus Jakarta Sans', sans-serif; overflow-x: hidden; }
+        .step-hidden { display: none; }
+        .cyber-grid {
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -2;
+            background-image: linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+            background-size: 40px 40px; -webkit-mask-image: radial-gradient(circle at center, black, transparent 80%); mask-image: radial-gradient(circle at center, black, transparent 80%);
+        }
+    </style>
+</head>
+<body class="min-h-screen antialiased flex items-center justify-center p-4">
+    <div class="cyber-grid"></div>
+
+    <div class="w-full max-w-xl bg-zinc-900/80 backdrop-blur-xl border border-zinc-800 rounded-3xl p-8 shadow-2xl relative overflow-hidden">
+        
+        <!-- DxO Branding -->
+        <div class="text-center mb-8">
+            <div class="w-16 h-16 mx-auto bg-indigo-500/10 border border-indigo-500/30 rounded-2xl flex items-center justify-center mb-4 shadow-[0_0_20px_rgba(99,102,241,0.2)]">
+                <span class="text-2xl font-black text-indigo-400 tracking-tighter">DxO</span>
+            </div>
+            <h1 class="text-2xl font-bold text-white tracking-wide">Admin Access Request</h1>
+            <p class="text-sm text-zinc-400 mt-2">Submit your details to the DxO governance team to unlock SOAR capabilities.</p>
+        </div>
+
+        <!-- Progress Bar -->
+        <div class="flex items-center justify-between mb-8 relative">
+            <div class="absolute left-0 top-1/2 -translate-y-1/2 w-full h-1 bg-zinc-800 -z-10 rounded-full"></div>
+            <div id="progress-line" class="absolute left-0 top-1/2 -translate-y-1/2 w-0 h-1 bg-indigo-500 -z-10 rounded-full transition-all duration-500"></div>
+            
+            <div class="w-8 h-8 rounded-full bg-indigo-500 text-white flex items-center justify-center font-bold text-xs shadow-[0_0_10px_rgba(99,102,241,0.5)] transition-colors" id="step1-indicator">1</div>
+            <div class="w-8 h-8 rounded-full bg-zinc-800 text-zinc-500 flex items-center justify-center font-bold text-xs border border-zinc-700 transition-colors" id="step2-indicator">2</div>
+            <div class="w-8 h-8 rounded-full bg-zinc-800 text-zinc-500 flex items-center justify-center font-bold text-xs border border-zinc-700 transition-colors" id="step3-indicator">3</div>
+        </div>
+
+        <form id="adminForm" onsubmit="submitForm(event)">
+            
+            <!-- STEP 1: Identity -->
+            <div id="step-1" class="space-y-4">
+                <h3 class="text-lg font-semibold text-white mb-4">Identity Verification</h3>
+                <div>
+                    <label class="block text-xs font-bold text-zinc-400 uppercase tracking-wider mb-2">Full Name</label>
+                    <input type="text" id="reqName" required class="w-full bg-zinc-950/50 border border-zinc-700 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-all">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-zinc-400 uppercase tracking-wider mb-2">Authenticated Email</label>
+                    <input type="email" id="reqEmail" readonly class="w-full bg-zinc-800/50 border border-zinc-700/50 rounded-xl px-4 py-3 text-sm text-zinc-400 cursor-not-allowed" value="Loading...">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-zinc-400 uppercase tracking-wider mb-2">Department / Role</label>
+                    <select id="reqDept" required class="w-full bg-zinc-950/50 border border-zinc-700 rounded-xl px-4 py-3 text-sm text-zinc-300 focus:outline-none focus:border-indigo-500 transition-all">
+                        <option value="">Select Department</option>
+                        <option value="DevSecOps">DevSecOps</option>
+                        <option value="Cloud Infrastructure">Cloud Infrastructure</option>
+                        <option value="Incident Response">Incident Response</option>
+                        <option value="Compliance">Compliance & Audit</option>
+                    </select>
+                </div>
+                <button type="button" onclick="nextStep(2)" class="w-full mt-6 bg-white text-zinc-900 font-bold py-3 rounded-xl hover:bg-zinc-200 transition-colors">Continue to Justification</button>
+            </div>
+
+            <!-- STEP 2: Justification -->
+            <div id="step-2" class="step-hidden space-y-4">
+                <h3 class="text-lg font-semibold text-white mb-4">Access Justification</h3>
+                <div>
+                    <label class="block text-xs font-bold text-zinc-400 uppercase tracking-wider mb-2">Why do you require SOAR access?</label>
+                    <textarea id="reqReason" required rows="4" placeholder="Detail your operational requirements for active multi-cloud remediation..." class="w-full bg-zinc-950/50 border border-zinc-700 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-all resize-none"></textarea>
+                </div>
+                <div class="flex gap-4 mt-6">
+                    <button type="button" onclick="nextStep(1)" class="w-1/3 bg-zinc-800 text-white font-bold py-3 rounded-xl hover:bg-zinc-700 transition-colors">Back</button>
+                    <button type="button" onclick="nextStep(3)" class="w-2/3 bg-white text-zinc-900 font-bold py-3 rounded-xl hover:bg-zinc-200 transition-colors">Review Application</button>
+                </div>
+            </div>
+
+            <!-- STEP 3: Review -->
+            <div id="step-3" class="step-hidden space-y-4">
+                <h3 class="text-lg font-semibold text-white mb-4">Final Review</h3>
+                <div class="bg-zinc-950/50 border border-indigo-500/20 rounded-xl p-4 text-sm space-y-3">
+                    <p><span class="text-zinc-500 w-24 inline-block">Destination:</span> <span class="text-indigo-400 font-mono font-bold">contactus.dxo@gmail.com</span></p>
+                    <p><span class="text-zinc-500 w-24 inline-block">Database:</span> <span class="text-emerald-400 font-mono font-bold">dxo_admins.db (Isolated)</span></p>
+                    <p class="text-zinc-400 text-xs border-t border-zinc-800 pt-3 mt-3">By clicking submit, your application will be routed to the DxO Governance team for manual approval. You will receive an email upon status change.</p>
+                </div>
+                
+                <div class="flex gap-4 mt-6">
+                    <button type="button" onclick="nextStep(2)" class="w-1/3 bg-zinc-800 text-white font-bold py-3 rounded-xl hover:bg-zinc-700 transition-colors">Back</button>
+                    <button type="submit" id="submitBtn" class="w-2/3 bg-indigo-500 text-white font-bold py-3 rounded-xl hover:bg-indigo-600 shadow-[0_0_20px_rgba(99,102,241,0.3)] transition-all flex justify-center items-center gap-2">
+                        Submit Application
+                    </button>
+                </div>
+            </div>
+
+            <!-- Success State -->
+            <div id="step-success" class="step-hidden text-center py-8">
+                <div class="w-20 h-20 mx-auto bg-emerald-500/10 text-emerald-400 rounded-full flex items-center justify-center mb-6">
+                    <svg class="w-10 h-10" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                </div>
+                <h3 class="text-2xl font-bold text-white mb-2">Request Sent Successfully</h3>
+                <p class="text-sm text-zinc-400 mb-8">DxO Governance has received your application. It has been logged to the secure database and routed to contactus.dxo@gmail.com.</p>
+                <a href="dashboard.html" class="text-sm font-bold text-indigo-400 hover:text-indigo-300">Return to Dashboard</a>
+            </div>
+
+        </form>
+    </div>
+
+    <!-- Firebase -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script> <!-- NEW: Firestore -->
+    
+    <script>
+        const firebaseConfig = { 
+            apiKey: "AIzaSyD8fonHbQIJyAuq9B7jFBnQi5lamIpjxfU",
+            authDomain: "dxo-s-all.firebaseapp.com",
+            projectId: "dxo-s-all",
+            storageBucket: "dxo-s-all.firebasestorage.app",
+            messagingSenderId: "208688244462",
+            appId: "1:208688244462:web:5dd360753206ec129bf5ff",
+            measurementId: "G-2VMBES6WPB"
+        };
+        if (!firebase.apps.length) { firebase.initializeApp(firebaseConfig); }
+        
+        const db = firebase.firestore(); // Initialize Cloud Database
+
+        firebase.auth().onAuthStateChanged(user => {
+            if (user) { 
+                document.getElementById('reqEmail').value = user.email;
+                document.getElementById('reqName').value = user.displayName || "";
+            } else { window.location.href = "index.html"; }
+        });
+
+        function nextStep(step) {
+            document.getElementById('step-1').classList.add('step-hidden');
+            document.getElementById('step-2').classList.add('step-hidden');
+            document.getElementById('step-3').classList.add('step-hidden');
+            document.getElementById(`step-${step}`).classList.remove('step-hidden');
+
+            const prog = document.getElementById('progress-line');
+            if(step === 1) { prog.style.width = "0%"; updateInd(1, true); updateInd(2, false); updateInd(3, false); }
+            if(step === 2) { prog.style.width = "50%"; updateInd(1, true); updateInd(2, true); updateInd(3, false); }
+            if(step === 3) { prog.style.width = "100%"; updateInd(1, true); updateInd(2, true); updateInd(3, true); }
+        }
+
+        function updateInd(num, active) {
+            const el = document.getElementById(`step${num}-indicator`);
+            if (active) { el.className = "w-8 h-8 rounded-full bg-indigo-500 text-white flex items-center justify-center font-bold text-xs shadow-[0_0_10px_rgba(99,102,241,0.5)] transition-colors"; }
+            else { el.className = "w-8 h-8 rounded-full bg-zinc-800 text-zinc-500 flex items-center justify-center font-bold text-xs border border-zinc-700 transition-colors"; }
+        }
+
+        async function submitForm(e) {
+            if(e) e.preventDefault();
+            
+            const name = document.getElementById('reqName').value;
+            const email = document.getElementById('reqEmail').value;
+            const dept = document.getElementById('reqDept').value;
+            const reason = document.getElementById('reqReason').value;
+
+            if(!name || !dept || !reason) {
+                alert("Please go back and ensure all fields are filled out."); return;
+            }
+
+            const btn = document.getElementById('submitBtn');
+            btn.innerHTML = `<svg class="animate-spin h-5 w-5 mr-2" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" fill="none"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg> Saving to Cloud...`;
+            btn.disabled = true;
+
+            try {
+                // WRITE DIRECTLY TO FIREBASE FIRESTORE!
+                await db.collection("adminRequests").add({
+                    name: name,
+                    email: email,
+                    department: dept,
+                    justification: reason,
+                    status: "PENDING",
+                    requestDate: firebase.firestore.FieldValue.serverTimestamp()
+                });
+                
+                document.getElementById('step-3').classList.add('step-hidden');
+                document.querySelector('.flex.items-center.justify-between.mb-8').classList.add('step-hidden');
+                document.getElementById('step-success').classList.remove('step-hidden');
+            } catch (err) {
+                console.error(err);
+                alert("Failed to connect to Firebase.");
+                btn.innerHTML = "Submit Application"; btn.disabled = false;
+            }
+        }
+    </script>
+</body>
+</html>

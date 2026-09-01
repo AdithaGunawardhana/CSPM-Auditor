@@ -35,7 +35,7 @@ class NexusFooter extends HTMLElement {
                                 <li><a href="solutions.html" class="hover:text-amber-500 transition-colors flex items-center gap-2"><span class="w-1 h-1 rounded-full bg-zinc-700"></span> Solutions</a></li>
                                 <li><a href="documentation.html" class="hover:text-amber-500 transition-colors flex items-center gap-2"><span class="w-1 h-1 rounded-full bg-zinc-700"></span> Documentation</a></li>
                                 <li><a href="dashboard.html" class="hover:text-amber-500 transition-colors flex items-center gap-2"><span class="w-1 h-1 rounded-full bg-zinc-700"></span> Command Center</a></li>
-                                <li><a href="https://github.com/AdithaGunawardhana/portify-web/blob/main/portify-web/frontend/app/page.tsx" target="_blank" class="hover:text-amber-500 transition-colors flex items-center gap-2"><span class="w-1 h-1 rounded-full bg-zinc-700"></span> GitHub Repo</a></li>
+                                <li><a href="https://github.com/AdithaGunawardhana/CSPM-Auditor" target="_blank" class="hover:text-amber-500 transition-colors flex items-center gap-2"><span class="w-1 h-1 rounded-full bg-zinc-700"></span> GitHub Repo</a></li>
                             </ul>
                         </div>
 

@@ -18,14 +18,12 @@
         @keyframes slideUp { to { opacity: 1; transform: translateY(0); } }
         .bento-card { background: rgba(24, 24, 27, 0.6); backdrop-filter: blur(16px); border: 1px solid rgba(63, 63, 70, 0.4); border-radius: 24px; transition: all 0.4s; }
         .bento-card:hover { border-color: rgba(245, 158, 11, 0.4); box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.5); }
-        .dropdown-menu { transform-origin: top right; transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1); }
-        .dropdown-hidden { transform: translateY(10px) scale(0.95); opacity: 0; visibility: hidden; }
     </style>
 </head>
 <body class="antialiased selection:bg-amber-500/30">
     <div class="ambient-bg"></div>
 
-    <!-- NAVIGATION -->
+    <!-- NAVIGATION (Authentication & Dropdown handled internally via navbar.js) -->
     <nexus-navbar></nexus-navbar>
     <script src="navbar.js"></script>
 
@@ -34,7 +32,7 @@
         <!-- Hero -->
         <div class="text-center mb-16 slide-up">
             <h1 class="text-5xl md:text-7xl font-extrabold text-white mb-6 tracking-tight">The <span class="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 to-rose-400">Nexus Core</span> Engine</h1>
-            <p class="text-lg text-zinc-400 max-w-2xl mx-auto leading-relaxed">Discover how our ASP.NET Core Dependency Injection architecture actively normalizes telemetry across AWS, Azure, and GCP.</p>
+            <p class="text-lg text-zinc-400 max-w-2xl mx-auto leading-relaxed">Discover how our ASP.NET Core Dependency Injection architecture, Generative AI, and Serverless Identity pipeline actively normalize telemetry across AWS, Azure, GCP, and Kubernetes.</p>
         </div>
         
         <!-- Architecture Pipeline Visual -->
@@ -46,95 +44,97 @@
                 
                 <div class="bg-zinc-950 border border-zinc-800 p-6 rounded-2xl w-full md:w-1/4 text-center z-10 shadow-xl">
                     <div class="w-10 h-10 mx-auto bg-sky-500/10 text-sky-400 rounded-full flex items-center justify-center mb-3"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg></div>
-                    <h3 class="font-bold text-white text-sm">1. Abstracted Scan</h3>
-                    <p class="text-xs text-zinc-500 mt-2">ICloudScanner initiates parallel threads.</p>
+                    <h3 class="font-bold text-white text-sm">1. Multi-Cloud Scan</h3>
+                    <p class="text-xs text-zinc-500 mt-2">ICloudScanner initiates parallel threads across AWS, Azure, GCP & K8s.</p>
                 </div>
                 
                 <div class="bg-zinc-950 border border-amber-500/30 p-6 rounded-2xl w-full md:w-1/4 text-center z-10 shadow-[0_0_15px_rgba(245,158,11,0.1)] relative">
                     <div class="absolute -top-1 -right-1 flex h-3 w-3"><span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75"></span><span class="relative inline-flex rounded-full h-3 w-3 bg-amber-500"></span></div>
                     <div class="w-10 h-10 mx-auto bg-amber-500/10 text-amber-500 rounded-full flex items-center justify-center mb-3"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg></div>
-                    <h3 class="font-bold text-white text-sm">2. Threat Detection</h3>
-                    <p class="text-xs text-zinc-500 mt-2">Identifies wildcard IAMs & open SSH.</p>
+                    <h3 class="font-bold text-white text-sm">2. IaC & Live Detection</h3>
+                    <p class="text-xs text-zinc-500 mt-2">Identifies open SSH, wildcard IAMs, and pre-flight Terraform flaws.</p>
                 </div>
 
-                <div class="bg-zinc-950 border border-zinc-800 p-6 rounded-2xl w-full md:w-1/4 text-center z-10 shadow-xl">
-                    <div class="w-10 h-10 mx-auto bg-purple-500/10 text-purple-400 rounded-full flex items-center justify-center mb-3"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path></svg></div>
-                    <h3 class="font-bold text-white text-sm">3. Webhook Alert</h3>
-                    <p class="text-xs text-zinc-500 mt-2">JSON payloads dispatched to Slack.</p>
+                <div class="bg-zinc-950 border border-indigo-500/30 p-6 rounded-2xl w-full md:w-1/4 text-center z-10 shadow-[0_0_15px_rgba(99,102,241,0.1)]">
+                    <div class="w-10 h-10 mx-auto bg-indigo-500/10 text-indigo-400 rounded-full flex items-center justify-center mb-3"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg></div>
+                    <h3 class="font-bold text-white text-sm">3. Gen-AI Analysis</h3>
+                    <p class="text-xs text-zinc-500 mt-2">LLM interprets threat vectors and outputs human-readable context.</p>
                 </div>
 
                 <div class="bg-zinc-950 border border-emerald-500/30 p-6 rounded-2xl w-full md:w-1/4 text-center z-10 shadow-[0_0_15px_rgba(16,185,129,0.1)]">
                     <div class="w-10 h-10 mx-auto bg-emerald-500/10 text-emerald-500 rounded-full flex items-center justify-center mb-3"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg></div>
-                    <h3 class="font-bold text-white text-sm">4. Auto-Remediate</h3>
-                    <p class="text-xs text-zinc-500 mt-2">SDK actively revokes permissions.</p>
+                    <h3 class="font-bold text-white text-sm">4. SOAR Remediation</h3>
+                    <p class="text-xs text-zinc-500 mt-2">SDK actively revokes permissions if the user has an Admin badge.</p>
                 </div>
             </div>
         </div>
 
         <!-- Detailed Bento Grid -->
         <div class="grid lg:grid-cols-3 gap-6 slide-up delay-2">
-            <!-- Large Card -->
-            <div class="bento-card p-8 lg:col-span-2 group">
-                <div class="w-12 h-12 rounded-xl bg-indigo-500/20 flex items-center justify-center text-indigo-400 mb-6 border border-indigo-500/30 group-hover:scale-110 transition-transform"><svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg></div>
-                <h2 class="text-2xl font-bold text-white mb-4">Multi-Cloud Interface Architecture</h2>
-                <p class="text-zinc-400 leading-relaxed mb-6">Traditional CSPMs require separate codebases for each cloud. Nexus utilizes a strict C# Interface (`ICloudScanner`). The Dependency Injection container automatically registers plugins for AWS, Azure, and GCP, allowing the `/api/scan` endpoint to remain entirely cloud-agnostic.</p>
+            
+            <!-- Large Card: Cloud Architecture -->
+            <div class="bento-card p-8 lg:col-span-2 group flex flex-col justify-between">
+                <div>
+                    <div class="w-12 h-12 rounded-xl bg-amber-500/20 flex items-center justify-center text-amber-500 mb-6 border border-amber-500/30 group-hover:scale-110 transition-transform"><svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg></div>
+                    <h2 class="text-2xl font-bold text-white mb-4">Multi-Cloud Interface Architecture</h2>
+                    <p class="text-zinc-400 leading-relaxed mb-6">Traditional CSPMs require separate codebases for each cloud. Nexus utilizes a strict C# Interface (`ICloudScanner`). The Dependency Injection container automatically registers plugins for AWS, Azure, GCP, and Kubernetes, allowing the `/api/scan` endpoint to remain entirely cloud-agnostic.</p>
+                </div>
                 <div class="bg-zinc-950 p-4 rounded-xl border border-zinc-800">
-                    <pre class="mono-font text-xs text-zinc-300"><code>builder.Services.AddTransient&lt;ICloudScanner, AwsScanner&gt;();<br>builder.Services.AddTransient&lt;ICloudScanner, AzureScanner&gt;();<br>builder.Services.AddTransient&lt;ICloudScanner, GcpScanner&gt;();</code></pre>
+                    <pre class="mono-font text-xs text-zinc-300"><code>builder.Services.AddTransient&lt;ICloudScanner, AwsScanner&gt;();<br>builder.Services.AddTransient&lt;ICloudScanner, AzureScanner&gt;();<br>builder.Services.AddTransient&lt;ICloudScanner, GcpScanner&gt;();<br><span class="text-amber-500">builder.Services.AddTransient&lt;ICloudScanner, KubernetesScanner&gt;();</span></code></pre>
                 </div>
             </div>
             
             <!-- Tech Stack Stack -->
             <div class="flex flex-col gap-6">
                 <div class="bento-card p-6 flex-1">
-                    <h3 class="text-lg font-bold text-white mb-4">Core Technology</h3>
+                    <h3 class="text-lg font-bold text-white mb-4">Core Technology Stack</h3>
                     <ul class="space-y-4">
                         <li class="flex items-center gap-3">
                             <div class="w-8 h-8 rounded bg-zinc-800 flex items-center justify-center text-purple-400 font-bold text-xs">C#</div>
-                            <div><p class="text-sm font-bold text-zinc-200">ASP.NET Core 8</p><p class="text-[10px] text-zinc-500">Minimal APIs & REST</p></div>
+                            <div><p class="text-sm font-bold text-zinc-200">ASP.NET Core 8</p><p class="text-[10px] text-zinc-500">Minimal APIs & Dependency Injection</p></div>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <div class="w-8 h-8 rounded bg-zinc-800 flex items-center justify-center text-amber-500 font-bold text-xs">FB</div>
+                            <div><p class="text-sm font-bold text-zinc-200">Firebase Firestore</p><p class="text-[10px] text-zinc-500">Serverless Identity Governance (IGA)</p></div>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <div class="w-8 h-8 rounded bg-zinc-800 flex items-center justify-center text-indigo-400 font-bold text-xs">AI</div>
+                            <div><p class="text-sm font-bold text-zinc-200">Generative AI</p><p class="text-[10px] text-zinc-500">LLM-Driven Threat Intelligence</p></div>
                         </li>
                         <li class="flex items-center gap-3">
                             <div class="w-8 h-8 rounded bg-zinc-800 flex items-center justify-center text-sky-400 font-bold text-xs">DB</div>
                             <div><p class="text-sm font-bold text-zinc-200">Entity Framework</p><p class="text-[10px] text-zinc-500">SQLite Historical Logging</p></div>
                         </li>
-                        <li class="flex items-center gap-3">
-                            <div class="w-8 h-8 rounded bg-zinc-800 flex items-center justify-center text-teal-400 font-bold text-xs">UI</div>
-                            <div><p class="text-sm font-bold text-zinc-200">Tailwind & Chart.js</p><p class="text-[10px] text-zinc-500">Real-time Data Visualization</p></div>
-                        </li>
                     </ul>
                 </div>
             </div>
+
+            <!-- Full Width: IGA & Pre-Flight -->
+            <div class="bento-card p-8 lg:col-span-3 grid md:grid-cols-2 gap-8">
+                <div>
+                    <h3 class="text-xl font-bold text-white mb-3">Identity Governance (IGA)</h3>
+                    <p class="text-sm text-zinc-400 leading-relaxed mb-4">
+                        Nexus separates operational scanning from user identity. Authentication is handled via Google SSO. Dashboard privileges (Viewer vs. Admin) are governed dynamically via a listener attached to our <strong>Firebase Firestore</strong> NoSQL cloud database.
+                    </p>
+                    <p class="text-sm text-zinc-400 leading-relaxed">
+                        A separate application—the <strong>DxO Portal</strong>—allows corporate security officers to review and approve privilege escalation requests, instantly unlocking SOAR capabilities in the client dashboard.
+                    </p>
+                </div>
+                <div>
+                    <h3 class="text-xl font-bold text-white mb-3">Shift-Left IaC Scanning</h3>
+                    <p class="text-sm text-zinc-400 leading-relaxed mb-4">
+                        Security shouldn't wait for production. The Nexus dashboard includes a drag-and-drop <strong>Pre-Flight Scanner</strong>.
+                    </p>
+                    <p class="text-sm text-zinc-400 leading-relaxed">
+                        Engineers can upload raw Terraform (<code class="text-xs text-amber-500 bg-zinc-900 px-1 rounded">.tf</code>) or Kubernetes (<code class="text-xs text-amber-500 bg-zinc-900 px-1 rounded">.yaml</code>) files. The ASP.NET engine parses the configurations in memory and runs the exact same rule-evaluators used for live environments, catching misconfigurations before deployment.
+                    </p>
+                </div>
+            </div>
+            
         </div>
     </main>
 
     <nexus-footer></nexus-footer>
     <script src="footer.js"></script>
-
-    <!-- FIREBASE LOGIC -->
-    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
-    <script>
-        const firebaseConfig = { apiKey: "AIzaSyCguCkybYYQ8hWq3gbG9WLPcNXVBSyhQfs", authDomain: "portifywebapp.firebaseapp.com", projectId: "portifywebapp", storageBucket: "portifywebapp.firebasestorage.app", messagingSenderId: "186704938475", appId: "1:186704938475:web:faf6b9754a0ad9bcb405ae", measurementId: "G-RD3DFFFJR9" };
-        if (!firebase.apps.length) { firebase.initializeApp(firebaseConfig); }
-        const auth = firebase.auth(); const provider = new firebase.auth.GoogleAuthProvider();
-        const profileBtn = document.getElementById('profileBtn'); const dropdownMenu = document.getElementById('dropdownMenu');
-        profileBtn.addEventListener('click', (e) => { e.stopPropagation(); dropdownMenu.classList.toggle('dropdown-hidden'); });
-        document.addEventListener('click', (e) => { if (!dropdownMenu.contains(e.target) && !profileBtn.contains(e.target)) dropdownMenu.classList.add('dropdown-hidden'); });
-        auth.onAuthStateChanged(user => {
-            if (user) {
-                document.getElementById('menu-logged-out').classList.add('hidden'); document.getElementById('menu-logged-in').classList.remove('hidden');
-                document.getElementById('nav-user-name').textContent = user.displayName.split(' ')[0];
-                document.getElementById('nav-default-icon').classList.add('hidden');
-                document.getElementById('nav-profile-pic').src = user.photoURL; document.getElementById('nav-profile-pic').classList.remove('hidden');
-                document.getElementById('dropdown-name').textContent = user.displayName; document.getElementById('dropdown-email').textContent = user.email;
-            } else {
-                document.getElementById('menu-logged-out').classList.remove('hidden'); document.getElementById('menu-logged-in').classList.add('hidden');
-                document.getElementById('nav-user-name').textContent = "Guest";
-                document.getElementById('nav-profile-pic').classList.add('hidden'); document.getElementById('nav-profile-pic').src = "";
-                document.getElementById('nav-default-icon').classList.remove('hidden');
-            }
-        });
-        function signInWithGoogle() { auth.signInWithPopup(provider).catch(e => alert("Login failed. Check console.")); }
-        function logOut() { auth.signOut().then(() => dropdownMenu.classList.add('dropdown-hidden')); }
-    </script>
 </body>
 </html>

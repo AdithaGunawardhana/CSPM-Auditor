@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Account | Nexus CSPM</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+        body { background-color: #09090b; color: #d4d4d8; font-family: 'Plus Jakarta Sans', sans-serif; overflow-x: hidden; }
+        .ambient-bg { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -1; background: radial-gradient(circle at 15% 50%, rgba(245, 158, 11, 0.08), transparent 25%), radial-gradient(circle at 85% 30%, rgba(225, 29, 72, 0.08), transparent 25%); filter: blur(60px); }
+        .slide-up { animation: slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards; opacity: 0; transform: translateY(20px); }
+        @keyframes slideUp { to { opacity: 1; transform: translateY(0); } }
+        .bento-card { background: rgba(24, 24, 27, 0.6); backdrop-filter: blur(16px); border: 1px solid rgba(63, 63, 70, 0.4); border-radius: 24px; }
+    </style>
+</head>
+<body class="antialiased selection:bg-amber-500/30 min-h-screen flex items-center justify-center p-6">
+    <div class="ambient-bg"></div>
+
+    <!-- Back to Home -->
+    <div class="fixed top-6 left-6 z-50">
+        <a href="index.html" class="inline-flex items-center gap-2 px-4 py-2 bg-zinc-900/80 border border-zinc-800 hover:bg-zinc-800 text-zinc-300 hover:text-white text-sm font-bold rounded-xl transition-all backdrop-blur-md shadow-lg">
+            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg>
+            Home
+        </a>
+    </div>
+
+    <!-- Signup Card -->
+    <div class="w-full max-w-md bento-card p-8 sm:p-10 slide-up shadow-2xl relative overflow-hidden">
+        <div class="absolute -bottom-10 -left-10 w-32 h-32 bg-amber-500/10 rounded-full blur-2xl pointer-events-none"></div>
+
+        <!-- Header -->
+        <div class="text-center mb-8 relative z-10">
+            <h1 class="text-2xl font-extrabold text-white tracking-tight mb-1">Create an account</h1>
+            <p class="text-sm text-zinc-400">Join Nexus to secure your multi-cloud.</p>
+        </div>
+
+        <form id="signupForm" class="space-y-4 relative z-10">
+            <div>
+                <label class="block text-xs font-bold text-zinc-500 uppercase tracking-wider mb-2">Full Name</label>
+                <input type="text" id="fullName" required class="w-full bg-zinc-950/50 border border-zinc-700 rounded-xl px-4 py-3 text-sm text-white placeholder-zinc-600 focus:outline-none focus:border-amber-500 focus:ring-1 focus:ring-amber-500 transition-all" placeholder="Jane Doe">
+            </div>
+            <div>
+                <label class="block text-xs font-bold text-zinc-500 uppercase tracking-wider mb-2">Email Address</label>
+                <input type="email" id="email" required class="w-full bg-zinc-950/50 border border-zinc-700 rounded-xl px-4 py-3 text-sm text-white placeholder-zinc-600 focus:outline-none focus:border-amber-500 focus:ring-1 focus:ring-amber-500 transition-all" placeholder="jane@company.com">
+            </div>
+            <div class="grid grid-cols-2 gap-4">
+                <div>
+                    <label class="block text-xs font-bold text-zinc-500 uppercase tracking-wider mb-2">Password</label>
+                    <input type="password" id="password" required minlength="6" class="w-full bg-zinc-950/50 border border-zinc-700 rounded-xl px-4 py-3 text-sm text-white placeholder-zinc-600 focus:outline-none focus:border-amber-500 focus:ring-1 focus:ring-amber-500 transition-all" placeholder="••••••••">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-zinc-500 uppercase tracking-wider mb-2">Confirm</label>
+                    <input type="password" id="confirmPassword" required minlength="6" class="w-full bg-zinc-950/50 border border-zinc-700 rounded-xl px-4 py-3 text-sm text-white placeholder-zinc-600 focus:outline-none focus:border-amber-500 focus:ring-1 focus:ring-amber-500 transition-all" placeholder="••••••••">
+                </div>
+            </div>
+            
+            <button type="submit" id="signupBtn" class="w-full mt-4 bg-amber-500 text-zinc-950 font-bold py-3 px-4 rounded-xl hover:bg-amber-400 shadow-[0_0_15px_rgba(245,158,11,0.2)] transition-all flex justify-center items-center gap-2">
+                Create Account <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+            </button>
+        </form>
+
+        <div class="my-6 flex items-center gap-3 relative z-10">
+            <div class="flex-1 h-px bg-zinc-800"></div>
+            <span class="text-xs font-bold text-zinc-500 uppercase tracking-wider">OR</span>
+            <div class="flex-1 h-px bg-zinc-800"></div>
+        </div>
+
+        <button id="googleBtn" class="w-full bg-zinc-900 border border-zinc-700 text-zinc-300 font-bold py-3 px-4 rounded-xl hover:bg-white hover:text-zinc-900 hover:border-white transition-all flex justify-center items-center gap-3 relative z-10">
+            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 15.01 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
+            Sign up with Google
+        </button>
+
+        <p class="text-center text-sm text-zinc-500 mt-6 relative z-10">
+            Already have an account? <a href="login.html" class="text-amber-500 hover:text-amber-400 font-bold underline transition-colors">Sign in</a>
+        </p>
+    </div>
+
+    <!-- Toast Container -->
+    <div id="toast-container" class="fixed bottom-6 right-6 z-[100] flex flex-col gap-3 pointer-events-none"></div>
+
+    <!-- Firebase Scripts -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
+    
+    <script>
+        // Custom Toast System
+        function showToast(message, type = 'success') {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            const borderColor = type === 'success' ? 'border-emerald-500/30' : 'border-rose-500/30';
+            const iconColor = type === 'success' ? 'text-emerald-400' : 'text-rose-400';
+            const bgGlow = type === 'success' ? 'bg-emerald-500/10' : 'bg-rose-500/10';
+            const iconSvg = type === 'success' ? `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>` : `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>`;
+
+            toast.className = `flex items-center gap-3 px-4 py-3 bg-zinc-900/95 backdrop-blur-md border ${borderColor} rounded-xl shadow-[0_10px_40px_rgba(0,0,0,0.5)] transform translate-y-10 opacity-0 transition-all duration-300`;
+            toast.innerHTML = `<div class="p-1.5 rounded-full ${bgGlow} ${iconColor}"><svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">${iconSvg}</svg></div><p class="text-sm font-bold text-white tracking-wide">${message}</p>`;
+            
+            container.appendChild(toast);
+            setTimeout(() => toast.classList.remove('translate-y-10', 'opacity-0'), 10);
+            setTimeout(() => { toast.classList.add('opacity-0', 'translate-y-2'); setTimeout(() => toast.remove(), 300); }, 3000);
+        }
+
+        // Firebase Setup
+        const firebaseConfig = { 
+            apiKey: "AIzaSyD8fonHbQIJyAuq9B7jFBnQi5lamIpjxfU", 
+            authDomain: "dxo-s-all.firebaseapp.com", 
+            projectId: "dxo-s-all", 
+            storageBucket: "dxo-s-all.firebasestorage.app", 
+            messagingSenderId: "208688244462", 
+            appId: "1:208688244462:web:5dd360753206ec129bf5ff" 
+        };
+        if (!firebase.apps.length) { firebase.initializeApp(firebaseConfig); }
+        const auth = firebase.auth();
+        const googleProvider = new firebase.auth.GoogleAuthProvider();
+
+        // Redirect if already logged in
+        auth.onAuthStateChanged(user => { if (user) window.location.href = "dashboard.html"; });
+
+        // Email/Password Registration
+        document.getElementById('signupForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            const fullName = document.getElementById('fullName').value;
+            const email = document.getElementById('email').value;
+            const pass = document.getElementById('password').value;
+            const confirm = document.getElementById('confirmPassword').value;
+
+            if(pass !== confirm) {
+                showToast("Passwords do not match.", "error");
+                return;
+            }
+
+            const btn = document.getElementById('signupBtn');
+            btn.innerHTML = `<svg class="animate-spin h-5 w-5 mr-2 inline" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" fill="none"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg> Creating...`;
+            btn.disabled = true;
+
+            auth.createUserWithEmailAndPassword(email, pass)
+                .then(userCredential => {
+                    // Update user profile with their name
+                    return userCredential.user.updateProfile({ displayName: fullName });
+                })
+                .then(() => window.location.href = "dashboard.html")
+                .catch(error => {
+                    showToast(error.message, "error");
+                    btn.innerHTML = `Create Account <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>`;
+                    btn.disabled = false;
+                });
+        });
+
+        // Google SSO Registration
+        document.getElementById('googleBtn').addEventListener('click', () => {
+            auth.signInWithPopup(googleProvider)
+                .then(() => window.location.href = "dashboard.html")
+                .catch(error => showToast("Google Sign-up was cancelled.", "error"));
+        });
+    </script>
+</body>
+</html>
