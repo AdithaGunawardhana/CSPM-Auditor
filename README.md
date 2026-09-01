@@ -8,8 +8,11 @@
 ![Firebase](https://img.shields.io/badge/Firebase-FFCA28?style=for-the-badge&logo=firebase&logoColor=white)
 
 **Nexus** is an enterprise-grade Cloud Security Posture Management (CSPM) and SOAR engine. Built on a strict C# Dependency Injection architecture, it abstracts cloud APIs to actively detect, prioritize, and automatically remediate critical infrastructure misconfigurations across **AWS, Azure, Google Cloud Platform (GCP), and Kubernetes**.
+<<<<<<< HEAD
 
 Unlike traditional security tools that generate alert fatigue, Nexus features a live **Security Orchestration, Automation, and Response (SOAR)** module. It actively reaches into the cloud and patches vulnerabilities in real-time. It also features a **Generative AI Analysis Engine** and a **Shift-Left IaC Pre-Flight Scanner** to catch vulnerabilities before they reach production.
+=======
+>>>>>>> 1b99522
 
 ## ✨ Core Features
 
@@ -39,5 +42,15 @@ Unlike traditional security tools that generate alert fatigue, Nexus features a 
 
 1. **Clone the repository**
    ```bash
+<<<<<<< HEAD
    git clone [https://github.com/AdithaGunawardhana/CSPM-Auditor.git](https://github.com/AdithaGunawardhana/CSPM-Auditor.git)
    cd CSPM-Auditor
+=======
+<<<<<<< HEAD
+   git clone [https://github.com/AdithaGunawardhana/nexus-cspm.git](https://github.com/AdithaGunawardhana/nexus-cspm.git)
+   cd nexus-cspm
+=======
+   git clone [https://github.com/AdithaGunawardhana/CSPM-Auditor.git](https://github.com/AdithaGunawardhana/CSPM-Auditor.git)
+   cd CSPM-Auditor
+>>>>>>> e2a8cd6 (feat: complete Dockerization and UI polish)
+>>>>>>> 1b99522
