@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Auth | Nexus CSPM</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><defs><linearGradient id='g' x1='0%25' y1='100%25' x2='100%25' y2='0%25'><stop offset='0%25' stop-color='%236366f1'/><stop offset='100%25' stop-color='%23a855f7'/></linearGradient></defs><circle cx='16' cy='16' r='16' fill='url(%23g)'/><rect x='11' y='11' width='10' height='10' fill='%2309090b' rx='2' transform='rotate(45 16 16)'/></svg>">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+        body { background-color: #050507; color: #d4d4d8; font-family: 'Plus Jakarta Sans', sans-serif; overflow-x: hidden; }
+        
+        .ambient-bg { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -1; background: radial-gradient(circle at 50% 50%, rgba(99, 102, 241, 0.08), transparent 40%); filter: blur(60px); }
+        .cyber-grid { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -2; background-image: linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px); background-size: 40px 40px; mask-image: radial-gradient(circle at center, black, transparent 80%); }
+        
+        .slide-up { animation: slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards; opacity: 0; transform: translateY(20px); }
+        @keyframes slideUp { to { opacity: 1; transform: translateY(0); } }
+        
+        .bento-card { background: linear-gradient(145deg, rgba(24, 24, 27, 0.8) 0%, rgba(9, 9, 11, 0.9) 100%); backdrop-filter: blur(20px); border: 1px solid rgba(99, 102, 241, 0.2); border-radius: 24px; box-shadow: 0 0 40px rgba(99, 102, 241, 0.1); }
+    </style>
+</head>
+<body class="antialiased selection:bg-indigo-500/30 min-h-screen flex items-center justify-center p-6">
+    <div class="cyber-grid"></div>
+    <div class="ambient-bg"></div>
+
+    <!-- Back to Standard Login -->
+    <div class="fixed top-6 left-6 z-50">
+        <a href="login.html" class="inline-flex items-center gap-2 px-4 py-2 bg-zinc-900/80 border border-zinc-800 hover:bg-zinc-800 text-zinc-300 hover:text-white text-sm font-bold rounded-xl transition-all backdrop-blur-md shadow-lg">
+            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+            Standard Login
+        </a>
+    </div>
+
+    <!-- Admin Login Card -->
+    <div class="w-full max-w-md bento-card p-8 sm:p-10 slide-up relative overflow-hidden">
+        
+        <!-- Header -->
+        <div class="text-center mb-8 relative z-10">
+            <div class="w-14 h-14 mx-auto rounded-2xl bg-indigo-500/10 border border-indigo-500/30 flex items-center justify-center shadow-inner mb-4">
+                <svg class="w-7 h-7 text-indigo-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+            </div>
+            <h1 class="text-2xl font-extrabold text-white tracking-tight mb-1">DxO Governance</h1>
+            <p class="text-xs text-indigo-400/80 font-mono uppercase tracking-widest">Restricted Admin Access</p>
+        </div>
+
+        <form id="adminLoginForm" class="space-y-5 relative z-10">
+            <div>
+                <label class="block text-xs font-bold text-zinc-500 uppercase tracking-wider mb-2">Admin Email</label>
+                <input type="email" id="email" required class="w-full bg-zinc-950/50 border border-zinc-800 rounded-xl px-4 py-3 text-sm text-white placeholder-zinc-700 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-all font-mono" placeholder="admin@dxo.local">
+            </div>
+            <div>
+                <label class="block text-xs font-bold text-zinc-500 uppercase tracking-wider mb-2">Admin Password</label>
+                <input type="password" id="password" required class="w-full bg-zinc-950/50 border border-zinc-800 rounded-xl px-4 py-3 text-sm text-white placeholder-zinc-700 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-all font-mono" placeholder="••••••••">
+            </div>
+            
+            <button type="submit" id="loginBtn" class="w-full mt-4 bg-indigo-500/10 text-indigo-400 border border-indigo-500/30 font-bold py-3 px-4 rounded-xl hover:bg-indigo-500 hover:text-white hover:border-indigo-500 transition-all flex justify-center items-center gap-2 group">
+                Authorize Access <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+            </button>
+        </form>
+    </div>
+
+    <!-- Toast Container -->
+    <div id="toast-container" class="fixed bottom-6 right-6 z-[100] flex flex-col gap-3 pointer-events-none"></div>
+
+    <!-- Firebase Scripts -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
+    
+    <script>
+        function showToast(message, type = 'error') {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            const borderColor = type === 'error' ? 'border-rose-500/30' : 'border-indigo-500/30';
+            const iconColor = type === 'error' ? 'text-rose-400' : 'text-indigo-400';
+            const bgGlow = type === 'error' ? 'bg-rose-500/10' : 'bg-indigo-500/10';
+            
+            toast.className = `flex items-center gap-3 px-4 py-3 bg-zinc-900/95 backdrop-blur-md border ${borderColor} rounded-xl shadow-[0_10px_40px_rgba(0,0,0,0.5)] transform translate-y-10 opacity-0 transition-all duration-300`;
+            toast.innerHTML = `<div class="p-1.5 rounded-full ${bgGlow} ${iconColor}"><svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg></div><p class="text-sm font-bold text-white tracking-wide">${message}</p>`;
+            
+            container.appendChild(toast);
+            setTimeout(() => toast.classList.remove('translate-y-10', 'opacity-0'), 10);
+            setTimeout(() => { toast.classList.add('opacity-0', 'translate-y-2'); setTimeout(() => toast.remove(), 300); }, 3000);
+        }
+
+        document.getElementById('adminLoginForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const email = document.getElementById('email').value;
+            const pass = document.getElementById('password').value;
+            const btn = document.getElementById('loginBtn');
+
+            btn.innerHTML = `<svg class="animate-spin h-5 w-5 mr-2 inline" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" fill="none"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg> Verifying...`;
+            btn.disabled = true;
+
+            // HARDCODED AUTHENTICATION BYPASS (No Firebase Required)
+            setTimeout(() => { // Add a short delay for a realistic loading effect
+                if (email === "contactus.dxo@gmail.com" && pass === "OnlY4@dmins") {
+                    // Grant a local session token to prove they passed this screen
+                    sessionStorage.setItem('dxo_admin_auth', 'true');
+                    window.location.href = "dxo-portal.html";
+                } else {
+                    showToast("Invalid admin credentials.", "error");
+                    btn.innerHTML = 'Authorize Access';
+                    btn.disabled = false;
+                }
+            }, 800);
+        });
+    </script>
+</body>
+</html>
