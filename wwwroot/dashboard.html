@@ -327,6 +327,9 @@
 
     </main>
 
+    <!-- Toast Notification Container -->
+    <div id="toast-container" class="fixed bottom-6 right-6 z-[100] flex flex-col gap-3 pointer-events-none"></div>
+
     <nexus-footer></nexus-footer>
     <script src="footer.js"></script>
 
@@ -334,9 +337,25 @@
     <!-- Firebase Scripts -->
     <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script> 
     
     <script>
+        // Custom Toast System
+        function showToast(message, type = 'success') {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            const borderColor = type === 'success' ? 'border-indigo-500/30' : 'border-rose-500/30';
+            const iconColor = type === 'success' ? 'text-indigo-400' : 'text-rose-400';
+            const bgGlow = type === 'success' ? 'bg-indigo-500/10' : 'bg-rose-500/10';
+            const iconSvg = type === 'success' ? `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>` : `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>`;
+
+            toast.className = `flex items-center gap-3 px-4 py-3 bg-zinc-900/95 backdrop-blur-md border ${borderColor} rounded-xl shadow-[0_10px_40px_rgba(0,0,0,0.5)] transform translate-y-10 opacity-0 transition-all duration-300`;
+            toast.innerHTML = `<div class="p-1.5 rounded-full ${bgGlow} ${iconColor}"><svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">${iconSvg}</svg></div><p class="text-sm font-bold text-white tracking-wide">${message}</p>`;
+            
+            container.appendChild(toast);
+            setTimeout(() => toast.classList.remove('translate-y-10', 'opacity-0'), 10);
+            setTimeout(() => { toast.classList.add('opacity-0', 'translate-y-2'); setTimeout(() => toast.remove(), 300); }, 3000);
+        }
+
         // FIREBASE SETUP
         const firebaseConfig = { 
             apiKey: "AIzaSyD8fonHbQIJyAuq9B7jFBnQi5lamIpjxfU", 
@@ -344,17 +363,14 @@
             projectId: "dxo-s-all", 
             storageBucket: "dxo-s-all.firebasestorage.app", 
             messagingSenderId: "208688244462", 
-            appId: "1:208688244462:web:5dd360753206ec129bf5ff", 
-            measurementId: "G-2VMBES6WPB" 
+            appId: "1:208688244462:web:5dd360753206ec129bf5ff" 
         };
         
         if (!firebase.apps.length) { firebase.initializeApp(firebaseConfig); }
-        
         const auth = firebase.auth();
-        const db = firebase.firestore();
         let CURRENT_ROLE = "viewer"; 
 
-        // Profile Dropdown Logic for Dashboard
+        // Profile Dropdown Logic
         const profileBtn = document.getElementById('profileBtn'); 
         const dropdownMenu = document.getElementById('dropdownMenu');
         
@@ -370,47 +386,42 @@
             }
         });
 
-        // Auth Logic & RBAC
+        // ⚡ BULLETPROOF AUTH & RBAC LOGIC ⚡
         auth.onAuthStateChanged(user => {
             if (user) {
-                // Update user names if those elements exist on the dashboard
-                const userNameDisplays = document.querySelectorAll('.user-name-display');
-                userNameDisplays.forEach(el => el.textContent = user.displayName || "Nexus Admin");
+                // 1. Check LocalStorage for approved applications safely
+                const savedApps = JSON.parse(localStorage.getItem('nexus_admin_applications') || '[]');
+                
+                // Super Admin automatically gets access, or check if user's email matches an approved app
+                const isSuperAdmin = user.email === "contactus.dxo@gmail.com";
+                const hasApprovedTicket = savedApps.some(app => 
+                    app.userEmail && 
+                    app.userEmail.toLowerCase().trim() === user.email.toLowerCase().trim() && 
+                    app.status.toLowerCase().trim() === 'approved'
+                );
+                
+                CURRENT_ROLE = (isSuperAdmin || hasApprovedTicket) ? 'admin' : 'viewer';
 
-                // ---> ADD THESE 3 LINES TO FIX THE DROPDOWN & BADGE <---
+                // 2. Welcome Toast for Admins
+                if (CURRENT_ROLE === 'admin') {
+                    setTimeout(() => showToast("Identity Verified. Admin Rights Granted.", "success"), 500);
+                }
+
+                // 3. Update Dropdown and Badges
                 document.getElementById('dropdown-name').textContent = user.displayName || "Security Command";
                 document.getElementById('dropdown-email').textContent = user.email;
+                
                 const roleBadge = document.getElementById('nav-role-badge');
-                if(roleBadge) roleBadge.textContent = CURRENT_ROLE.toUpperCase();
-
-                // Bulletproof Avatar Fix for the Dashboard Header
-                const profileImage = document.querySelector('img[alt="Profile"], #nav-profile-pic');
-
-                if (profileImage) {
-                    if (user.photoURL) {
-                        // User has a Google Photo
-                        profileImage.src = user.photoURL;
-                        profileImage.classList.remove('hidden');
-                        profileImage.style.display = 'block';
-                        if (defaultSvg) defaultSvg.classList.add('hidden');
+                if(roleBadge) {
+                    roleBadge.textContent = CURRENT_ROLE.toUpperCase();
+                    if (CURRENT_ROLE === 'admin') {
+                        roleBadge.className = "px-2 py-1 rounded-lg border bg-indigo-500/10 border-indigo-500/30 text-indigo-400 shadow-inner";
                     } else {
-                        // User logged in with Email - Hide the broken image tag!
-                        profileImage.classList.add('hidden');
-                        profileImage.style.display = 'none';
-                        if (defaultSvg) defaultSvg.classList.remove('hidden');
+                        roleBadge.className = "px-2 py-1 rounded-lg border bg-zinc-800/50 border-zinc-700 text-zinc-500 shadow-inner";
                     }
                 }
-            } else {
-                // Redirect to login if they aren't authenticated
-                window.location.href = "login.html";
-            }
 
-            if (user) {
-                // Update user names...
-                const userNameDisplays = document.querySelectorAll('.user-name-display');
-                userNameDisplays.forEach(el => el.textContent = user.displayName || "Nexus Admin");
-
-                // Bulletproof Avatar Fix...
+                // 4. Update Profile Picture
                 const profileImage = document.querySelector('img[alt="Profile"], #nav-profile-pic');
                 const defaultSvg = document.querySelector('#nav-default-icon');
 
@@ -427,11 +438,10 @@
                     }
                 }
                 
-                // --> ADD THIS LINE SO THE CHARTS LOAD IMMEDIATELY <--
+                // 5. Load the Dashboard Data
                 loadData(); 
 
             } else {
-                // Redirect to login if they aren't authenticated
                 window.location.href = "login.html";
             }
         });
@@ -444,12 +454,18 @@
         Chart.defaults.font.family = "'Plus Jakarta Sans', sans-serif";
         Chart.defaults.scale.grid.color = 'rgba(255, 255, 255, 0.05)';
 
-        // Primary Data Loading Function
+        // Primary Data Loading Function (With Auto-Scan)
         async function loadData() {
             try {
                 const response = await fetch('/api/scans');
                 const data = await response.json();
-                if (!data || data.length === 0) return;
+                
+                // ⚡ PORTFOLIO AUTO-SCAN ⚡
+                if (!data || data.length === 0) {
+                    console.log("No data detected. Running automatic initial scan...");
+                    runScan(); 
+                    return; 
+                }
 
                 document.getElementById('kpi-scans').innerText = data.length;
                 const latestScan = data[data.length - 1];
