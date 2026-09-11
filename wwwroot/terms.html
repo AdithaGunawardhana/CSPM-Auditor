@@ -29,7 +29,8 @@
             <div>
                 <span class="px-3 py-1 bg-amber-500/10 border border-amber-500/20 text-amber-500 text-[10px] font-bold uppercase tracking-widest rounded-md">Legal & Compliance</span>
                 <h1 class="text-3xl md:text-4xl font-extrabold text-white mt-3 mb-2 tracking-tight">Terms of Service</h1>
-                <p class="text-xs text-zinc-500 uppercase tracking-widest font-mono">Effective Date: August 2026 | Version 3.0</p>
+                <!-- ⚡ VERSION 4.0 BUMP ⚡ -->
+                <p class="text-xs text-zinc-500 uppercase tracking-widest font-mono">Effective Date: September 2026 | Version 4.0</p>
             </div>
             
             <hr class="border-zinc-800">
@@ -38,13 +39,15 @@
             <section class="space-y-3">
                 <h2 class="text-xl font-bold text-white flex items-center gap-2">
                     <span class="w-2 h-2 rounded-full bg-amber-500"></span>
-                    1. Identity Governance & Access
+                    1. Identity Governance & Multi-Tenant Access
                 </h2>
                 <p class="text-zinc-400 leading-relaxed text-sm">
-                    Access to the Nexus CSPM platform is managed via Firebase Google Authentication. By utilizing this platform, you agree to:
+                    Access to the Nexus CSPM platform is managed via Firebase Google Authentication within a strictly isolated Multi-Tenant architecture. By utilizing this platform, you agree to:
                 </p>
                 <ul class="list-disc list-inside space-y-2 text-sm text-zinc-400 pl-2">
                     <li>Maintain the confidentiality of your Google authentication credentials.</li>
+                    <!-- ⚡ MULTI-TENANT MANIPULATION CLAUSE ⚡ -->
+                    <li>Acknowledge that your identity is tied to a strictly isolated Tenant ID sandbox. You expressly agree not to forge, manipulate, or inject artificial <code class="bg-zinc-900 px-1 py-0.5 rounded text-amber-500 text-xs font-mono">X-Tenant-ID</code> HTTP headers to attempt cross-tenant data access.</li>
                     <li>Acknowledge that privilege escalation (granting the <strong>ADMIN</strong> role) is solely at the discretion of the DxO Governance team via the Firestore approval pipeline.</li>
                     <li>Refrain from attempting to spoof, bypass, or manipulate the Firestore Role-Based Access Control (RBAC) token validations.</li>
                 </ul>
@@ -57,7 +60,8 @@
                     2. Use of Active SOAR Remediation
                 </h2>
                 <p class="text-zinc-400 leading-relaxed text-sm">
-                    Nexus features Security Orchestration, Automation, and Response (SOAR) capabilities that actively interact with live production environments across AWS, Azure, GCP, and Kubernetes.
+                    <!-- ⚡ ORACLE CLOUD ADDED ⚡ -->
+                    Nexus features Security Orchestration, Automation, and Response (SOAR) capabilities that actively interact with live production environments across AWS, Azure, GCP, Oracle, and Kubernetes.
                 </p>
                 <div class="p-4 bg-zinc-950/60 border border-sky-500/20 rounded-xl mt-2">
                     <p class="text-sm text-sky-400 font-bold mb-1">Authorization Clause</p>

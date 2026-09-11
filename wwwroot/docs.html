@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Documentation | Nexus CSPM</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><defs><linearGradient id='g' x1='0%25' y1='100%25' x2='100%25' y2='0%25'><stop offset='0%25' stop-color='%23f59e0b'/><stop offset='100%25' stop-color='%23f43f5e'/></linearGradient></defs><circle cx='16' cy='16' r='16' fill='url(%23g)'/><rect x='11' y='11' width='10' height='10' fill='%2309090b' rx='2' transform='rotate(45 16 16)'/></svg>">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+        
+        body { background-color: #050507; color: #d4d4d8; font-family: 'Plus Jakarta Sans', sans-serif; overflow-x: hidden; scroll-behavior: smooth; }
+        .mono-font { font-family: 'JetBrains Mono', monospace; }
+        
+        .cyber-grid {
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -2;
+            background-image: linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+            background-size: 40px 40px; -webkit-mask-image: radial-gradient(circle at center, black, transparent 80%); mask-image: radial-gradient(circle at center, black, transparent 80%);
+        }
+        .ambient-bg {
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -1;
+            background: radial-gradient(circle at 10% 20%, rgba(245, 158, 11, 0.05), transparent 40%), radial-gradient(circle at 90% 80%, rgba(56, 189, 248, 0.05), transparent 40%);
+            filter: blur(80px); pointer-events: none;
+        }
+        
+        .bento-card {
+            background: linear-gradient(145deg, rgba(24, 24, 27, 0.8) 0%, rgba(9, 9, 11, 0.9) 100%);
+            -webkit-backdrop-filter: blur(20px); backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 20px;
+            box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.05), 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+        }
+
+        .code-block {
+            background: #09090b; border: 1px solid rgba(255,255,255,0.1); border-radius: 12px;
+            padding: 16px; font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #a1a1aa; overflow-x: auto;
+        }
+
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: #050507; }
+        ::-webkit-scrollbar-thumb { background: #27272a; border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: #3f3f46; }
+    </style>
+</head>
+<body class="antialiased selection:bg-amber-500/30">
+
+    <div class="cyber-grid"></div>
+    <div class="ambient-bg"></div>
+
+    <!-- HEADER -->
+    <header class="fixed top-0 left-0 w-full z-50 bg-zinc-950/80 backdrop-blur-xl border-b border-zinc-800/80">
+        <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+            <div class="flex items-center gap-6">
+                <a href="dashboard.html" class="flex items-center gap-3 group">
+                    <div class="w-8 h-8 rounded-full bg-gradient-to-tr from-amber-500 to-rose-500 flex items-center justify-center shadow-inner group-hover:scale-105 transition-transform">
+                        <div class="w-3 h-3 bg-zinc-950 rounded-sm rotate-45"></div>
+                    </div>
+                    <span class="text-white font-bold tracking-wide text-lg">Nexus <span class="text-zinc-500 font-normal">Docs</span></span>
+                </a>
+            </div>
+            <a href="dashboard.html" class="text-xs font-bold text-zinc-400 hover:text-white transition-colors flex items-center gap-2">
+                Launch App <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+            </a>
+        </div>
+    </header>
+
+    <div class="max-w-7xl mx-auto px-6 pt-24 pb-24 flex items-start gap-12">
+        
+        <!-- SIDEBAR NAVIGATION -->
+        <aside class="w-64 sticky top-28 hidden lg:block">
+            <h4 class="text-xs font-bold text-zinc-500 uppercase tracking-widest mb-4">Onboarding Guide</h4>
+            <nav class="space-y-1">
+                <a href="#step-1" class="block px-4 py-2 text-sm font-medium text-zinc-400 hover:text-white hover:bg-zinc-800/50 rounded-lg transition-colors border-l-2 border-transparent hover:border-amber-500">1. Authentication</a>
+                <a href="#step-2" class="block px-4 py-2 text-sm font-medium text-zinc-400 hover:text-white hover:bg-zinc-800/50 rounded-lg transition-colors border-l-2 border-transparent hover:border-sky-500">2. Cloud Provisioning</a>
+                <a href="#step-3" class="block px-4 py-2 text-sm font-medium text-zinc-400 hover:text-white hover:bg-zinc-800/50 rounded-lg transition-colors border-l-2 border-transparent hover:border-emerald-500">3. Linking Accounts</a>
+                <!-- ⚡ NEW MULTI-TENANT STEP ⚡ -->
+                <a href="#step-4" class="block px-4 py-2 text-sm font-medium text-zinc-400 hover:text-white hover:bg-zinc-800/50 rounded-lg transition-colors border-l-2 border-transparent hover:border-pink-500">4. Data Isolation Sandbox</a>
+                <a href="#step-5" class="block px-4 py-2 text-sm font-medium text-zinc-400 hover:text-white hover:bg-zinc-800/50 rounded-lg transition-colors border-l-2 border-transparent hover:border-purple-500">5. Navigating Nexus</a>
+                <a href="#step-6" class="block px-4 py-2 text-sm font-medium text-zinc-400 hover:text-white hover:bg-zinc-800/50 rounded-lg transition-colors border-l-2 border-transparent hover:border-indigo-500">6. Continuous Auditing</a>
+                <a href="#step-7" class="block px-4 py-2 text-sm font-medium text-zinc-400 hover:text-white hover:bg-zinc-800/50 rounded-lg transition-colors border-l-2 border-transparent hover:border-rose-500">7. Remediation & SOAR</a>
+            </nav>
+        </aside>
+
+        <!-- MAIN CONTENT -->
+        <main class="flex-1 space-y-12">
+            
+            <div class="mb-12 border-b border-zinc-800/80 pb-8">
+                <h1 class="text-4xl font-black text-white tracking-tight mb-4">Getting Started with Nexus</h1>
+                <p class="text-lg text-zinc-400 leading-relaxed">Nexus is a fully isolated, multi-tenant Cloud Security Posture Management (CSPM) platform. This guide will teach you how to securely link your independent cloud infrastructure, audit it for misconfigurations, and automatically remediate vulnerabilities.</p>
+            </div>
+
+            <!-- STEP 1 -->
+            <section id="step-1" class="scroll-mt-28">
+                <div class="flex items-center gap-4 mb-6">
+                    <div class="w-10 h-10 rounded-xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-amber-500 font-bold font-mono">1</div>
+                    <h2 class="text-2xl font-bold text-white tracking-wide">Account Authentication</h2>
+                </div>
+                <div class="bento-card p-8">
+                    <p class="text-zinc-300 mb-6 leading-relaxed">To ensure strict data isolation, every user must authenticate via Google SSO or a secure corporate email. Your identity creates a dedicated tenant sandbox on the Nexus platform.</p>
+                    <ul class="space-y-3 text-sm text-zinc-400">
+                        <li class="flex items-start gap-3"><svg class="w-5 h-5 text-amber-500 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg> Navigate to the <a href="login.html" class="text-amber-500 hover:underline">Sign In page</a>.</li>
+                        <li class="flex items-start gap-3"><svg class="w-5 h-5 text-amber-500 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg> Authenticate using your preferred identity provider.</li>
+                        <li class="flex items-start gap-3"><svg class="w-5 h-5 text-amber-500 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg> Upon success, your unique Tenant ID is generated to isolate your cloud environments from all other users.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- STEP 2 -->
+            <section id="step-2" class="scroll-mt-28">
+                <div class="flex items-center gap-4 mb-6">
+                    <div class="w-10 h-10 rounded-xl bg-sky-500/10 border border-sky-500/30 flex items-center justify-center text-sky-400 font-bold font-mono">2</div>
+                    <h2 class="text-2xl font-bold text-white tracking-wide">Creating a Cloud Account</h2>
+                </div>
+                <div class="bento-card p-8">
+                    <p class="text-zinc-300 mb-6 leading-relaxed">If you do not currently have cloud infrastructure to audit, you must provision an account with a major Cloud Service Provider (CSP). Nexus does not host your infrastructure; it monitors it.</p>
+                    
+                    <!-- ⚡ ORACLE ADDED TO GRID ⚡ -->
+                    <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
+                        <div class="bg-zinc-900/50 border border-zinc-800 rounded-xl p-5 text-center">
+                            <h4 class="text-white font-bold mb-2 flex items-center justify-center gap-2">
+                                <div class="w-2 h-2 rounded-full bg-amber-500"></div> AWS
+                            </h4>
+                            <a href="https://aws.amazon.com/free/" target="_blank" rel="noopener noreferrer" class="text-xs text-sky-400 hover:text-sky-300 underline">Create Free Tier Account</a>
+                        </div>
+                        <div class="bg-zinc-900/50 border border-zinc-800 rounded-xl p-5 text-center">
+                            <h4 class="text-white font-bold mb-2 flex items-center justify-center gap-2">
+                                <div class="w-2 h-2 rounded-full bg-sky-400"></div> Azure
+                            </h4>
+                            <a href="https://azure.microsoft.com/en-us/free/" target="_blank" rel="noopener noreferrer" class="text-xs text-sky-400 hover:text-sky-300 underline">Start Free Trial</a>
+                        </div>
+                        <div class="bg-zinc-900/50 border border-zinc-800 rounded-xl p-5 text-center">
+                            <h4 class="text-white font-bold mb-2 flex items-center justify-center gap-2">
+                                <div class="w-2 h-2 rounded-full bg-emerald-400"></div> GCP
+                            </h4>
+                            <a href="https://cloud.google.com/free" target="_blank" rel="noopener noreferrer" class="text-xs text-sky-400 hover:text-sky-300 underline">Get $300 Credits</a>
+                        </div>
+                        <div class="bg-zinc-900/50 border border-zinc-800 rounded-xl p-5 text-center">
+                            <h4 class="text-white font-bold mb-2 flex items-center justify-center gap-2">
+                                <div class="w-2 h-2 rounded-full bg-orange-500"></div> Oracle
+                            </h4>
+                            <a href="https://www.oracle.com/cloud/free/" target="_blank" rel="noopener noreferrer" class="text-xs text-sky-400 hover:text-sky-300 underline">Always Free Tier</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- STEP 3 -->
+            <section id="step-3" class="scroll-mt-28">
+                <div class="flex items-center gap-4 mb-6">
+                    <div class="w-10 h-10 rounded-xl bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400 font-bold font-mono">3</div>
+                    <h2 class="text-2xl font-bold text-white tracking-wide">Linking Cloud Accounts to Nexus</h2>
+                </div>
+                <div class="bento-card p-8">
+                    <p class="text-zinc-300 mb-6 leading-relaxed">Nexus requires cross-account read access to scan your environment, and write access if you wish to use SOAR automated remediation.</p>
+                    
+                    <h3 class="text-sm font-bold text-white uppercase tracking-wider mb-3">AWS Integration Example (IAM Role)</h3>
+                    <p class="text-sm text-zinc-400 mb-4">Deploy this CloudFormation template or run the following CLI command in your AWS account to grant Nexus audit access:</p>
+                    
+                    <div class="code-block mb-6 relative group">
+                        <button class="absolute top-3 right-3 text-zinc-500 hover:text-white transition-colors" title="Copy to clipboard">
+                            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
+                        </button>
+<pre><code>aws iam create-role \
+  --role-name NexusSecurityAuditRole \
+  --assume-role-policy-document '{
+    "Version": "2012-10-17",
+    "Statement": [{
+      "Effect": "Allow",
+      "Principal": {"AWS": "arn:aws:iam::NEXUS_ACCOUNT_ID:root"},
+      "Action": "sts:AssumeRole",
+      "Condition": {"StringEquals": {"sts:ExternalId": "YOUR_TENANT_ID"}}
+    }]
+  }'</code></pre>
+                    </div>
+                    <p class="text-sm text-zinc-400">Once created, enter the Role ARN into the Nexus Platform Settings to bind your specific tenant to your cloud environment.</p>
+                </div>
+            </section>
+
+            <!-- ⚡ NEW STEP 4: DATA ISOLATION ⚡ -->
+            <section id="step-4" class="scroll-mt-28">
+                <div class="flex items-center gap-4 mb-6">
+                    <div class="w-10 h-10 rounded-xl bg-pink-500/10 border border-pink-500/30 flex items-center justify-center text-pink-400 font-bold font-mono">4</div>
+                    <h2 class="text-2xl font-bold text-white tracking-wide">Data Isolation Sandbox</h2>
+                </div>
+                <div class="bento-card p-8 border-pink-500/20">
+                    <div class="flex items-start gap-4 mb-4">
+                        <div class="p-2 rounded-lg bg-pink-500/10 text-pink-500 mt-1">
+                            <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-bold text-pink-400 mb-1">The X-Tenant-ID Header System</h3>
+                            <p class="text-sm text-zinc-300 leading-relaxed">Nexus is architected as a Multi-Tenant platform. This ensures that while hundreds of users can access the application simultaneously, your data remains completely invisible to everyone else.</p>
+                        </div>
+                    </div>
+                    <p class="text-sm text-zinc-400 leading-relaxed pl-14">
+                        Every single request sent to the Nexus Backend is cryptographically tagged with an <code>X-Tenant-ID</code> header matching your verified identity. Entity Framework Core strictly filters all SQLite queries so you can only ever view, scan, or patch resources inside your own dedicated cloud environments. Zero cross-contamination.
+                    </p>
+                </div>
+            </section>
+
+            <!-- STEP 5 -->
+            <section id="step-5" class="scroll-mt-28">
+                <div class="flex items-center gap-4 mb-6">
+                    <div class="w-10 h-10 rounded-xl bg-purple-500/10 border border-purple-500/30 flex items-center justify-center text-purple-400 font-bold font-mono">5</div>
+                    <h2 class="text-2xl font-bold text-white tracking-wide">Navigating the Dashboard</h2>
+                </div>
+                <div class="bento-card p-8">
+                    <p class="text-zinc-300 mb-6 leading-relaxed">The <a href="dashboard.html" class="text-purple-400 hover:underline">Security Command Center</a> is your primary view. Because of the Multi-Tenant architecture detailed in Step 4, you will only see data pertaining to the cloud accounts you linked.</p>
+                    
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div class="bg-zinc-900/50 p-4 rounded-xl border border-zinc-800">
+                            <h4 class="text-white font-bold mb-2">KPI Matrix</h4>
+                            <p class="text-xs text-zinc-400 leading-relaxed">Monitors the total number of audits run on your infrastructure and tracks active, unresolved threats in real-time.</p>
+                        </div>
+                        <div class="bg-zinc-900/50 p-4 rounded-xl border border-zinc-800">
+                            <h4 class="text-white font-bold mb-2">Risk Distributions</h4>
+                            <p class="text-xs text-zinc-400 leading-relaxed">Interactive charts visually breaking down which of your linked cloud providers holds the most risk.</p>
+                        </div>
+                        <div class="bg-zinc-900/50 p-4 rounded-xl border border-zinc-800">
+                            <h4 class="text-white font-bold mb-2">Pre-Flight Scanner</h4>
+                            <p class="text-xs text-zinc-400 leading-relaxed">Allows developers to drop local Terraform or Kubernetes manifest files for static vulnerability analysis before deployment.</p>
+                        </div>
+                        <div class="bg-zinc-900/50 p-4 rounded-xl border border-zinc-800">
+                            <h4 class="text-white font-bold mb-2">Live Findings</h4>
+                            <p class="text-xs text-zinc-400 leading-relaxed">The main telemetry table detailing exact resources, severity scores, and cryptographic evidence of misconfigurations.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- STEP 6 -->
+            <section id="step-6" class="scroll-mt-28">
+                <div class="flex items-center gap-4 mb-6">
+                    <div class="w-10 h-10 rounded-xl bg-indigo-500/10 border border-indigo-500/30 flex items-center justify-center text-indigo-400 font-bold font-mono">6</div>
+                    <h2 class="text-2xl font-bold text-white tracking-wide">Automated Auditing</h2>
+                </div>
+                <div class="bento-card p-8">
+                    <p class="text-zinc-300 mb-6 leading-relaxed">As an auditor, your goal is to identify risks before they are exploited. You do not need write access to perform audits.</p>
+                    <ol class="list-decimal list-inside space-y-3 text-sm text-zinc-400">
+                        <li>Navigate to the top right of the dashboard.</li>
+                        <li>Click the yellow <span class="text-amber-500 font-bold">RUN MULTI-CLOUD SCAN</span> button.</li>
+                        <li>Nexus utilizes read-only APIs to query your infrastructure against CIS Benchmarks.</li>
+                        <li>If a misconfiguration is found (e.g., Port 22 open on Azure, or a Public Bucket on Oracle Cloud), it populates the findings table.</li>
+                        <li>Use the <span class="text-indigo-400 font-bold">Analyze (AI)</span> button to receive a detailed breakdown of the threat vector.</li>
+                    </ol>
+                </div>
+            </section>
+
+            <!-- STEP 7 -->
+            <section id="step-7" class="scroll-mt-28">
+                <div class="flex items-center gap-4 mb-6">
+                    <div class="w-10 h-10 rounded-xl bg-rose-500/10 border border-rose-500/30 flex items-center justify-center text-rose-400 font-bold font-mono">7</div>
+                    <h2 class="text-2xl font-bold text-white tracking-wide">Remediation & SOAR</h2>
+                </div>
+                <div class="bento-card p-8 border-rose-500/20">
+                    <div class="flex items-start gap-4 mb-6">
+                        <div class="p-2 rounded-lg bg-rose-500/10 text-rose-500 mt-1">
+                            <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-bold text-rose-400 mb-1">Role-Based Access Control</h3>
+                            <p class="text-sm text-zinc-400 leading-relaxed">By default, all new users are provisioned as <code>VIEWER</code>. To execute active remediation scripts on your cloud infrastructure, you must elevate your privileges.</p>
+                        </div>
+                    </div>
+
+                    <h4 class="text-sm font-bold text-white mb-3">How to unlock Remediation:</h4>
+                    <ul class="space-y-4 text-sm text-zinc-400">
+                        <li class="p-4 bg-zinc-900/50 rounded-xl border border-zinc-800">
+                            <span class="font-bold text-white block mb-1">1. Submit Request</span>
+                            Navigate to the Profile Dropdown on the dashboard and select <strong>Apply for Admin</strong>. Submit your justification for SOAR access.
+                        </li>
+                        <li class="p-4 bg-zinc-900/50 rounded-xl border border-zinc-800">
+                            <span class="font-bold text-white block mb-1">2. Governance Review</span>
+                            An authorized Identity Admin must log into the DxO Governance Portal to review your ticket and grant the <code>ADMIN</code> role.
+                        </li>
+                        <li class="p-4 bg-zinc-900/50 rounded-xl border border-zinc-800 border-l-2 border-l-rose-500">
+                            <span class="font-bold text-rose-400 block mb-1">3. Execute Patches</span>
+                            Once approved, return to the dashboard. The locked buttons will now transform into active <strong>Remediate</strong> triggers. Clicking these will fire programmatic API calls to your cloud provider to actively fix the vulnerability.
+                        </li>
+                    </ul>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+</body>
+</html>

@@ -26,7 +26,7 @@
 <body class="antialiased selection:bg-amber-500/30">
     <div class="ambient-bg"></div>
 
-    <!-- NAVIGATION (Handles its own Firebase Auth internally now!) -->
+    <!-- NAVIGATION -->
     <nexus-navbar></nexus-navbar>
     <script src="navbar.js"></script>
 
@@ -41,6 +41,8 @@
                     <ul class="space-y-3 text-sm text-zinc-400 font-medium" id="doc-nav">
                         <li><a href="#what-is-nexus" class="nav-link text-amber-500 block transition-colors hover:text-amber-400">What is Nexus?</a></li>
                         <li><a href="#multicloud" class="nav-link block transition-colors hover:text-zinc-200">The Multi-Cloud Era</a></li>
+                        <!-- ⚡ NEW MULTI-TENANT LINK ⚡ -->
+                        <li><a href="#multi-tenant" class="nav-link block transition-colors hover:text-zinc-200">Data Isolation</a></li>
                         <li><a href="#iga-architecture" class="nav-link block transition-colors hover:text-zinc-200">Identity Governance (IGA)</a></li>
                         <li><a href="#benefits" class="nav-link block transition-colors hover:text-zinc-200">Core Benefits</a></li>
                         <li><a href="#how-to-use" class="nav-link block transition-colors hover:text-zinc-200">Getting Started</a></li>
@@ -61,7 +63,8 @@
                         <h1 class="text-3xl font-bold text-white">What is Nexus?</h1>
                     </div>
                     <p class="text-zinc-400 leading-relaxed mb-4">Nexus is an enterprise-grade <strong>Cloud Security Posture Management (CSPM)</strong> engine built entirely on ASP.NET Core and Firebase. It actively audits cloud infrastructure to detect dangerous misconfigurations before attackers can exploit them.</p>
-                    <p class="text-zinc-400 leading-relaxed mb-4">Unlike traditional tools that simply generate alerts, Nexus features a <strong>Security Orchestration, Automation, and Response (SOAR)</strong> module. This allows the system to actively reach into the cloud and patch vulnerabilities—like open SSH ports or wildcard IAM admins—in real-time.</p>
+                    <!-- ⚡ ORACLE ADDED TO TEXT ⚡ -->
+                    <p class="text-zinc-400 leading-relaxed mb-4">Unlike traditional tools that simply generate alerts, Nexus features a <strong>Security Orchestration, Automation, and Response (SOAR)</strong> module. This allows the system to actively reach into the cloud and patch vulnerabilities across AWS, Azure, GCP, and Oracle Cloud in real-time.</p>
                     <p class="text-zinc-400 leading-relaxed">It also features an integrated <strong>Generative AI Analysis Engine</strong> to explain threat vectors to junior analysts, and an <strong>IaC Pre-Flight Scanner</strong> to catch vulnerabilities in Terraform and Kubernetes manifests before they are ever deployed.</p>
                 </section>
 
@@ -70,7 +73,8 @@
                     <h2 class="text-2xl font-bold text-white mb-4">Understanding Multi-Cloud</h2>
                     <p class="text-zinc-400 leading-relaxed mb-6">A "Multi-Cloud" architecture means an organization relies on multiple cloud providers rather than locking into just one. While this provides incredible redundancy, it creates massive security blind spots.</p>
                     
-                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4">
+                    <!-- ⚡ UPDATED GRID FOR 5 CLOUDS ⚡ -->
+                    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 mb-4">
                         <div class="bg-zinc-950 border border-amber-500/30 rounded-xl p-4 text-center">
                             <span class="block text-amber-500 font-bold mb-1">AWS</span>
                             <span class="text-[10px] text-zinc-500 uppercase tracking-wider">IAM & EC2</span>
@@ -83,15 +87,35 @@
                             <span class="block text-emerald-400 font-bold mb-1">GCP</span>
                             <span class="text-[10px] text-zinc-500 uppercase tracking-wider">Asset Inventory</span>
                         </div>
-                        <div class="bg-zinc-950 border border-purple-500/30 rounded-xl p-4 text-center">
+                        <div class="bg-zinc-950 border border-orange-500/30 rounded-xl p-4 text-center">
+                            <span class="block text-orange-500 font-bold mb-1">Oracle</span>
+                            <span class="text-[10px] text-zinc-500 uppercase tracking-wider">OCI Storage</span>
+                        </div>
+                        <div class="bg-zinc-950 border border-purple-500/30 rounded-xl p-4 text-center md:col-span-3 lg:col-span-1">
                             <span class="block text-purple-400 font-bold mb-1">K8s</span>
                             <span class="text-[10px] text-zinc-500 uppercase tracking-wider">Cluster RBAC</span>
                         </div>
                     </div>
-                    <p class="text-sm text-zinc-500 border-l-2 border-zinc-700 pl-4">Nexus solves the multi-cloud problem by abstracting the cloud APIs using a C# interface (`ICloudScanner`). This normalizes telemetry from AWS, Azure, GCP, and Kubernetes into a single pane of glass.</p>
+                    <p class="text-sm text-zinc-500 border-l-2 border-zinc-700 pl-4 mt-6">Nexus solves the multi-cloud problem by abstracting the cloud APIs using a C# interface (`ICloudScanner`). This normalizes telemetry from AWS, Azure, GCP, Oracle, and Kubernetes into a single pane of glass.</p>
                 </section>
 
-                <!-- NEW Section 3: Identity Governance -->
+                <!-- ⚡ NEW Section: Multi-Tenant Data Isolation ⚡ -->
+                <section id="multi-tenant" class="bento-card p-8">
+                    <h2 class="text-2xl font-bold text-white mb-4">Multi-Tenant Data Isolation</h2>
+                    <p class="text-zinc-400 leading-relaxed mb-6">Nexus is architected as a true <strong>Multi-Tenant SaaS</strong> platform. This means that while hundreds of users can access the application simultaneously, their cloud data, vulnerability histories, and remediation actions are strictly sandboxed.</p>
+                    
+                    <div class="p-5 rounded-xl bg-emerald-500/5 border border-emerald-500/20">
+                        <h4 class="text-emerald-400 font-bold mb-2 flex items-center gap-2">
+                            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                            The X-Tenant-ID Header System
+                        </h4>
+                        <p class="text-sm text-zinc-400 leading-relaxed">
+                            Every request sent to the C# Backend is cryptographically tagged with an <code>X-Tenant-ID</code> matching the user's verified identity. Entity Framework Core automatically filters all SQLite queries so users can only ever view, scan, or patch resources inside their own dedicated cloud environments. Zero cross-contamination.
+                        </p>
+                    </div>
+                </section>
+
+                <!-- Section 3: Identity Governance -->
                 <section id="iga-architecture" class="bento-card p-8">
                     <h2 class="text-2xl font-bold text-white mb-4">Identity Governance & Administration (IGA)</h2>
                     <p class="text-zinc-400 leading-relaxed mb-6">Security tools require security. Nexus uses a completely decoupled, serverless Identity Governance architecture backed by <strong>Firebase Firestore</strong> to ensure role-based access control (RBAC) is strictly enforced and resilient to local database failures.</p>
@@ -150,7 +174,7 @@
                     <ol class="list-decimal list-inside space-y-3 text-zinc-400">
                         <li>Ensure you have the <strong>.NET 8.0 SDK</strong> installed on your local machine.</li>
                         <li>Create a Firebase Project and enable <strong>Google Authentication</strong> and <strong>Firestore</strong>.</li>
-                        <li>Run the backend C# server using: <code class="mono-font bg-zinc-900 px-2 py-0.5 rounded text-amber-500 text-xs">dotnet run</code></li>
+                        <li>Run the backend C# server using: <code class="mono-font bg-zinc-900 px-2 py-0.5 rounded text-amber-500 text-xs">docker compose up --build -d</code></li>
                         <li>Log in to the Web App using your Google Account in the top right corner.</li>
                         <li>Open your profile dropdown and submit an <strong>Admin Application</strong>.</li>
                         <li>Open the <strong>DxO Portal</strong> to approve your own application.</li>
@@ -169,6 +193,11 @@
                                 <span class="w-2 h-2 rounded-full bg-rose-500 animate-pulse"></span> Recent Updates
                             </h3>
                             <ul class="space-y-3">
+                                <!-- ⚡ NEW UPDATE LISTING ⚡ -->
+                                <li class="text-sm text-zinc-400 border-l-2 border-emerald-500 pl-3">
+                                    <strong class="text-white block">v4.0 - True Multi-Tenancy & Oracle Support</strong>
+                                    Upgraded backend database schema to strictly isolate tenant records via header injections. Introduced Oracle Cloud (OCI) plugin module and realistic historical telemetry simulation.
+                                </li>
                                 <li class="text-sm text-zinc-400 border-l-2 border-indigo-500 pl-3">
                                     <strong class="text-white block">v3.0 - Enterprise Identity Governance</strong>
                                     Transitioned RBAC from hardcoded arrays to a dynamic, serverless Firebase Firestore architecture with a dedicated DxO Governance Portal and automated approval workflows.
@@ -176,10 +205,6 @@
                                 <li class="text-sm text-zinc-400 border-l-2 border-amber-500 pl-3">
                                     <strong class="text-white block">v2.8 - Generative AI & Profile Management</strong>
                                     Added contextual AI analysis for cloud threats, custom toast notifications, and self-service account deletion capabilities.
-                                </li>
-                                <li class="text-sm text-zinc-400 border-l-2 border-zinc-700 pl-3">
-                                    <strong class="text-white block">v2.4 - Kubernetes Pre-Flight</strong>
-                                    Added the drag-and-drop static analyzer for local .tf and .yaml files.
                                 </li>
                             </ul>
                         </div>

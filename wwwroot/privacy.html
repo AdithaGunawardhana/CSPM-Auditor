@@ -29,7 +29,8 @@
             <div>
                 <span class="px-3 py-1 bg-amber-500/10 border border-amber-500/20 text-amber-500 text-[10px] font-bold uppercase tracking-widest rounded-md">Legal & Compliance</span>
                 <h1 class="text-3xl md:text-4xl font-extrabold text-white mt-3 mb-2 tracking-tight">Privacy Policy</h1>
-                <p class="text-xs text-zinc-500 uppercase tracking-widest font-mono">Effective Date: August 2026 | Version 3.0</p>
+                <!-- ⚡ VERSION 4.0 BUMP ⚡ -->
+                <p class="text-xs text-zinc-500 uppercase tracking-widest font-mono">Effective Date: September 2026 | Version 4.0</p>
             </div>
             
             <hr class="border-zinc-800">
@@ -47,7 +48,8 @@
                     <li><strong class="text-zinc-200">Account & Identity Data:</strong> When authenticating via Google Single Sign-On (Firebase Authentication), we retrieve your primary email address, display name, and avatar image URL to manage your session.</li>
                     <li><strong class="text-zinc-200">Identity Governance (IGA) Submissions:</strong> When applying for elevated administrator privileges, submitted details—including your full name, department, and operational access justification—are recorded in our dedicated cloud governance database (Firebase Firestore).</li>
                     <li><strong class="text-zinc-200">Infrastructure as Code (IaC) Uploads:</strong> Terraform (<code class="text-xs bg-zinc-900 px-1.5 py-0.5 rounded text-indigo-400">.tf</code>) and Kubernetes (<code class="text-xs bg-zinc-900 px-1.5 py-0.5 rounded text-indigo-400">.yaml</code>) manifests uploaded for static pre-flight analysis are parsed ephemerally in memory to identify security vulnerabilities.</li>
-                    <li><strong class="text-zinc-200">Cloud Posture & Telemetry Findings:</strong> Audit metadata, rule evaluation outcomes across registered providers (AWS, Azure, GCP, Kubernetes), and historical run statistics are logged locally.</li>
+                    <!-- ⚡ ORACLE ADDED TO PROVIDERS ⚡ -->
+                    <li><strong class="text-zinc-200">Cloud Posture & Telemetry Findings:</strong> Audit metadata, rule evaluation outcomes across registered providers (AWS, Azure, GCP, Oracle, Kubernetes), and historical run statistics are logged locally.</li>
                 </ul>
             </section>
 
@@ -61,6 +63,8 @@
                     Collected telemetry and profile attributes are utilized strictly for core platform operations:
                 </p>
                 <ul class="list-disc list-inside space-y-2 text-sm text-zinc-400 pl-2">
+                    <!-- ⚡ MULTI-TENANT ISOLATION EXPLANATION ⚡ -->
+                    <li><strong class="text-zinc-200">Multi-Tenant Data Isolation:</strong> Utilizing strict <code>X-Tenant-ID</code> header validations to ensure your infrastructure data, scan histories, and vulnerability reports are cryptographically sandboxed and completely inaccessible to other platform users.</li>
                     <li><strong class="text-zinc-200">Dynamic RBAC Authorization:</strong> Querying active Firestore records to verify whether your account holds an approved administrator role to unlock live SOAR remediation actions.</li>
                     <li><strong class="text-zinc-200">Governance Review Routing:</strong> Dispatching admin access request notices to the corporate governance portal (<code class="text-xs bg-zinc-900 px-1.5 py-0.5 rounded text-sky-400">dxo-portal.html</code>) and administrative notification channels.</li>
                     <li><strong class="text-zinc-200">AI Context Analysis:</strong> Passing resource rule codes and identifiers to our integrated AI analysis service to generate on-demand remediation guidance and threat explanations.</li>
@@ -75,12 +79,13 @@
                     3. Architecture, Storage & Third-Party Services
                 </h2>
                 <p class="text-zinc-400 leading-relaxed text-sm">
-                    Nexus operates on a hybrid architecture designed to maintain strict separation of concerns:
+                    Nexus operates on a hybrid architecture designed to maintain strict separation of concerns and data privacy:
                 </p>
                 <div class="grid md:grid-cols-2 gap-4 my-3">
                     <div class="p-4 bg-zinc-950/60 border border-zinc-800 rounded-xl">
                         <h4 class="text-sm font-bold text-white mb-1">Local Telemetry Engine</h4>
-                        <p class="text-xs text-zinc-400">Cloud audit findings and scan histories are stored locally on the server instance via SQLite (<code class="text-zinc-300">cspm_audit.db</code>) using Entity Framework Core.</p>
+                        <!-- ⚡ SQLITE ISOLATION ADDED ⚡ -->
+                        <p class="text-xs text-zinc-400">Cloud audit findings and scan histories are stored locally on the server instance via SQLite (<code class="text-zinc-300">cspm_audit.db</code>) using Entity Framework Core. All database queries are strictly partitioned per-tenant.</p>
                     </div>
                     <div class="p-4 bg-zinc-950/60 border border-zinc-800 rounded-xl">
                         <h4 class="text-sm font-bold text-white mb-1">Cloud Identity & Governance</h4>

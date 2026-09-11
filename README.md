@@ -1,56 +1,42 @@
-# 🛡️ Nexus CSPM: Multi-Cloud Security & SOAR Engine
+# 🛡️ Nexus CSPM (Cloud Security Posture Management)
 
-![.NET 8.0](https://img.shields.io/badge/.NET-8.0-512BD4?style=for-the-badge&logo=dotnet)
-![C#](https://img.shields.io/badge/C%23-239120?style=for-the-badge&logo=c-sharp&logoColor=white)
-![AWS](https://img.shields.io/badge/AWS-232F3E?style=for-the-badge&logo=amazon-aws&logoColor=white)
-![Kubernetes](https://img.shields.io/badge/kubernetes-%23326ce5.svg?style=for-the-badge&logo=kubernetes&logoColor=white)
-![Docker](https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white)
-![Firebase](https://img.shields.io/badge/Firebase-FFCA28?style=for-the-badge&logo=firebase&logoColor=white)
+![Version](https://img.shields.io/badge/version-4.0-amber)
+![.NET Core](https://img.shields.io/badge/.NET-8.0-512BD4?logo=dotnet)
+![Docker](https://img.shields.io/badge/Docker-Enabled-2496ED?logo=docker)
+![License](https://img.shields.io/badge/license-MIT-green)
 
-**Nexus** is an enterprise-grade Cloud Security Posture Management (CSPM) and SOAR engine. Built on a strict C# Dependency Injection architecture, it abstracts cloud APIs to actively detect, prioritize, and automatically remediate critical infrastructure misconfigurations across **AWS, Azure, Google Cloud Platform (GCP), and Kubernetes**.
-<<<<<<< HEAD
+Nexus is an enterprise-grade, **Multi-Tenant Cloud Security Posture Management (CSPM)** platform built with **ASP.NET Core 8**. It actively audits cloud infrastructure to detect dangerous misconfigurations and features a **SOAR** (Security Orchestration, Automation, and Response) module to actively patch vulnerabilities across AWS, Azure, GCP, Oracle Cloud (OCI), and Kubernetes.
 
-Unlike traditional security tools that generate alert fatigue, Nexus features a live **Security Orchestration, Automation, and Response (SOAR)** module. It actively reaches into the cloud and patches vulnerabilities in real-time. It also features a **Generative AI Analysis Engine** and a **Shift-Left IaC Pre-Flight Scanner** to catch vulnerabilities before they reach production.
-=======
->>>>>>> 1b99522
+## ✨ v4.0 Major Updates: The Enterprise SaaS Release
+* **True Multi-Tenancy (Data Isolation):** Implemented strict `X-Tenant-ID` header injections. Entity Framework Core strictly isolates SQLite queries, ensuring users only see their own perfectly sandboxed cloud infrastructure, threats, and remediation histories.
+* **Oracle Cloud Integration:** Expanded the `ICloudScanner` engine to support Oracle Cloud (OCI) scanning and remediation.
+* **Self-Healing Database Initialization:** Docker containers now aggressively rebuild and migrate schema updates on startup to prevent volume caching conflicts.
+* **Realistic Telemetry Simulation:** The dashboard now utilizes a "Random Walk" algorithm to generate realistic, plateauing historical threat data in real-time.
 
-## ✨ Core Features
+## 🏗️ Core Architecture & Tech Stack
 
-* **Fault-Tolerant Multi-Cloud Scanner:** Utilizes a scalable `ICloudScanner` C# interface. The engine is built with graceful degradation—if specific cloud credentials (like AWS) are missing from the Docker environment, the engine safely logs the error and continues scanning Azure, GCP, and K8s without interrupting the audit pipeline.
-* **Identity Governance & Administration (IGA):** Decoupled, serverless RBAC powered by **Firebase Firestore**. Default sessions are strictly gated to Viewer Mode. SOAR capabilities are dynamically unlocked only after a corporate security officer approves an access request via the dedicated **DxO Governance Portal**.
-* **Generative AI Threat Intel:** Built-in LLM integration that contextualizes threat vectors and generates prescriptive remediation snippets directly within the dashboard.
-* **Shift-Left IaC Pre-Flight Scanning:** A drag-and-drop static analyzer that parses raw Terraform (`.tf`) and Kubernetes (`.yaml`) manifests in-memory to prevent misconfigurations from entering deployment pipelines.
-* **Automated SOAR Remediation:** One-click execution of SDK payloads to actively revoke over-permissive IAM policies and close vulnerable network security groups on live cloud environments.
-* **Premium Cyber UI/UX:** A custom, dark-mode SPA built with Tailwind CSS. Native browser alerts have been replaced with immersive glass-morphic modals and dynamic toast notifications. Features smart avatar handling that seamlessly adapts between Google SSO and standard Email/Password authentication.
-* **Containerized Deployment:** Fully packaged via Docker and Docker Compose, bundling the .NET 8 backend, static frontend, and mapped persistent volumes for immutable SQLite audit logging.
+* **Backend Engine:** C# ASP.NET Core 8 (Minimal APIs, Dependency Injection)
+* **Database:** Entity Framework Core (SQLite) with multi-tenant query isolation
+* **Identity Governance (IGA):** Firebase Authentication (Google SSO) & Serverless Firestore NoSQL
+* **Frontend UI:** Vanilla JavaScript, Tailwind CSS, Chart.js
+* **Deployment:** Docker & Docker Compose
 
-## 🏗️ Technical Stack
+## 🚀 Key Features
 
-* **Backend Engine:** C# / ASP.NET Core 8 (Minimal APIs)
-* **Database (Logging):** Entity Framework Core 8 & SQLite (Persistent Docker Volumes)
-* **Deployment:** Multi-stage Docker & Docker Compose
-* **Identity & Governance:** Firebase Auth + Firebase Firestore (NoSQL)
-* **Frontend UI:** HTML5, Vanilla JavaScript, Tailwind CSS, Chart.js
+* **Multi-Cloud SOAR:** 1-click automated remediation (e.g., revoking open SSH ingress rules, removing wildcard IAM admins) across 5 distinct cloud layers.
+* **Shift-Left IaC Pre-Flight:** Drag-and-drop static analyzer for Terraform (`.tf`) and Kubernetes (`.yaml`) manifests to catch flaws before deployment.
+* **Generative AI Threat Intel:** Integrated LLM translates complex threat vectors into actionable context for junior security analysts.
+* **Strict RBAC Approval Pipeline:** New users default to Viewer status. SOAR capabilities are locked behind an external Corporate Governance Portal (`dxo-portal.html`) requiring manual approval.
 
-## 🚀 Getting Started
+## 🛠️ Getting Started
 
 ### Prerequisites
-* [Docker Desktop](https://www.docker.com/products/docker-desktop/) installed locally.
-* A [Firebase](https://firebase.google.com/) Project with Auth and Firestore enabled.
+* Docker Desktop
+* A Firebase Project (with Google Auth and Firestore enabled)
 
-### Installation & Setup
-
-1. **Clone the repository**
+### Local Deployment
+1. Clone the repository.
+2. Ensure Docker Desktop is running.
+3. Start the engine and trigger the self-healing database initialization:
    ```bash
-<<<<<<< HEAD
-   git clone [https://github.com/AdithaGunawardhana/CSPM-Auditor.git](https://github.com/AdithaGunawardhana/CSPM-Auditor.git)
-   cd CSPM-Auditor
-=======
-<<<<<<< HEAD
-   git clone [https://github.com/AdithaGunawardhana/nexus-cspm.git](https://github.com/AdithaGunawardhana/nexus-cspm.git)
-   cd nexus-cspm
-=======
-   git clone [https://github.com/AdithaGunawardhana/CSPM-Auditor.git](https://github.com/AdithaGunawardhana/CSPM-Auditor.git)
-   cd CSPM-Auditor
->>>>>>> e2a8cd6 (feat: complete Dockerization and UI polish)
->>>>>>> 1b99522
+   docker compose up --build -d
